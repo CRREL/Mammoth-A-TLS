@@ -4,10 +4,9 @@
  Dependencies:
  1. RivLib
     - Info: http://www.riegl.com/index.php?id=224
-    - Include?
+    - Include? (Can't include because of licensing?)
  2. LidarCollect
-    - Info: N/A
-    - Include?
+    - Included
  3. Python
     - Download: https://www.python.org/downloads/
  4. Conda
