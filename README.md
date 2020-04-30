@@ -6,7 +6,7 @@
     - Info: http://www.riegl.com/index.php?id=224
     - Include? (Can't include because of licensing?)
  2. LidarCollect
-    - Included
+    - Included (licensing?)
  3. Python
     - Download: https://www.python.org/downloads/
  4. Conda
