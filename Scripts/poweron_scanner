@@ -1,0 +1,8 @@
+ifup eno1
+
+GPIO=/sys/class/gpio/gpio80
+if [ ! -d "$GPIO" ]; then
+ /usr/sbin/start_gpio start
+fi
+
+echo out >/sys/class/gpio/gpio80/direction; echo 0 >/sys/class/gpio/gpio80/echo "Scanner On"
