@@ -15,7 +15,10 @@
     - Download: https://anaconda.org/conda-forge/pdal
  6. Fintek GPIO
     - Download: http://www.fintek.com.tw/index.php/mnu-swdevelopkitdl
-
+ 7. CMake
+    - Info:https://cmake.org/cmake/help/v3.17/
+    - Download: https://cmake.org/download/
+    
  Default System Information:
  1. Linux IP: 172.17.0.251
  2. Reigl VZ400 IP: 192.168.0.128
