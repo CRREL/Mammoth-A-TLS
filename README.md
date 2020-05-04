@@ -1,5 +1,5 @@
 # Mammoth-A-TLS
-  A Reigl VZ400 (or VZ1000) lidar scanner conducts a frame scan once an hour at the remote mountain location in Mammoth, California.  Two spheres located within the frame scan are processed through the Point Data Abstraction Library (PDAL) to determine the number of particles within each sphere.  If both spheres contain a number of particles over the specified threshold, it is a snowfall event and a line scan is conducted.  Once a day the scan data files are converted from .rxp to .laz and transferred to an AWS S3 bucket to prevent filling up the scanner's internal memory.
+  A Reigl VZ400 (or VZ1000) lidar scanner conducts a frame scan once an hour at the remote mountain location in Mammoth, California.  Two spheres located within the frame scan are processed using the Point Data Abstraction Library (PDAL) to determine the number of particles within each sphere.  If both spheres contain a number of particles over the specified threshold, it is a snowfall event and a line scan is conducted.  Once a day the scan data files are converted from .rxp to .laz and transferred to an AWS S3 bucket to prevent filling up the scanner's internal memory.
 
  Hardware Dependencies:
  1. Linux box with general purpose input/output (GPIO)
