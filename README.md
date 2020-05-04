@@ -22,7 +22,7 @@
  6. Fintek GPIO (Control GPIO of the linux box)
     - Download: http://www.fintek.com.tw/index.php/mnu-swdevelopkitdl
  7. CMake (To help install repository files)
-    - Info:https://cmake.org/cmake/help/v3.17/
+    - Info: https://cmake.org/cmake/help/v3.17/
     - Download: https://cmake.org/download/
 
  Default System Information:
