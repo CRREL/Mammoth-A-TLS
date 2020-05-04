@@ -34,6 +34,6 @@
  2. Conduct a frame scan
  3. Determine if there is a snowfall event
  4. Conduct a line scan if it is snowing
- 5. If end of day, upload all .laz to AWS S3 bucket
- 6. If end of day, convert all .rxp to .laz
+ 5. If end of day, convert all .rxp to .laz
+ 6. If end of day, upload all .laz to AWS S3 bucket
  7. Turn off scanner
