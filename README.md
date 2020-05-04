@@ -1,5 +1,5 @@
 # Mammoth-A-TLS
- Control a VZ400 from a Linux machine with a GPIO.
+  A Reigl VZ400 (or VZ1000) lidar scanner conducts a frame scan once an hour.  Two spheres located within the frame scan are processed through the Point Data Abstraction Library (PDAL) to determine the number of particles within each sphere.  If both spheres contain a number of particles over the specified threshold, it is a snowfall event and a line scan is conducted.  Once a day the scan data files are converted to .gz, .laz (from .rxp) and transferred to an AWS S3 bucket to prevent filling up the scanner's internal memory.
 
  Dependencies:
  1. RivLib
@@ -22,6 +22,3 @@
  Default System Information:
  1. Linux IP: 172.17.0.251
  2. Reigl VZ400 IP: 192.168.0.128
-
-General Overview:  
-  The Reigl VZ400 (or VZ1000) lidar scanner conducts a frame scan once an hour as directed by the /root/crontab (power up/down the scanner) and the /scripts/crontab (controls scan details) files. Two spheres located within the frame scan are processed through the Point Data Abstraction Library (PDAL) to determine the number of particles within each sphere.  If both spheres contain a number of particles over a specified threshold, it is a snowfall event.  During a snowfall event the lidar scanner will conduct a line scan as described within the /scripts/crontab file.  Once a day the scan data files are transferred to an AWS S3 bucket to prevent filling up the scanner's internal memory.
