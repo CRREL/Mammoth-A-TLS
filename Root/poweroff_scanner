@@ -1,3 +1,5 @@
+shutdown_scanner
+
 GPIO=/sys/class/gpio/gpio80
 if [ ! -d "$GPIO" ]; then
    /usr/sbin/start_gpio start
