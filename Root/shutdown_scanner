@@ -1,11 +1,34 @@
-#! usr/bin/expect
+#! expect
+
+send_user "Attempting to shut down the scanner...\n"
+
+set timeout 4
 
 spawn telnet 192.168.0.128
 
-expect ">"
+expect {
 
-send "shutdown()\r"
+        ">" {
+                send "shutdown()\r"
 
-expect eof
+                expect {
+
+                        eof {
+                                send_user "Scanner shutting down...\n"
+                                sleep 60
+                                send_user "Scanner shut down.\n"
+                                exit
+
+                        } timeout {
+                                send_user "No eof, connection timed out...\n"
+                                exit
+                        }
+                }
+
+        } timeout {
+                send_user "No message returned from scanner...\n"
+                exit
+        }
+}
 
 wait
