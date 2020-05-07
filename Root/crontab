@@ -25,8 +25,8 @@
 #15 * * * * echo out >/sys/class/gpio/gpio80/direction; echo 1 >/sys/class/gpio/gpio80/value
 
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-@reboot /usr/bin/poweron_scanner
+@reboot /usr/bin/scanner_poweron
 #Power on scanner prior to data collection
-50 * * * * /usr/bin/poweron_scanner
+50 * * * * /usr/bin/scanner_poweron
 #Power off scanner after data collection is complete
-15 * * * * /usr/bin/poweroff_scanner
+15 * * * * /usr/bin/scanner_poweroff
