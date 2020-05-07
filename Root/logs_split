@@ -1,11 +1,11 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 # generate the filename using YYYY_MM_root.log
 file_prefix=$(date +"%Y_%m")
-filename="$file_prefix+_root.log"
+filename="$file_prefix""_root.log"
 
 # copy the root log into the new split log file.
 cp /var/mail/root /var/mail/$filename
 
 # write the null character into the root file to clear it for a new month.
-#>/var/mail/root
+>/var/mail/root
