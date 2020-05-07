@@ -2,7 +2,7 @@
 
 # generate the filename using YYYY_MM_root.log
 file_prefix=$(date +"%Y_%m")
-filename="$file_prefix_root.log"
+filename="$file_prefix+_root.log"
 
 # copy the root log into the new split log file.
 cp /var/mail/root /var/mail/$filename
