@@ -1,4 +1,4 @@
-shutdown_scanner
+usr/bin/shutdown_scanner
 
 GPIO=/sys/class/gpio/gpio80
 if [ ! -d "$GPIO" ]; then

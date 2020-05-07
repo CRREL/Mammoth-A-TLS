@@ -1,4 +1,4 @@
-#! expect
+#!usr/bin/expect
 
 send_user "Attempting to shut down the scanner...\n"
 
