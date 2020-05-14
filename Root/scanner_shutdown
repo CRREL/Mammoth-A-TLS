@@ -9,16 +9,27 @@ spawn telnet 192.168.0.128
 expect {
 
         ">" {
+                # printout error(s), if any
+                send "Err()\r"
+
+                expect {
+                      "ERR()" {
+                                # continue as normal
+                      } timeout {
+                                # there is an issue, but continue to shutdown.
+                                send_user "No response from scanner!\n"
+                      }
+                }
+
+                # execute shutdown sequence.
                 send "shutdown()\r"
 
                 expect {
-
                         eof {
                                 send_user "Scanner shutting down...\n"
                                 sleep 60
                                 send_user "Scanner shut down.\n"
                                 exit
-
                         } timeout {
                                 send_user "No eof, connection timed out...\n"
                                 exit
