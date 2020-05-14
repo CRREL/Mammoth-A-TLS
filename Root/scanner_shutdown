@@ -22,6 +22,7 @@ expect {
                 }
 
                 # execute shutdown sequence.
+                sleep 3
                 send "shutdown()\r"
 
                 expect {
