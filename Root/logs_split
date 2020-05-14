@@ -2,10 +2,17 @@
 
 # generate the file prefix using YYYY_MM
 file_prefix=$(date +"%Y_%m")
+filename_root="$file_prefix""_root.log"
+filename_mammoth="$file_prefix""_mammoth.log"
+
+# if the directory we want to copy into does not exist, create it.
+if [ ! -d "/home/mammoth/Mammoth/logs" ]; then
+  mkdir "/home/mammoth/Mammoth/logs"
+fi
 
 # copy the root log into the new split log file.
-cp /var/mail/root /home/mammoth/Mammoth/logs/"$file_prefix""_root.log"
-cp /var/mail/mammoth /home/mammoth/Mammoth/logs/"$file_prefix""_mammoth.log"
+cp /var/mail/root /home/mammoth/Mammoth/logs/$filename_root
+cp /var/mail/mammoth /home/mammoth/Mammoth/logs/$filename_mammoth
 
 # write the null character into the original files to clear it for a new month.
 >/var/mail/root
