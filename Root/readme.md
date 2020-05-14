@@ -6,7 +6,7 @@ Root user accout Files/Folder
     files executed by the mammoth user account.
 
 User made tools (root user) : /usr/bin/ via sudo su -l root  
-1. logs_split              # used to archive logs from previous month  
-2. scanner_poweron         # just powers GPIO pin  
-3. scanner_poweroff        # calls scanner_shutdown and removes power from GPIO pin  
-4. scanner_shutdown        # spawns a telnet session, reports errors if any, shutdown, waits 1 minute.
+1. logs_split:  used to archive logs from previous month  
+2. scanner_poweron:  just powers GPIO pin  
+3. scanner_poweroff:  calls scanner_shutdown and removes power from GPIO pin  
+4. scanner_shutdown:  spawns a telnet session, reports errors, shuts down, waits 1 minute.
