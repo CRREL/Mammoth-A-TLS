@@ -30,5 +30,5 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 50 * * * * /usr/bin/scanner_poweron
 #Power off scanner after data collection is complete
 15 * * * * /usr/bin/scanner_poweroff
-#Seperate log content in root log, by month. occurs 1x a month
+#Seperate log content in system logs, by month. occurs 1x a month
 0 0 1 * * /usr/bin/logs_split
