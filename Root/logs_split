@@ -1,11 +1,12 @@
 #!/bin/bash
 
-# generate the filename using YYYY_MM_root.log
+# generate the file prefix using YYYY_MM
 file_prefix=$(date +"%Y_%m")
-filename="$file_prefix""_root.log"
 
 # copy the root log into the new split log file.
-cp /var/mail/root /var/mail/$filename
+cp /var/mail/root /home/mammoth/Mammoth/logs/"$file_prefix""_root.log"
+cp /var/mail/mammoth /home/mammoth/Mammoth/logs/"$file_prefix""_mammoth.log"
 
-# write the null character into the root file to clear it for a new month.
+# write the null character into the original files to clear it for a new month.
 >/var/mail/root
+>/var/mail/mammoth
