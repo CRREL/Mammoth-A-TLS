@@ -24,6 +24,8 @@
  7. CMake (to help install compiler libraries)
     - Info: https://cmake.org/cmake/help/v3.17/
     - Download: https://cmake.org/download/
+ 8. AWS CLI Tools
+    - Repository: https://github.com/aws/aws-cli
 
  General Order of Operations:
  1. Turn on scanner
