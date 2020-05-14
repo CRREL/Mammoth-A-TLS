@@ -1,5 +1,3 @@
-# First sphere of reference to analyze pointcloud data
-# to determine a snow event.
 [
     {
         "type": "readers.rxp",
