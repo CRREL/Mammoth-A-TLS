@@ -1,25 +1,16 @@
-# Edit this file to introduce tasks to be run by cron.
-#
-# Each task to run has to be defined through a single line
-# indicating with different fields when the task will be run
-# and what command to run for the task
-#
-# To define the time you can provide concrete values for
-# minute (m), hour (h), day of month (dom), month (mon),
-# and day of week (dow) or use '*' in these fields (for 'any').#
-# Notice that tasks will be started based on the cron's system
-# daemon's notion of time and timezones.
-#
-# Output of the crontab jobs (including errors) is sent through
-# email to the user the crontab file belongs to (unless redirected).
-#
-# For example, you can run a backup of all your user accounts
-# at 5 a.m every week with:
-# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
-#
-# For more information see the manual pages of crontab(5) and cron(8)
-#
-# m h  dom mon dow   command
+#crontab-e
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+MAILTO=mammoth
+
+# Example of job definition:
+# .---------------- minute (0 - 59)
+# |  .------------- hour (0 - 23)
+# |  |  .---------- day of month (1 - 31)
+# |  |  |  .------- month (1 - 12)
+# |  |  |  |  .---- day of week (0 - 6) (Sunday=0)
+# |  |  |  |  |
+# *  *  *  *  * user-name  command to be executed
 
 #Run the frame scan every hour at the top of the hour
 0 * * * * /home/mammoth/Mammoth/scripts/frame.sh
@@ -27,3 +18,5 @@
 15 1 * * * /home/mammoth/Mammoth/scripts/compress.sh
 #Move rxp.gz and laz files to AWS S3 bucket, to their respective directories once a day
 35 1 * * * /home/mammoth/syncaws.sh
+#Seperate log content in system logs, by month. occurs 1x a month
+0 0 1 * * /usr/bin/logs_split
