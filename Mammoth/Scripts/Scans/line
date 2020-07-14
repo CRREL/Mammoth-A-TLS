@@ -1,5 +1,5 @@
 # Directory where we want to store the scan data files
-cd ~/Mammoth/scans
+cd ~/Mammoth/Scans
 
 # Conduct a basic line scan
 ~/LidarCollect --ip 192.168.0.128 --line 1 30 130 0.04 195 30

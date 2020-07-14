@@ -1,7 +1,12 @@
+# Set the path for the Fintek GPIO files.
 GPIO=/sys/class/gpio/gpio80
+
+# Initialize the Fintek GPIO if it has not bee initialized already.
 if [ ! -d "$GPIO" ]; then
    /usr/sbin/start_gpio start
 fi
 
-echo out >/sys/class/gpio/gpio80/direction; echo 0 >/sys/class/gpio/gpio80/value
+# Update GPIO pin values, in order to supply power to the scanner.
+echo out >/sys/class/gpio/gpio80/direction
+echo 0 >/sys/class/gpio/gpio80/value
 echo "Scanner On"
