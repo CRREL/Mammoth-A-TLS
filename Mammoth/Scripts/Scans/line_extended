@@ -27,18 +27,20 @@ if [ $SNOWING = "1" ]; then
   fi
 
   # Conduct an extended line scan
-  ~/home/mammoth/Mammoth/LidarCollect --ip 192.168.0.128 --line 1 30 130 0.04 195 150 extended
+  ~/home/mammoth/LidarCollect --ip 192.168.0.128 --line 1 30 130 0.04 195 150 extended
 
   # wait for the extended line scan to be finished.
   sleep 150s
 
-  # Conduct a calibration/reference scan on the Spectralon panel.
-  ~/home/mammoth/Mammoth/LidarCollect --ip 192.168.0.128 --line 1 115 125 0.02	276 150 spectralon_extended
+  minute=$(date +%M )
+  if [ $minute -lt 10 ]; then
+    # Conduct a calibration/reference scan on the Spectralon panel.
+    ~/home/mammoth/LidarCollect --ip 192.168.0.128 --line 1 115 125 0.02	276 150 spectralon_extended
 
-  # wait for the extended reference scan to be finished
-  sleep 150s
+    # wait for the extended reference scan to be finished
+    sleep 150s
+  fi
 
   # Power down the scanner once we are done scanning
   ~/home/mammoth/Mammoth/Scripts/GPIO/scanner_poweroff
-
 fi
