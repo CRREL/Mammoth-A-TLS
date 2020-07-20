@@ -1,5 +1,7 @@
+#!/bin/bash
+
 # Execute a scanner software shutdown before removing power.
-~/Mammoth/Scripts/GPIO/scanner_shutdown
+/home/mammoth/Mammoth/Scripts/GPIO/scanner_shutdown
 
 # Set the path for the Fintek GPIO files.
 GPIO=/sys/class/gpio/gpio80
@@ -12,4 +14,5 @@ fi
 # Update GPIO pin values, removing power from the scanner.
 echo out >/sys/class/gpio/gpio80/direction
 echo 1 >/sys/class/gpio/gpio80/value
+echo 0 >/home/mammoth/Mammoth/Scripts/Vars/scanner_power
 echo "Scanner Off"

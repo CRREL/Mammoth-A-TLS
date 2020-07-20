@@ -17,10 +17,10 @@ snowcount2=$(pdal pipeline ../Scripts/PDAL/snow-sphere-2.json --metadata=stdout 
 
 # Determine if there are enough points to declare a snowfall event.
 if [ $snowcount -gt 15 ] && [ $snowcount2 -gt 15 ]; then
-  # create variable to store in order for root user to check to power or not
+  echo 1 >/home/mammoth/Mammoth/Scripts/Vars/snowing
   echo "Snowing, starting line scan"
   ../Scripts/line
-  ../Scripts/line_extended
 else
+  echo 0 >/home/mammoth/Mammoth/Scripts/Vars/snowing
   echo "No Snow"
 fi

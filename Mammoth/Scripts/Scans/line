@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Directory where we want to store the scan data files
 cd ~/Mammoth/Scans
 

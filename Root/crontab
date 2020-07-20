@@ -1,0 +1,40 @@
+#crontab-e
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+MAILTO=root
+
+# Example of job definition:
+# .---------------- minute (0 - 59)
+# |  .------------- hour (0 - 23)
+# |  |  .---------- day of month (1 - 31)
+# |  |  |  .------- month (1 - 12)
+# |  |  |  |  .---- day of week (0 - 6) (Sunday=0)
+# |  |  |  |  |
+# *  *  *  *  * user-name  command to be executed
+
+#----------------------------- Regular Operations ------------------------------
+#Turn on the scanner 5 minutes before we conduct a basic frame scan
+55 * * * * /home/mammoth/Mammoth/Scripts/GPIO/scanner_poweron
+#Run the basic frame scan every hour at the top of the hour
+0 * * * * /home/mammoth/Mammoth/Scripts/Scans/frame
+#Turn off the scanner 6 minutes after a possible extended line scan
+11 * * * * /home/mammoth/Mammoth/Scripts/GPIO/scanner_poweroff
+#-------------------------------------------------------------------------------
+
+#--------------------------- If Snowing Operations -----------------------------
+#Conduct extended line scans at 5, 20, 35, and 50 minutes past the hour.
+#line_extended powers unit up 5 minutes prior to scanning
+05 * * * * /home/mammoth/Mammoth/Scripts/Scans/line_extended
+15 * * * * /home/mammoth/Mammoth/Scripts/Scans/line_extended
+30 * * * * /home/mammoth/Mammoth/Scripts/Scans/line_extended
+45 * * * * /home/mammoth/Mammoth/Scripts/Scans/line_extended
+#-------------------------------------------------------------------------------
+
+#-------------------------- File Storage Operations ----------------------------
+#Convert rxp files to laz and compress rxp files using gzip once a day
+15 1 * * * /home/mammoth/Mammoth/Scripts/Scans/compress
+#Move rxp.gz and laz files to AWS S3 bucket once a day
+35 1 * * * /home/mammoth/Mammoth/Scripts/AWS/syncaws
+#Seperate log content in system logs, by month. occurs once a month
+0 0 1 * * /home/mammoth/Mammoth/Scripts/Logs/logs_split
+#-------------------------------------------------------------------------------
