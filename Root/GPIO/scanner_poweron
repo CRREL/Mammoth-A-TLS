@@ -1,7 +1,7 @@
 # Set the path for the Fintek GPIO files.
 GPIO=/sys/class/gpio/gpio80
 
-# Initialize the Fintek GPIO if it has not bee initialized already.
+# Initialize the Fintek GPIO if it has not been initialized already.
 if [ ! -d "$GPIO" ]; then
    /usr/sbin/start_gpio start
 fi
