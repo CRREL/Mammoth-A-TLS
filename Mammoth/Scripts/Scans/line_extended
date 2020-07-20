@@ -9,3 +9,6 @@ sleep 150s
 
 # Conduct a calibration/reference scan on the Spectralon panel.
 ~/LidarCollect --ip 192.168.0.128 --line 1 115 125 0.02	276 150 spectralon_extended
+
+# wait for the extended reference scan to be finished
+sleep 150s

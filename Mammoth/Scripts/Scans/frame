@@ -20,6 +20,7 @@ if [ $snowcount -gt 15 ] && [ $snowcount2 -gt 15 ]; then
   # create variable to store in order for root user to check to power or not
   echo "Snowing, starting line scan"
   ../Scripts/line
+  ../Scripts/line_extended
 else
   echo "No Snow"
 fi
