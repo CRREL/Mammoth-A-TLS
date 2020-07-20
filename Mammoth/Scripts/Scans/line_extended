@@ -1,1 +1,11 @@
-# Script to conduct an extended line frame for 150s
+# Directory where we want to store the scan data files
+cd ~/Mammoth/Scans
+
+# Conduct an extended line scan
+~/LidarCollect --ip 192.168.0.128 --line 1 30 130 0.04 195 150 extended
+
+# wait for the extended line scan to be finished.
+sleep 150s
+
+# Conduct a calibration/reference scan on the Spectralon panel.
+~/LidarCollect --ip 192.168.0.128 --line 1 115 125 0.02	276 150 spectralon_extended
