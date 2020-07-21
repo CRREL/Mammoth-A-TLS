@@ -1,29 +1,29 @@
 #!/bin/bash
 
 # Execute a scanner software shutdown before removing power.
-~/home/mammoth/Mammoth/Scripts/GPIO/scanner_shutdown
+/home/mammoth/Mammoth/Scripts/GPIO/scanner_shutdown
 
 # Set the path for the Fintek GPIO files.
-GPIO=~/sys/class/gpio/gpio80
+GPIO=/sys/class/gpio/gpio80
 
 # Initialize the Fintek GPIO if it has not been initialized already.
 if [ ! -d "$GPIO" ]; then
-   ~/usr/sbin/start_gpio start
+   /usr/sbin/start_gpio start
 fi
 
 # Initialize Mammoth-A-TLS variables if it has not been done already.
-if [ ! -d "~/home/mammoth/Mammoth/Scripts/Vars" ]; then
-  mkdir "~/home/mammoth/Mammoth/Scripts/Vars"
+if [ ! -d "/home/mammoth/Mammoth/Scripts/Vars" ]; then
+  mkdir "/home/mammoth/Mammoth/Scripts/Vars"
 fi
-if [ ! -e "~/home/mammoth/Mammoth/Scripts/Vars/scanner_power" ]; then
-  touch "~/home/mammoth/Mammoth/Scripts/Vars/scanner_power"
+if [ ! -e "/home/mammoth/Mammoth/Scripts/Vars/scanner_power" ]; then
+  touch "/home/mammoth/Mammoth/Scripts/Vars/scanner_power"
 fi
-if [ ! -e "~/home/mammoth/Mammoth/Scripts/Vars/snowing" ]; then
-  touch "~/home/mammoth/Mammoth/Scripts/Vars/snowing"
+if [ ! -e "/home/mammoth/Mammoth/Scripts/Vars/snowing" ]; then
+  touch "/home/mammoth/Mammoth/Scripts/Vars/snowing"
 fi
 
 # Update GPIO pin values, removing power from the scanner.
-echo out >~/sys/class/gpio/gpio80/direction
-echo 1 >~/sys/class/gpio/gpio80/value
-echo 0 >~/home/mammoth/Mammoth/Scripts/Vars/scanner_power
+echo out >/sys/class/gpio/gpio80/direction
+echo 1 >/sys/class/gpio/gpio80/value
+echo 0 >/home/mammoth/Mammoth/Scripts/Vars/scanner_power
 echo "Scanner Off"

@@ -1,12 +1,12 @@
 #!/bin/bash
-SCAN_DIR=~/home/mammoth/Mammoth/Scans
-INPUT_FILE=~/home/mammoth/Mammoth/Scripts/PDAL/base-laz.json
+SCAN_DIR=/home/mammoth/Mammoth/Scans
+INPUT_FILE=~/../home/mammoth/Mammoth/Scripts/PDAL/base-laz.json
 
 # Switch to the directory to save the converted to .laz files into
 cd $SCAN_DIR
 
 # Activate the PDAL environment
-source ~/home/mammoth/miniconda3/etc/profile.d/conda.sh
+source ~/../home/mammoth/miniconda3/etc/profile.d/conda.sh
 conda activate pdal
 
 # Clone/convert all .rxp files into .laz using PDAL and its input config json file
