@@ -1,6 +1,8 @@
+#!/bin/bash
+
 # Set the home path for the scan files and make sure it is accessible to children.
 export HOME=/home/mammoth
-FILE_DIR=~/Mammoth/Scans
+FILE_DIR=~/home/mammoth/Mammoth/Scans
 
 # Set paths for original and converted file directories in the aws s3 bucket.
 ORIGINAL=s3://crrel-mammoth-lidarscans/original_scans

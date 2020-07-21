@@ -1,21 +1,21 @@
 #!/bin/bash
 
 #extract scanner power status
-if [ -e "/home/mammoth/Mammoth/Scripts/Vars/scanner_power" ]; then
-  PWR_VAL=$(cat "/home/mammoth/Mammoth/Scripts/Vars/scanner_power")
+if [ -e "~/home/mammoth/Mammoth/Scripts/Vars/scanner_power" ]; then
+  PWR_VAL=$(cat "~/home/mammoth/Mammoth/Scripts/Vars/scanner_power")
 else
   PWR_VAL=0
 fi
 
 #extract snowing status
-if [ -e "/home/mammoth/Mammoth/Scripts/Vars/snowing" ]; then
-  SNOWING=$(cat "/home/mammoth/Mammoth/Scripts/Vars/snowing")
+if [ -e "~/home/mammoth/Mammoth/Scripts/Vars/snowing" ]; then
+  SNOWING=$(cat "~/home/mammoth/Mammoth/Scripts/Vars/snowing")
 else
   SNOWING=0
 fi
 
 # Directory where we want to store the scan data files
-cd /home/mammoth/Mammoth/Scans
+cd ~/home/mammoth/Mammoth/Scans
 
 if [ $SNOWING = "1" ]; then
 

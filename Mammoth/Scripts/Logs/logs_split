@@ -6,22 +6,22 @@ filename_root="$file_prefix""_root.log"
 filename_mammoth="$file_prefix""_mammoth.log"
 
 # if the directory we want to copy into does not exist, create it.
-if [ ! -d "/home/mammoth/Mammoth/Logs" ]; then
-  mkdir "/home/mammoth/Mammoth/Logs"
+if [ ! -d "~/home/mammoth/Mammoth/Logs" ]; then
+  mkdir "~/home/mammoth/Mammoth/Logs"
 fi
-if [ ! -d "/home/mammoth/Mammoth/Logs/root" ]; then
-  mkdir "/home/mammoth/Mammoth/Logs/root"
+if [ ! -d "~/home/mammoth/Mammoth/Logs/root" ]; then
+  mkdir "~/home/mammoth/Mammoth/Logs/root"
 fi
-if [ ! -d "/home/mammoth/Mammoth/Logs/mammoth" ]; then
-  mkdir "/home/mammoth/Mammoth/Logs/mammoth"
+if [ ! -d "~/home/mammoth/Mammoth/Logs/mammoth" ]; then
+  mkdir "~/home/mammoth/Mammoth/Logs/mammoth"
 fi
 
 # copy the root/mammoth log into the new split log file.
-cp /var/mail/root /home/mammoth/Mammoth/Logs/root/$filename_root
+cp ~/var/mail/root ~/home/mammoth/Mammoth/Logs/root/$filename_root
 echo "Mammoth mail log file has been split into a new month."
-cp /var/mail/mammoth /home/mammoth/Mammoth/Logs/mammoth/$filename_mammoth
+cp ~/var/mail/mammoth ~/home/mammoth/Mammoth/Logs/mammoth/$filename_mammoth
 echo "Root mail log file has been split into a new month."
 
 # write the null character into the original files to clear it for a new month.
->/var/mail/root
->/var/mail/mammoth
+>~/var/mail/root
+>~/var/mail/mammoth
