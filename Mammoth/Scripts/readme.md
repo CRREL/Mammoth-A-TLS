@@ -1,14 +1,31 @@
-mammoth user account Files/Folder
-- These binary executable files are accessed via the mammoth user account.
-- These files should be copied to the mammoth account /Mammoth/scripts/ directory.
-- For now, all files executed by the root user account are seperated from the
-    files executed by the mammoth user account.
+User made tools (mammoth user) : /home/mammoth/Mammoth/Scripts/  
+AWS:
+  - syncaws: Copy scans from /home/mammoth/Mammoth/Scans to AWS S3 Bucket
 
-User made tools (mammoth user) : ~/Mammoth/Scripts/  
-1. frame.sh:  issues a frame scan via LidarCollect, calls PDAL to see if there is snow  
-2. line.sh:  issues a line scan via LidarCollect  
-3. compress.sh:  convert to .laz and gzip .rxp files  
-4. syncaws.sh:  copy scans from Scans/ to AWS S3 Bucket  
-5. snow-sphere.sh:  coordinates/dimensions for sphere in which to look for snow points  
-6. snow-sphere-2.sh:  coordinates/dimensions for 2nd sphere in which to look for snow points  
-7. base-laz.json:  PDAL pipeline used by compress.sh to convert .rxp to .laz  
+GPIO:
+  - scanner_poweron: Switches the GPIO pin to on.
+  - scanner_poweroff: Switches the GPIO pin to off.
+  - scanner_shutdown: Software shutdown for the scanner
+
+Logs:
+  - logs_split: Splits logs by month to reduce file sizes
+
+PDAL:
+  - 201909-Mammoth-VZ400-POP.dat: Local to global coords transformation matrix.
+  - 201909-Mammoth-VZ400-SOP.dat: Global to geocentring w84 coords transformation matrix.
+  - base-laz.json: Input file for PDAL to facilitate conversion from .rxp to .laz.
+  - snow-sphere.json: Coordinates for a sphere to look for snow.
+  - snow-sphere-2.json: Second set of coordinates for a sphere to look for snow.
+
+Scans:
+  - compress: copy/converts .rxp to .laz then compresses .rxp to .gz files.
+  - frame: conducts a basic frame scan of the terrain, then uses PDAL to look for snow.
+  - line: conducts a basic line scan of a section of the terrain.
+  - line_extended: conducts an extended line scan of a section of the terrain.
+
+Vars:
+  - snowing: Stores a value that correlates to snowing, or not snowing.
+  - scanner_power: Stores a value that correlates to scanner power off or on.
+
+
+***** See the readme.md in each directory for more information on scripts *****
