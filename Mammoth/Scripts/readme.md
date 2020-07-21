@@ -1,4 +1,4 @@
-User made tools :
+User made tools :  
 AWS:
   - syncaws: Copy scans from /home/mammoth/Mammoth/Scans to AWS S3 Bucket
 
