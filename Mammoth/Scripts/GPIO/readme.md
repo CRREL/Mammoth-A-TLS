@@ -18,6 +18,6 @@ scanner_shutdown:
 The GPIO of the linux box is connected to a power relay and acts as a switch to
 provide power to the scanner from an external source.
 
-Permissions required from root user in order to function properly via mammoth user:
-  1. chmod -R a+rwx /usr/sbin/start_gpio
-  2. chmod -R a+rwx /sys/class/gpio
+**** NOTE:
+  Fintek GPIO tools use root/sys/class files to operate and thus these scripts
+  are to be executed with sudo permissions or via the root crontab
