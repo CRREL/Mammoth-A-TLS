@@ -13,4 +13,6 @@ line:
   - Conducts a basic calibration line scan of the Spectralon panel on-site.
 
 line_extended:
+  - Checks to see if the last frame scan recorded snowfall.
+  - If last frame scan recorded snowfall, turn on the scanner if it is off.
   - Conducts an extended line scan using the LidarCollect library.
