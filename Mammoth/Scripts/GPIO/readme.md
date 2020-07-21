@@ -18,6 +18,6 @@ scanner_shutdown:
 The GPIO of the linux box is connected to a power relay and acts as a switch to
 provide power to the scanner from an external source.
 
-**** NOTE:
+**** NOTE:  
   Fintek GPIO tools use root/sys/class files to operate and thus these scripts
   are to be executed with sudo permissions or via the root crontab
