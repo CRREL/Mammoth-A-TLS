@@ -3,6 +3,7 @@ SCAN_DIR=/home/mammoth/Mammoth/Scans
 SNOW_VAR=~/../home/mammoth/Mammoth/Scripts/Vars/snowing
 SPHERE_1=~/../home/mammoth/Mammoth/Scripts/PDAL/snow-sphere.json
 SPHERE_2=~/../home/mammoth/Mammoth/Scripts/PDAL/snow-sphere-2.json
+lidarcollect=~/../home/mammoth/Mammoth/LidarCollect/build/LidarCollect
 
 #extract scanner power status
 if [ -e "/home/mammoth/Mammoth/Scripts/Vars/scanner_power" ]; then
@@ -20,7 +21,7 @@ fi
 cd $SCAN_DIR
 
 # Conduct a basic frame scan
-~/../home/mammoth/LidarCollect --ip 192.168.0.128 --frame 1 50 130 0.04 110 280 0.04
+$lidarcollect --ip 192.168.0.128 --frame 1 50 130 0.04 110 280 0.04
 
 # Initialize the PDAL environment for scan processing
 source ~/../home/mammoth/miniconda3/etc/profile.d/conda.sh
