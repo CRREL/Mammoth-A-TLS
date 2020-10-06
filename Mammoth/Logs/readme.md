@@ -16,9 +16,9 @@ If you wish to extract an up to date log for the current month, please follow th
         OPTION 2:
                 sudo su -l root         # log in as super user to the root directory
                 # copy without overwriting original /var/mail/ files.
-                cp /var/mail/root /home/mammoth/Mammoth/logs/YYYY_MM_root.log
-                cp /var/mail/mammoth /home/mammoth/Mammoth/logs/YYYY_MM_mammoth.log
-                # keep in mind /var/mail/ files will be overwritten as normal in chrontab.
+                cp /var/mail/root /home/mammoth/Mammoth/Logs/YYYY_MM_root.log
+                cp /var/mail/mammoth /home/mammoth/Mammoth/Logs/YYYY_MM_mammoth.log
+                # keep in mind /var/mail/ files will be overwritten as normal in crontab.
 
         OPTION 3:
                 sudo su -l root         # log in as super user to the root directory
