@@ -3,7 +3,7 @@
 # program. You'll need to run CMake with the -DCMAKE_PREFIX_PATH
 # flag pointing to the location of the downloaded RiVLib, e.g.:
 #
-#   -DCMAKE_PREFIX_PATH=/home/mammoth/Mammoth/RiVLIB/rivlib-2_5_7-x86_64-linux-gcc55/
+#   -DCMAKE_PREFIX_PATH=/home/mammoth/Mammoth/RiVLIB/
 #
 
 # Set the project name

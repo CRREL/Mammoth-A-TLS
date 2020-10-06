@@ -1,15 +1,16 @@
 Decompressing and compiling the LidarCollect-master.zip library from a terminal.
 
-1. mkdir /home/mammoth/Mammoth/LidarCollect
-2. cd /home/mammoth/Mammoth/
-3. cp <source location> /lidarcollect.zip
-4. unzip lidarcollect.zip
-5. cd LidarCollect-master/
-6. cp <source location> /CMakeLists.txt
-7. mkdir build
-8. cd build
-9. cmake .. -DCMAKE_PREFIX_PATH=/home/mammoth/Mammoth/RiVLIB/rivlib-2_5_7-x86_64-linux-gcc55/
-10. make
+1. cd /home/mammoth/Mammoth/
+2. cp <source location> /lidarcollect.zip
+3. unzip lidarcollect.zip
+4. mv LidarCollect-master LidarCollect
+5. rm lidarcollect.zip
+6. cd LidarCollect
+7. cp <source location> /CMakeLists.txt
+8. mkdir build
+9. cd build
+10. cmake .. -DCMAKE_PREFIX_PATH=/home/mammoth/Mammoth/RiVLIB/
+11. make
 
 **Note: To run on the Stealth LPC-835, the CMakeLists.txt file is updated to
 run on a 64-bit system. The 64-bit CMakeLists.txt is included in this directory
