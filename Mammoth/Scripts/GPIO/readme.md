@@ -1,13 +1,14 @@
 General Purpose Input/Output (GPIO) Scripts
 
 scanner_poweroff:
-  - Initializes the fintek GPIO library if it hasn't been initialized already.
+  - restores write to file variable files, if a user deleted them.
   - Uses scanner_shutdown to shut the scanner down through a telnet session.
-  - Sets the GPIO pin to "off."
+  - Sets the GPIO pin to "off," using demo_gpio in the fintek demo code.
 
 scanner_poweron:
-  - Initializes the fintek GPIO library if it hasn't been initialized already.
-  - Sets the GPIO pin to "on."
+  - restores write to file variable files, if a user deleted them.
+  - Sets the GPIO pin to "on," using demo_gpio in the fintek demo code.
+  - Makes you wait 4 minutes before you can talk to scanner to ensure it has come online.
 
 scanner_shutdown:
   - Spawns a telnet session with the RIEGL VZ400i.
