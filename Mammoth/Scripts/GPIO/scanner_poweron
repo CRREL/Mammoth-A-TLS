@@ -1,30 +1,25 @@
 #!/bin/bash
 
-# Set the path for the Fintek GPIO files.
-GPIO=/sys/class/gpio/gpio80
+# make sure write to file variables are initialized/restored if deleted.
+/home/mammoth/Mammoth/Scripts/Vars/vars_init
 
-# Initialize the Fintek GPIO if it has not been initialized already.
-if [ ! -d "$GPIO" ]; then
-   /usr/sbin/start_gpio start
-fi
+# Set the path to the fintek gpio on/off tool
+GPIO=/home/mammoth/Mammoth/Fintek/demo_gpio
 
-# Initialize Mammoth-A-TLS variables if it has not been done already.
-if [ ! -d "/home/mammoth/Mammoth/Scripts/Vars" ]; then
-  mkdir "/home/mammoth/Mammoth/Scripts/Vars"
-fi
-if [ ! -e "/home/mammoth/Mammoth/Scripts/Vars/scanner_power" ]; then
-  touch "/home/mammoth/Mammoth/Scripts/Vars/scanner_power"
-fi
-if [ ! -e "/home/mammoth/Mammoth/Scripts/Vars/snowing" ]; then
-  touch "/home/mammoth/Mammoth/Scripts/Vars/snowing"
-fi
+# command only works with sudo privileges, accesses sys/class files.
+# demo_gpio <index> <direction> <mode> <value>
+# demo_gpio reg:0x80 dir:out mode:push val:low
+# A low gpio value connects the circuit to +Vcc for output pins.
+$GPIO 0x80 1 1 0
 
-# Update GPIO pin values, in order to supply power to the scanner.
-echo out >/sys/class/gpio/gpio80/direction
-echo 0 >/sys/class/gpio/gpio80/value
 echo 1 >/home/mammoth/Mammoth/Scripts/Vars/scanner_power
+echo "Scanner is warming up..."
 
 # wait for the scanner to boot up and respond to commands
-sleep 240s
+for i in {240..1}
+do
+  echo -ne "\r$i""s remaining  "
+  sleep 1
+done
 
-echo "Scanner On"
+echo -ne "\rScanner On          \n"
