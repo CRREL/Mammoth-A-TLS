@@ -8,6 +8,10 @@ scanner_power
   - 0 : Scanner is off
   - 1 : Scanner is on
 
+vars_init:
+  - initializes write to file variable, files.
+  - executed on power on and power off of scanner to ensure they are restored.
+
   **** NOTE:
     Read access for the fintek GPIO files is not necessarily available from
     the mammoth user account.  These variables are clones of information used
