@@ -14,7 +14,7 @@ If you wish to extract an up to date log for the current month, please follow th
                 # this will empty the file contents in the /var/mail directory
                 /home/mammoth/Mammoth/Scripts/Logs/logs_split
 
-        OPTION 2 (Recommended if you must extract file):
+        OPTION 2 (Recommended if you must extract files):
                 sudo su -l root         # log in as super user to the root directory
                 # copy without overwriting original /var/mail/ files.
                 cp /var/mail/root /home/mammoth/Mammoth/Logs/YYYY_MM_root.log

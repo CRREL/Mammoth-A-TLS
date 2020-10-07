@@ -32,12 +32,12 @@ sudo su -l root
   - Extended Line Scan:
     - snowing variable must equal 1 in order for an extended line scan to be conducted.
     - to set snowing = 1:
-      - echo 1>/home/mammoth/Mammoth/Scripts/Vars/snowing
+      - echo 1 >/home/mammoth/Mammoth/Scripts/Vars/snowing
     - Does not require you to turn on the scanner first, it is built into the script.
     - /home/mammoth/Mammoth/Scripts/Scans/line_extended
     - Turns off the scanner after the scan has finished being conducted.
     - remember to set snowing = 0 when done:
-      - echo 0>/home/mammoth/Mammoth/Scripts/Vars/snowing
+      - echo 0 >/home/mammoth/Mammoth/Scripts/Vars/snowing
 
   - Manual Scanner Power On:
     - /home/mammoth/Mammoth/Scripts/GPIO/scanner_poweron

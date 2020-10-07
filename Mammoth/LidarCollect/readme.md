@@ -1,4 +1,4 @@
-Decompressing and compiling the LidarCollect-master.zip library from a terminal.
+Decompressing and compiling the lidarcollect.zip library from a terminal.
 
 1. cd /home/mammoth/Mammoth/
 2. cp <source location> /lidarcollect.zip
