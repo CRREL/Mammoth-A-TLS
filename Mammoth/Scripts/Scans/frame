@@ -24,7 +24,7 @@ cd $SCAN_DIR
 $lidarcollect --ip 192.168.0.128 --frame 1 50 130 0.04 110 280 0.04
 
 # Initialize the PDAL environment for scan processing
-source ~/../home/mammoth/miniconda3/etc/profile.d/conda.sh
+source ~/../home/mammoth/Mammoth/Miniconda3/etc/profile.d/conda.sh
 conda activate pdal
 
 # Use PDAL to determine the number of points within two different spheres
@@ -36,7 +36,7 @@ snowcount2=$(pdal pipeline $SPHERE_2 --metadata=stdout --readers.rxp.filename=$f
 if [ $snowcount -gt 15 ] && [ $snowcount2 -gt 15 ]; then
   echo 1 >$SNOW_VAR
   echo "Snowing, starting line scan"
-  ../Scripts/line
+  ~/../home/mammoth/Mammoth/Scripts/Scans/line
   # Leave the scanner on because an extended line scan will be conducted.
 else
   echo 0 >$SNOW_VAR
