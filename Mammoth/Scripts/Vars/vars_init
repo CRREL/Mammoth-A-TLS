@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Initialize Mammoth-A-TLS variables at every power on, if they do not exist.
+# Initialize Mammoth-A-TLS variables, if they do not exist.
 if [ ! -d "/home/mammoth/Mammoth/Scripts/Vars" ]; then
   mkdir "/home/mammoth/Mammoth/Scripts/Vars"
 fi

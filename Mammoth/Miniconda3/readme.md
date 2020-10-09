@@ -4,7 +4,7 @@
   - when asked provide /home/mammoth/Mammoth/Miniconda3 as the install directory.
 3. rm Miniconda3-latest_Linux-x86_64.sh
 4. close and reopen terminal window.
-5. conda update conda
+5. conda update conda (if necessary)
 6. conda create --name pdal
   - Follow prompts
 7. conda install --name pdal -c conda-forge pdal python-pdal gdal  

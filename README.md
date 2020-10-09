@@ -30,6 +30,7 @@
     - Download: http://www.fintek.com.tw/index.php/mnu-swdevelopkitdl
  9. AWS CLI Tools
     - Repository: https://github.com/aws/aws-cli
+    - pip: https://docs.aws.amazon.com/cli/latest/userguide/install-linux.html
 
  General Order of Operations:
  1. Turn on scanner
