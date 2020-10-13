@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# make sure write to file variables are restored deleted.
+/home/mammoth/Mammoth/Scripts/Vars/vars_init
+
+# Execute a scanner software shutdown before removing power.
+/home/mammoth/Mammoth/Scripts/GPIO/scanner_shutdown
+
+# Set the path to the fintek gpio on/off tool
+GPIO=/home/mammoth/Mammoth/Fintek/demo_gpio
+
+# command only works with sudo privileges, accesses sys/class files.
+# demo_gpio <index> <direction> <mode> <value>
+# demo_gpio reg:0x80 dir:out mode:push val:high
+# A high gpio value connects the circuit to ground for output pins.
+$GPIO 0x80 1 1 1
+
+# Update GPIO pin values
+echo 0 >/home/mammoth/Mammoth/Scripts/Vars/scanner_power
+echo "Scanner Off"

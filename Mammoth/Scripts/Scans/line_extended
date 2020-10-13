@@ -1,0 +1,45 @@
+#!/bin/bash
+lidarcollect=~/../home/mammoth/Mammoth/LidarCollect/build/LidarCollect
+
+#extract scanner power status
+if [ -e "/home/mammoth/Mammoth/Scripts/Vars/scanner_power" ]; then
+  PWR_VAL=$(cat "/home/mammoth/Mammoth/Scripts/Vars/scanner_power")
+else
+  PWR_VAL=0
+fi
+
+#extract snowing status
+if [ -e "/home/mammoth/Mammoth/Scripts/Vars/snowing" ]; then
+  SNOWING=$(cat "/home/mammoth/Mammoth/Scripts/Vars/snowing")
+else
+  SNOWING=0
+fi
+
+# Directory where we want to store the scan data files
+cd /home/mammoth/Mammoth/Scans
+
+if [ $SNOWING = "1" ]; then
+
+  # Switch the power to on, for the scanner, if necessary.
+  if [ $PWR_VAL = "0" ]; then
+    ~/../home/mammoth/Mammoth/Scripts/GPIO/scanner_poweron
+  fi
+
+  # Conduct an extended line scan
+  $lidarcollect --ip 192.168.0.128 --line 1 30 130 0.04 195 150 extended
+
+  # Wait for the scanner to not be busy
+  sleep 10s
+
+  minute=$(date +%M )
+  if [ $minute -lt 10 ]; then
+    # Conduct a calibration/reference scan on the Spectralon panel.
+    $lidarcollect --ip 192.168.0.128 --line 1 115 125 0.02	276 150 spectralon_extended
+
+    # Wait for the scanner to not be busy
+    sleep 10s
+  fi
+
+  # Power down the scanner once we are done scanning
+  ~/../home/mammoth/Mammoth/Scripts/GPIO/scanner_poweroff
+fi

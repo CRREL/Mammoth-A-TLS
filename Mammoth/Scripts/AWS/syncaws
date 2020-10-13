@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Set the home path for the scan files and make sure it is accessible to children.
+export HOME=/home/mammoth
+FILE_DIR=/home/mammoth/Mammoth/Scans
+
+# Set paths for original and converted file directories in the aws s3 bucket.
+ORIGINAL=s3://crrel-mammoth-lidarscans/original_scans
+CONVERTED=s3://crrel-mammoth-lidarscans/laz
+
+# Move .gz and .laz files from the linux box to the AWS S3 bucket.
+/usr/local/bin/./aws s3 mv $FILE_DIR $ORIGINAL --recursive --exclude "*" --include "*.gz"
+/usr/local/bin/./aws s3 mv $FILE_DIR $CONVERTED --recursive --exclude "*" --include "*.laz"

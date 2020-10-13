@@ -1,0 +1,13 @@
+# This file should be placed into /etc/network/
+
+# interfaces(5) file used by ifup(8) and ifdown(8)
+auto lo
+iface lo inet loopback
+
+# Our connection details in order to talk with the RIEGL VZ400i
+auto eno1
+iface eno1 inet static
+    address 192.168.0.1
+    network 192.168.0.0
+    netmask 255.255.255.0
+    gateway 192.168.0.1

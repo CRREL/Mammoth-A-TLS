@@ -3,29 +3,34 @@
 
  Hardware Dependencies:
  1. Linux box with general purpose input/output (GPIO)
- 2. Riegl VZ400 or VZ1000
+ 2. Riegl VZ400i or VZ1000i
  3. System internet connectivity or adequate memory for data storage
  4. Power source(s)/supply
 
  Software Dependencies:
- 1. RivLib (scanner communications)
+ 1. Make (to help install compiler libraries)
+    - Info: https://www.gnu.org/software/make/manual/
+    - Install: sudo apt-get install build-essential
+ 2. CMake (also to help install compiler libraries)
+    - Info: https://cmake.org/cmake/help/v3.18/
+    - Download: https://cmake.org/download/
+    - Install: https://cmake.org/install/
+ 3. RivLib (scanner communications)
     - Info: http://www.riegl.com/index.php?id=224
- 2. LidarCollect (scanner commands)
+ 4. LidarCollect (scanner commands)
     - Included
- 3. Python
+ 5. Python
     - Download: https://www.python.org/downloads/
- 4. Conda (environment for PDAL)
+ 6. Conda (environment for PDAL)
     - Download: https://www.anaconda.com/products/individual
- 5. PDAL (convert to .laz and analyze point cloud data)
+ 7. PDAL (convert to .laz and analyze point cloud data)
     - Info: https://pdal.io/download.html#conda
     - Download: https://anaconda.org/conda-forge/pdal
- 6. Fintek GPIO (control GPIO of the linux box)
+ 8. Fintek GPIO (control GPIO of the linux box)
     - Download: http://www.fintek.com.tw/index.php/mnu-swdevelopkitdl
- 7. CMake (to help install compiler libraries)
-    - Info: https://cmake.org/cmake/help/v3.17/
-    - Download: https://cmake.org/download/
- 8. AWS CLI Tools
+ 9. AWS CLI Tools
     - Repository: https://github.com/aws/aws-cli
+    - pip: https://docs.aws.amazon.com/cli/latest/userguide/install-linux.html
 
  General Order of Operations:
  1. Turn on scanner

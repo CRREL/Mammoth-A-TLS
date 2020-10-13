@@ -1,12 +1,10 @@
-Root user accout Files/Folder
-- These binary executable files are accessed via the root user account.
-- These files should be copied to the root account /usr/bin/ directory
-- The root directory files cannot be executed via the mammoth user account.
-- For now, all files executed by the root user account are seperated from the
-    files executed by the mammoth user account.
+The root user files/scripts necessary to perform automated terrestrial lidar scanning.
 
-User made tools (root user) : /usr/bin/ via sudo su -l root  
-1. logs_split:  used to archive logs from previous month  
-2. scanner_poweron:  just powers GPIO pin  
-3. scanner_poweroff:  calls scanner_shutdown and removes power from GPIO pin  
-4. scanner_shutdown:  spawns a telnet session, reports errors, shuts down, waits 1 minute.
+interfaces:
+  - describes the hardware network properties for eno1 (LAN6)
+  - On startup, starts the eno1 interface so comms can be established with scanner.
+
+crontab:
+  - Conducts regular job operations such as frame scans at the top of each hour.
+  - Conducts extended line scans if the frame scan shows it is snowing.
+  - Conducts file compression, conversion, and sycning to the AWS S3 bucket.

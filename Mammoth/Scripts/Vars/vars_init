@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Initialize Mammoth-A-TLS variables, if they do not exist.
+if [ ! -d "/home/mammoth/Mammoth/Scripts/Vars" ]; then
+  mkdir "/home/mammoth/Mammoth/Scripts/Vars"
+fi
+if [ ! -e "/home/mammoth/Mammoth/Scripts/Vars/scanner_power" ]; then
+  touch "/home/mammoth/Mammoth/Scripts/Vars/scanner_power"
+fi
+if [ ! -e "/home/mammoth/Mammoth/Scripts/Vars/snowing" ]; then
+  touch "/home/mammoth/Mammoth/Scripts/Vars/snowing"
+fi
