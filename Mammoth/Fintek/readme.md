@@ -3,7 +3,7 @@ https://www.fintek.com.tw/index.php/mnu-swdevelopkitdl using a terminal.
 
 1. mkdir /home/mammoth/Mammoth/Fintek
 2. cd /home/mammoth/Mammoth/Fintek
-3. cp <source location> /fintek_demo_release-4ee1af2d10-x86_64.tar.gz
+3. cp source_location /fintek_demo_release-4ee1af2d10-x86_64.tar.gz
 4. tar xf fintek_demo_release-4ee1af2d10-x86_64.tar.gz
 5. nano (or vim) demo_gpio.c
 6. change line 605 (change to your eSIO Type):

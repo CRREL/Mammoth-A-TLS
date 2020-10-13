@@ -1,7 +1,7 @@
 Decompressing the RiVLIB library (provided by Riegl) from a terminal.
 
 1. cd /home/mammoth/Mammoth
-2. cp <source location> /rivlib-2_5_7-x86_64-linux-gcc55.zip
+2. cp source_location /rivlib-2_5_7-x86_64-linux-gcc55.zip
 3. unzip rivlib-2_5_7-x86_64-linux-gcc55.zip
 4. rm rivlib-2_5_7-x86_64-linux-gcc55.zip
 4. mv rivlib-2_5_7-x86_64-linux-gcc55 RiVLIB

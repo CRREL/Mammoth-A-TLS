@@ -1,5 +1,5 @@
 # Mammoth-A-TLS
-  A Riegl VZ400 (or VZ1000) lidar scanner conducts a frame scan once an hour at the remote mountain location in Mammoth, California.  Two spheres located within the frame scan are processed using the Point Data Abstraction Library (PDAL) to determine the number of particles within each sphere.  If both spheres contain a number of particles over the specified threshold, it is a snowfall event and a line scan is conducted.  Once a day the scan data files are converted from .rxp to .laz and transferred to an AWS S3 bucket to prevent filling up the scanner's internal memory.
+  A Riegl VZ400 (or VZ1000) lidar scanner conducts a framed terrestrial laser survey (TLS) once an hour at the remote mountain location in Mammoth, California.  Two spheres located within the frame scan are processed using the Point Data Abstraction Library (PDAL) to determine the number of particles within each sphere.  If both spheres contain a number of particles over the specified threshold, it is a snowfall event and a single line TLS is conducted.  During a snowfall event, extended single line TLS are conducted every fifteen minutes.  Once a day the scan data files are converted from .rxp to .laz and transferred to an AWS S3 bucket to prevent filling up the scanner's internal memory.
 
  Hardware Dependencies:
  1. Linux box with general purpose input/output (GPIO)
@@ -19,16 +19,12 @@
     - Info: http://www.riegl.com/index.php?id=224
  4. LidarCollect (scanner commands)
     - Included
- 5. Python
-    - Download: https://www.python.org/downloads/
- 6. Conda (environment for PDAL)
-    - Download: https://www.anaconda.com/products/individual
- 7. PDAL (convert to .laz and analyze point cloud data)
+ 5. Conda, Python, PDAL
     - Info: https://pdal.io/download.html#conda
-    - Download: https://anaconda.org/conda-forge/pdal
- 8. Fintek GPIO (control GPIO of the linux box)
+    - Download: https://www.anaconda.com/products/individual
+ 6. Fintek GPIO (control GPIO of the linux box)
     - Download: http://www.fintek.com.tw/index.php/mnu-swdevelopkitdl
- 9. AWS CLI Tools
+ 7. AWS CLI Tools
     - Repository: https://github.com/aws/aws-cli
     - pip: https://docs.aws.amazon.com/cli/latest/userguide/install-linux.html
 
@@ -37,6 +33,7 @@
  2. Conduct a frame scan
  3. Determine if there is a snowfall event
  4. Conduct a line scan if it is snowing
+ 5. Conduct extended line scans at *:05, *:20, *:35, *:50 if it is snowing
  5. If end of day, convert all .rxp to .laz
  6. If end of day, upload all .rxp, .laz to AWS S3 bucket
  7. Turn off scanner
