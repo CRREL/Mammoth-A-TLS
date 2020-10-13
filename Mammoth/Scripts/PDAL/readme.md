@@ -17,3 +17,8 @@ snow-sphere.json:
 snow-sphere-2.json:
   - Configuration file used by PDAL to help determine a snowfall event.
   - Contains coordinates for a second sphere within the basic frame scan.
+
+  Visualization of snow-sphere locations:
+  ![](https://github.com/CRREL/Mammoth-A-TLS/blob/master/Images/snow-spheres-1.png)
+  ![](https://github.com/CRREL/Mammoth-A-TLS/blob/master/Images/snow-spheres-2.png)
+  ![](https://github.com/CRREL/Mammoth-A-TLS/blob/master/Images/snow-spheres-3.png)
