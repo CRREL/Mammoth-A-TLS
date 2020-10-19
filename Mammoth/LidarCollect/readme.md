@@ -6,7 +6,7 @@ Decompressing and compiling the lidarcollect.zip library from a terminal.
 4. mv LidarCollect-master LidarCollect
 5. rm lidarcollect.zip
 6. cd LidarCollect
-7. cp <source location> /CMakeLists.txt
+7. cp source location /CMakeLists.txt
 8. mkdir build
 9. cd build
 10. cmake .. -DCMAKE_PREFIX_PATH=/home/mammoth/Mammoth/RiVLIB/
