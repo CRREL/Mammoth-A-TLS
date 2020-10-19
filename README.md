@@ -3,7 +3,7 @@
 
  Hardware Dependencies:
  1. Linux box with general purpose input/output (GPIO)
- 2. Riegl VZ400i or VZ1000i
+ 2. Riegl VZ-series scanner (VZ-400 has been tested)
  3. System internet connectivity or adequate memory for data storage
  4. Power source(s)/supply
 
