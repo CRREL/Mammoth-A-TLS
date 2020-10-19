@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# create symlinks for the scripts used in the A-TLS process.
+ln -s ~/Mammoth/Scripts/AWS/syncaws ~/Mammoth/Scripts/Symlinks/syncaws
+ln -s ~/Mammoth/Scripts/GPIO/scanner_poweron ~/Mammoth/Scripts/Symlinks/scanner_poweron
+ln -s ~/Mammoth/Scripts/GPIO/scanner_poweroff ~/Mammoth/Scripts/Symlinks/scanner_poweroff
+ln -s ~/Mammoth/Scripts/GPIO/scanner_shutdown ~/Mammoth/Scripts/Symlinks/scanner_shutdown
+ln -s ~/Mammoth/Scripts/Logs/logs_split ~/Mammoth/Scripts/Symlinks/logs_split
+ln -s ~/Mammoth/Scripts/Scans/compress ~/Mammoth/Scripts/Symlinks/compress
+ln -s ~/Mammoth/Scripts/Scans/frame ~/Mammoth/Scripts/Symlinks/frame
+ln -s ~/Mammoth/Scripts/Scans/line ~/Mammoth/Scripts/Symlinks/line
+ln -s ~/Mammoth/Scripts/Scans/line_extended ~/Mammoth/Scripts/Symlinks/line_extended
+ln -s ~/Mammoth/Scripts/Vars/vars_init ~/Mammoth/Scripts/Symlinks/vars_init
