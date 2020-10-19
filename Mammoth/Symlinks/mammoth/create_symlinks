@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# must run from mammoth user account, without sudo, for pathing to be correct.
+
+# create symlinks for the scripts used in the A-TLS process.
+ln -s ~/Mammoth/Scripts/AWS/syncaws ~/Mammoth/Symlinks/mammoth/syncaws
+ln -s ~/Mammoth/Scripts/GPIO/scanner_poweron ~/Mammoth/Symlinks/mammoth/scanner_poweron
+ln -s ~/Mammoth/Scripts/GPIO/scanner_poweroff ~/Mammoth/Symlinks/mammoth/scanner_poweroff
+ln -s ~/Mammoth/Scripts/GPIO/scanner_shutdown ~/Mammoth/Symlinks/mammoth/scanner_shutdown
+ln -s ~/Mammoth/Scripts/Logs/logs_split ~/Mammoth/Symlinks/mammoth/logs_split
+ln -s ~/Mammoth/Scripts/Scans/compress ~/Mammoth/Symlinks/mammoth/compress
+ln -s ~/Mammoth/Scripts/Scans/frame ~/Mammoth/Symlinks/mammoth/frame
+ln -s ~/Mammoth/Scripts/Scans/line ~/Mammoth/Symlinks/mammoth/line
+ln -s ~/Mammoth/Scripts/Scans/line_extended ~/Mammoth/Symlinks/mammoth/line_extended
+ln -s ~/Mammoth/Scripts/Vars/vars_init ~/Mammoth/Symlinks/mammoth/vars_init
