@@ -14,44 +14,54 @@ and thus, if trying to execute scripts from the mammoth user account the paths
 will not be correct.  These scripts are automated from the perspective of the
 root crontab, thus, we must replicate that to test scripts. **
 
-sudo su -l root
-  - Frame Scan:
-    - Does not require you to turn on the scanner first, it is built into the script.
-    - /home/mammoth/Mammoth/Scripts/Scans/frame
-    - if it is snowing, it will call the line script
-    - if it is not snowing, it will turn off the scanner.
-    - Remember these scripts are meant to be automated, not user tools.
+** If Symlinks has been installed you do not need to provide pathing to execute scripts **
 
-  - Line Scan:
-    - Requires you to turn on the scanner first as it is always called from frame during automation
-    - /home/mammoth/Mammoth/Scripts/GPIO/scanner_poweron
-    - /home/mammoth/Mammoth/Scripts/Scans/line
-    - Line does not turn off the scanner, so you must call the scanner_poweroff script.
-    - /home/mammoth/Mammoth/Scripts/GPIO/scanner_poweroff
+- Frame Scan:
+ - Does not require you to turn on the scanner first, it is built into the script.
+  - /home/mammoth/Mammoth/Scripts/Scans/frame
+  - If Symlinks are installed just use: frame
+  - if it is snowing, it will call the line script
+  - if it is not snowing, it will turn off the scanner.
+  - Remember these scripts are meant to be automated, not user tools.
 
-  - Extended Line Scan:
-    - snowing variable must equal 1 in order for an extended line scan to be conducted.
-    - to set snowing = 1:
-      - echo 1 >/home/mammoth/Mammoth/Scripts/Vars/snowing
-    - Does not require you to turn on the scanner first, it is built into the script.
-    - /home/mammoth/Mammoth/Scripts/Scans/line_extended
-    - Turns off the scanner after the scan has finished being conducted.
-    - remember to set snowing = 0 when done:
-      - echo 0 >/home/mammoth/Mammoth/Scripts/Vars/snowing
+- Line Scan:
+  - Requires you to turn on the scanner first as it is always called from frame during automation
+  - /home/mammoth/Mammoth/Scripts/GPIO/scanner_poweron
+  - If Symlinks are installed just use: sudo scanner_poweron
+  - /home/mammoth/Mammoth/Scripts/Scans/line
+  - If Symlinks are installed just use: line
+  - Line does not turn off the scanner, so you must call the scanner_poweroff script.
+  - /home/mammoth/Mammoth/Scripts/GPIO/scanner_poweroff
+  - If Symlinks are installed just use: sudo scanner_poweroff
 
-  - Manual Scanner Power On:
-    - /home/mammoth/Mammoth/Scripts/GPIO/scanner_poweron
+- Extended Line Scan:
+  - snowing variable must equal 1 in order for an extended line scan to be conducted.
+  - to set snowing = 1:
+    - echo 1 >/home/mammoth/Mammoth/Scripts/Vars/snowing
+  - Does not require you to turn on the scanner first, it is built into the script.
+  - /home/mammoth/Mammoth/Scripts/Scans/line_extended
+  - If Symlinks are installed just use: line_extended
+  - Turns off the scanner after the scan has finished being conducted.
+  - remember to set snowing = 0 when done:
+    - echo 0 >/home/mammoth/Mammoth/Scripts/Vars/snowing
 
-  - Manual Scanner Power Off:
-    - /home/mammoth/Mammoth/Scripts/GPIO/scanner_poweroff
+- Manual Scanner Power On:
+  - /home/mammoth/Mammoth/Scripts/GPIO/scanner_poweron
+  - If Symlinks are installed just use: sudo scanner_poweron
 
-  - To view current month's mail log:
-    - nano /var/mail/mammoth
-    - nano /var/mail/root
+- Manual Scanner Power Off:
+  - /home/mammoth/Mammoth/Scripts/GPIO/scanner_poweroff
+  - If Symlinks are installed just use: sudo scanner_poweroff
 
-  - To convert .rxp to .rxp.gz and .laz
-    - /home/mammoth/Mammoth/Scripts/Scans/compress
+- To view current month's mail log:
+  - nano /var/mail/mammoth
+  - nano /var/mail/root
 
-  - To upload .rxp.gz and .laz files to the AWS S3 Bucket:
-    - make sure to run the compress script first.
-    - /home/mammoth/Mammoth/Scripts/AWS/syncaws
+- To convert .rxp to .rxp.gz and .laz
+  - /home/mammoth/Mammoth/Scripts/Scans/compress
+  - If Symlinks are installed just use: compress
+
+- To upload .rxp.gz and .laz files to the AWS S3 Bucket:
+  - make sure to run the compress script first.
+  - /home/mammoth/Mammoth/Scripts/AWS/syncaws
+  - If Symlinks are installed just use: syncaws
