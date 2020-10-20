@@ -7,8 +7,8 @@ line (called by frame, during snowfall event):
  - LidarCollect --ip 192.168.0.128 --line 1 30 130 0.04 195 30
  - LidarCollect --ip 192.168.0.128 --line 1 115 125 0.02	276 30 spectralon
 
- Snowfall event parameters:
-  - if [ $snowcount -gt 15 ] && [ $snowcount2 -gt 15 ]; then
+Snowfall event parameters:
+ - if [ $snowcount -gt 15 ] && [ $snowcount2 -gt 15 ]; then
 
 POP Matrix:
 #Local to global coordinate system transformation matrix.
