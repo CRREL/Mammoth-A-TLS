@@ -1,0 +1,18 @@
+[
+    {
+        "type": "readers.rxp",
+        "sync_to_pps": "false"
+    },
+    {
+        "type":"filters.crop",
+        "point":"POINT()",
+        "distance": ""
+    },
+    {
+        "type":"filters.stats",
+        "dimensions":"X"
+    },
+    {
+        "type":"writers.null"
+    }
+]

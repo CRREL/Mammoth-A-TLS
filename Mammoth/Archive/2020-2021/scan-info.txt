@@ -1,0 +1,22 @@
+# extended line scans not executed in 2019-2020 winter season.
+
+frame:
+ - LidarCollect --ip 192.168.0.128 --frame
+
+line (called by frame, during snowfall event):
+ - LidarCollect --ip 192.168.0.128 --line
+ - LidarCollect --ip 192.168.0.128 --line  spectralon
+
+line_extended (called every 15 min, during a snowfall event):
+ - LidarCollect --ip 192.168.0.128 --line  extended
+ - LidarCollect --ip 192.168.0.128 --line  spectralon_extended
+
+ Snowfall event parameters:
+  - if [ $snowcount -gt 15 ] && [ $snowcount2 -gt 15 ]; then
+
+POP Matrix:
+#Local to global coordinate system transformation matrix.
+
+
+SOP Matrix:
+#Global to geocentric w84 coordinate system transformation matrix

@@ -1,0 +1,35 @@
+#crontab-e
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+MAILTO=mammoth
+
+# Example of job definition:
+# .---------------- minute (0 - 59)
+# |  .------------- hour (0 - 23)
+# |  |  .---------- day of month (1 - 31)
+# |  |  |  .------- month (1 - 12)
+# |  |  |  |  .---- day of week (0 - 6) (Sunday=0)
+# |  |  |  |  |
+# *  *  *  *  * user-name  command to be executed
+
+#----------------------------- Regular Operations ------------------------------
+# Run the basic frame scan every hour at the top of the hour.
+0 * * * * /home/mammoth/Mammoth/Scripts/Scans/frame
+#-------------------------------------------------------------------------------
+
+#--------------------------- If Snowing Operations -----------------------------
+#Conduct extended line scans at 5, 20, 35, and 50 minutes past the hour.
+05 * * * * /home/mammoth/Mammoth/Scripts/Scans/line_extended
+20 * * * * /home/mammoth/Mammoth/Scripts/Scans/line_extended
+35 * * * * /home/mammoth/Mammoth/Scripts/Scans/line_extended
+50 * * * * /home/mammoth/Mammoth/Scripts/Scans/line_extended
+#-------------------------------------------------------------------------------
+
+#-------------------------- File Storage Operations ----------------------------
+# Convert .rxp files to .laz and compress .rxp files using gzip once a day.
+15 1 * * * /home/mammoth/Mammoth/Scripts/Scans/compress
+# Move .rxp.gz and .laz files to AWS S3 bucket once a day.
+35 1 * * * /home/mammoth/Mammoth/Scripts/AWS/syncaws
+# Separate log content in system logs, by month. occurs once a month.
+0 0 1 * * /home/mammoth/Mammoth/Scripts/Logs/logs_split
+#-------------------------------------------------------------------------------
