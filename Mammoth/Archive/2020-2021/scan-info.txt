@@ -1,15 +1,15 @@
 # extended line scans not executed in 2019-2020 winter season.
 
 frame:
- - LidarCollect --ip 192.168.0.128 --frame
+ - LidarCollect --ip 192.168.0.128 --frame 1 30 130 0.04 80 280 0.04
 
 line (called by frame, during snowfall event):
- - LidarCollect --ip 192.168.0.128 --line
- - LidarCollect --ip 192.168.0.128 --line  spectralon
+ - LidarCollect --ip 192.168.0.128 --line 1 30 130 0.04 185 120
+ - LidarCollect --ip 192.168.0.128 --line 1 55 65 0.02 174 30 spectralon
 
 line_extended (called every 15 min, during a snowfall event):
- - LidarCollect --ip 192.168.0.128 --line  extended
- - LidarCollect --ip 192.168.0.128 --line  spectralon_extended
+ - LidarCollect --ip 192.168.0.128 --line 1 30 130 0.04 185 150 extended
+ - LidarCollect --ip 192.168.0.128 --line 1 55 65 0.02 174 30 spectralon_extended
 
  Snowfall event parameters:
   - if [ $snowcount -gt 15 ] && [ $snowcount2 -gt 15 ]; then
