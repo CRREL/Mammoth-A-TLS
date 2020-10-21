@@ -32,7 +32,7 @@ fi
 cd $SCAN_DIR
 
 # Conduct a basic frame scan
-$lidarcollect --ip 192.168.0.128 --frame 1 50 130 0.04 110 280 0.04
+$lidarcollect --ip 192.168.0.128 --frame 1 30 130 0.04 80 280 0.04
 
 # Initialize the PDAL environment for scan processing
 source $CONDA
