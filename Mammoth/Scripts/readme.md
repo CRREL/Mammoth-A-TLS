@@ -1,6 +1,6 @@
 User made tools :  
 AWS:
-  - syncaws: Copy scans from /home/mammoth/Mammoth/Scans to AWS S3 Bucket
+  - syncaws: Copy scans from ~/Mammoth/Scans to AWS S3 Bucket
 
 GPIO:
   - scanner_poweron: Switches the GPIO pin to on.
@@ -11,8 +11,6 @@ Logs:
   - logs_split: Splits logs by month to reduce file sizes
 
 PDAL:
-  - 201909-Mammoth-VZ400-POP.dat: Local to global coord's transformation matrix.
-  - 201909-Mammoth-VZ400-SOP.dat: Global to geo-centering w84 coord's transformation matrix.
   - base-laz.json: Input file for PDAL to facilitate conversion from .rxp to .laz.
   - snow-sphere.json: Coordinates for a sphere to look for snow.
   - snow-sphere-2.json: Second set of coordinates for a sphere to look for snow.
