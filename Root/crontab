@@ -13,29 +13,23 @@ MAILTO=mammoth
 # *  *  *  *  * user-name  command to be executed
 
 #----------------------------- Regular Operations ------------------------------
-#Run the basic frame scan every hour at the top of the hour.
-#Scans take place 4 minutes after calling the script. Due to scanner warming up.
-56 * * * * /home/mammoth/Mammoth/Scripts/Scans/frame
+# Run the basic frame scan every hour at the top of the hour.
+0 * * * * /home/mammoth/Mammoth/Scripts/Scans/frame
 #-------------------------------------------------------------------------------
 
 #--------------------------- If Snowing Operations -----------------------------
 #Conduct extended line scans at 5, 20, 35, and 50 minutes past the hour.
-#Scans take place 4 minutes after calling the script. Due to scanner warming up.
-
-#Scanner is already on from a frame scan, line scan can take place immediately.
 05 * * * * /home/mammoth/Mammoth/Scripts/Scans/line_extended
-
-#Scanner is not already on, scanner powers up before scanning.
-16 * * * * /home/mammoth/Mammoth/Scripts/Scans/line_extended
-31 * * * * /home/mammoth/Mammoth/Scripts/Scans/line_extended
-46 * * * * /home/mammoth/Mammoth/Scripts/Scans/line_extended
+20 * * * * /home/mammoth/Mammoth/Scripts/Scans/line_extended
+35 * * * * /home/mammoth/Mammoth/Scripts/Scans/line_extended
+50 * * * * /home/mammoth/Mammoth/Scripts/Scans/line_extended
 #-------------------------------------------------------------------------------
 
 #-------------------------- File Storage Operations ----------------------------
-#Convert .rxp files to .laz and compress .rxp files using gzip once a day.
+# Convert .rxp files to .laz and compress .rxp files using gzip once a day.
 15 1 * * * /home/mammoth/Mammoth/Scripts/Scans/compress
-#Move .rxp.gz and .laz files to AWS S3 bucket once a day.
+# Move .rxp.gz and .laz files to AWS S3 bucket once a day.
 35 1 * * * /home/mammoth/Mammoth/Scripts/AWS/syncaws
-#Seperate log content in system logs, by month. occurs once a month.
+# Separate log content in system logs, by month. occurs once a month.
 0 0 1 * * /home/mammoth/Mammoth/Scripts/Logs/logs_split
 #-------------------------------------------------------------------------------

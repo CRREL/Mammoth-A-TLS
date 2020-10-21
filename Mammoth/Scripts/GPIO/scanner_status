@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Set pathing to work from any user
+if [ ~ == "/root" ]; then
+  PATH_PREFIX=~/../home/mammoth/Mammoth
+else
+ # accessed via sudo perms or mammoth user
+ PATH_PREFIX=~/Mammoth
+fi

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ $USER == "mammoth" ]; then
+  # create path prefix based on user account
+  PATH_PREFIX=~/Mammoth
+
+  # create symlinks for the scripts used in the A-TLS process.
+  ln -s $PATH_PREFIX/Scripts/AWS/syncaws $PATH_PREFIX/Symlinks/syncaws
+  ln -s $PATH_PREFIX/Scripts/GPIO/scanner_poweron $PATH_PREFIX/Symlinks/scanner_poweron
+  ln -s $PATH_PREFIX/Scripts/GPIO/scanner_poweroff $PATH_PREFIX/Symlinks/scanner_poweroff
+  ln -s $PATH_PREFIX/Scripts/GPIO/scanner_shutdown $PATH_PREFIX/Symlinks/scanner_shutdown
+  ln -s $PATH_PREFIX/Scripts/Logs/logs_split $PATH_PREFIX/Symlinks/logs_split
+  ln -s $PATH_PREFIX/Scripts/Scans/compress $PATH_PREFIX/Symlinks/compress
+  ln -s $PATH_PREFIX/Scripts/Scans/frame $PATH_PREFIX/Symlinks/frame
+  ln -s $PATH_PREFIX/Scripts/Scans/line $PATH_PREFIX/Symlinks/line
+  ln -s $PATH_PREFIX/Scripts/Scans/line_extended $PATH_PREFIX/Symlinks/line_extended
+  ln -s $PATH_PREFIX/Scripts/Vars/vars_init $PATH_PREFIX/Symlinks/vars_init
+  ln -s $PATH_PREFIX/LidarCollect/build/LidarCollect $PATH_PREFIX/Symlinks/LidarCollect
+else
+  echo "Error, please run as mammoth user."
+fi

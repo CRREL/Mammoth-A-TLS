@@ -1,21 +1,32 @@
 #!/bin/bash
-SCAN_DIR=/home/mammoth/Mammoth/Scans
-SNOW_VAR=~/../home/mammoth/Mammoth/Scripts/Vars/snowing
-SPHERE_1=~/../home/mammoth/Mammoth/Scripts/PDAL/snow-sphere.json
-SPHERE_2=~/../home/mammoth/Mammoth/Scripts/PDAL/snow-sphere-2.json
-lidarcollect=~/../home/mammoth/Mammoth/LidarCollect/build/LidarCollect
+
+# Set pathing to work from any user
+if [ ~ == "/root" ]; then
+  PATH_PREFIX=~/../home/mammoth/Mammoth
+else
+ # accessed via sudo perms or mammoth user
+ PATH_PREFIX=~/Mammoth
+fi
+
+# establish directories we will be using based on user account
+SCAN_DIR=$PATH_PREFIX/Scans
+SNOW_VAR=$PATH_PREFIX/Scripts/Vars/snowing
+SPHERE_1=$PATH_PREFIX/Scripts/PDAL/snow-sphere.json
+SPHERE_2=$PATH_PREFIX/Scripts/PDAL/snow-sphere-2.json
+lidarcollect=$PATH_PREFIX/LidarCollect/build/LidarCollect
+CONDA=$PATH_PREFIX/Miniconda3/etc/profile.d/conda.sh
 
 #extract scanner power status
-if [ -e "/home/mammoth/Mammoth/Scripts/Vars/scanner_power" ]; then
-  PWR_VAL=$(cat "/home/mammoth/Mammoth/Scripts/Vars/scanner_power")
+if [ -e "$FILE_PREFIX""/Scripts/Vars/scanner_power" ]; then
+  PWR_VAL=$(cat "$FILE_PREFIX""/Scripts/Vars/scanner_power")
 else
   PWR_VAL=0
 fi
 
 # Switch the power to on, for the scanner, if necessary.
-if [ $PWR_VAL = "0" ]; then
-    ~/../home/mammoth/Mammoth/Scripts/GPIO/scanner_poweron
-fi
+#if [ $PWR_VAL = "0" ]; then
+#    $PATH_PREFIX/Scripts/GPIO/scanner_poweron
+#fi
 
 # Change to the directory where file scans are to be stored to
 cd $SCAN_DIR
@@ -24,7 +35,7 @@ cd $SCAN_DIR
 $lidarcollect --ip 192.168.0.128 --frame 1 50 130 0.04 110 280 0.04
 
 # Initialize the PDAL environment for scan processing
-source ~/../home/mammoth/Mammoth/Miniconda3/etc/profile.d/conda.sh
+source $CONDA
 conda activate pdal
 
 # Use PDAL to determine the number of points within two different spheres
@@ -36,11 +47,8 @@ snowcount2=$(pdal pipeline $SPHERE_2 --metadata=stdout --readers.rxp.filename=$f
 if [ $snowcount -gt 15 ] && [ $snowcount2 -gt 15 ]; then
   echo 1 >$SNOW_VAR
   echo "Snowing, starting line scan"
-  ~/../home/mammoth/Mammoth/Scripts/Scans/line
-  # Leave the scanner on because an extended line scan will be conducted.
+  $PATH_PREFIX/Scripts/Scans/line
 else
   echo 0 >$SNOW_VAR
   echo "No Snow"
-  # Turn off the scanner as an extended line scan will not be conducted
-  ~/../home/mammoth/Mammoth/Scripts/GPIO/scanner_poweroff
 fi

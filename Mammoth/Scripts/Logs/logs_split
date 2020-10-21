@@ -1,27 +1,41 @@
 #!/bin/bash
 
+# Set pathing to work from any user
+if [ ~ == "/root" ]; then
+  PATH_PREFIX=~/../home/mammoth/Mammoth
+  MAIL_PATH_PREFIX=~/../var/mail
+else
+ # accessed via sudo perms or mammoth user
+ PATH_PREFIX=~/Mammoth
+ MAIL_PATH_PREFIX=~/../../var/mail
+fi
+
+# make sure write to file variables are restored deleted, simple try catch
+# helps us make sure our directory is set correctly here.  For Sudo perms.
+{ $PATH_PREFIX/Scripts/Vars/vars_init } || { PATH_PREFIX=~/Mammoth }
+
 # generate the file prefix using YYYY_MM
 file_prefix=$(date +"%Y_%m")
 filename_root="$file_prefix""_root.log"
 filename_mammoth="$file_prefix""_mammoth.log"
 
 # if the directory we want to copy into does not exist, create it.
-if [ ! -d "/home/mammoth/Mammoth/Logs" ]; then
-  mkdir "/home/mammoth/Mammoth/Logs"
+if [ ! -d "$PATH_PREFIX""/Logs" ]; then
+  mkdir "$PATH_PREFIX""/Logs"
 fi
-if [ ! -d "/home/mammoth/Mammoth/Logs/root" ]; then
-  mkdir "/home/mammoth/Mammoth/Logs/root"
+if [ ! -d "$PATH_PREFIX""/Logs/root" ]; then
+  mkdir "$PATH_PREFIX""/Logs/root"
 fi
-if [ ! -d "/home/mammoth/Mammoth/Logs/mammoth" ]; then
-  mkdir "/home/mammoth/Mammoth/Logs/mammoth"
+if [ ! -d "$PATH_PREFIX""/Logs/mammoth" ]; then
+  mkdir "$PATH_PREFIX""/Logs/mammoth"
 fi
 
 # copy the root/mammoth log into the new split log file.
-cp /var/mail/root /home/mammoth/Mammoth/Logs/root/$filename_root
+cp $MAIL_PATH_PREFIX/root $PATH_PREFIX/Logs/root/$filename_root
 echo "Mammoth mail log file has been split into a new month."
-cp /var/mail/mammoth /home/mammoth/Mammoth/Logs/mammoth/$filename_mammoth
+cp $MAIL_PATH_PREFIX/mammoth $PATH_PREFIX/Logs/mammoth/$filename_mammoth
 echo "Root mail log file has been split into a new month."
 
 # write the null character into the original files to clear it for a new month.
->/var/mail/root
->/var/mail/mammoth
+>$MAIL_PATH_PREFIX/root
+>$MAIL_PATH_PREFIX/mammoth

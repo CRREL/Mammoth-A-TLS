@@ -1,8 +1,18 @@
 #!/bin/bash
 
-lidarcollect=~/../home/mammoth/Mammoth/LidarCollect/build/LidarCollect
+# Set pathing to work from any user
+if [ ~ == "/root" ]; then
+  PATH_PREFIX=~/../home/mammoth/Mammoth
+else
+ # accessed via sudo perms or mammoth user
+ PATH_PREFIX=~/Mammoth
+fi
+
+# establish the directories we will be using based on user account
+lidarcollect=$PATH_PREFIX/LidarCollect/build/LidarCollect
+
 # Directory where we want to store the scan data files
-cd /home/mammoth/Mammoth/Scans
+cd $PATH_PREFIX/Scans
 
 # Conduct a basic line scan
 $lidarcollect --ip 192.168.0.128 --line 1 30 130 0.04 195 30

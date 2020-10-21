@@ -1,11 +1,5 @@
 Point Data Abstraction Library (PDAL) Scripts
 
-201909-Mammoth-VZ400-POP.dat:
-  - data file containing the POP conversion matrix.
-
-201909-Mammoth-VZ400-SOP.dat:
-  - data file containing the SOP conversion matrix.
-
 base-laz.json:
   - Input file for PDAL to help in converting the scanner .rxp to .laz.
   - Contains the SOP and POP georeferencing conversion matrices.

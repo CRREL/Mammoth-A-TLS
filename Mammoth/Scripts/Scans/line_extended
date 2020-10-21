@@ -1,28 +1,38 @@
 #!/bin/bash
-lidarcollect=~/../home/mammoth/Mammoth/LidarCollect/build/LidarCollect
+
+# Set pathing to work from any user
+if [ ~ == "/root" ]; then
+  PATH_PREFIX=~/../home/mammoth/Mammoth
+else
+ # accessed via sudo perms or mammoth user
+ PATH_PREFIX=~/Mammoth
+fi
+
+# establish the directories we will be using based on user account
+lidarcollect=$PATH_PREFIX/LidarCollect/build/LidarCollect
 
 #extract scanner power status
-if [ -e "/home/mammoth/Mammoth/Scripts/Vars/scanner_power" ]; then
-  PWR_VAL=$(cat "/home/mammoth/Mammoth/Scripts/Vars/scanner_power")
+if [ -e "$PATH_PREFIX""/Scripts/Vars/scanner_power" ]; then
+  PWR_VAL=$(cat "$PATH_PREFIX""/Scripts/Vars/scanner_power")
 else
   PWR_VAL=0
 fi
 
 #extract snowing status
-if [ -e "/home/mammoth/Mammoth/Scripts/Vars/snowing" ]; then
-  SNOWING=$(cat "/home/mammoth/Mammoth/Scripts/Vars/snowing")
+if [ -e "$PATH_PREFIX""/Scripts/Vars/snowing" ]; then
+  SNOWING=$(cat "$PATH_PREFIX""/Scripts/Vars/snowing")
 else
   SNOWING=0
 fi
 
 # Directory where we want to store the scan data files
-cd /home/mammoth/Mammoth/Scans
+cd $PATH_PREFIX/Scans
 
 if [ $SNOWING = "1" ]; then
 
   # Switch the power to on, for the scanner, if necessary.
   if [ $PWR_VAL = "0" ]; then
-    ~/../home/mammoth/Mammoth/Scripts/GPIO/scanner_poweron
+    $PATH_PREFIX/Scripts/GPIO/scanner_poweron
   fi
 
   # Conduct an extended line scan
@@ -40,6 +50,4 @@ if [ $SNOWING = "1" ]; then
     sleep 10s
   fi
 
-  # Power down the scanner once we are done scanning
-  ~/../home/mammoth/Mammoth/Scripts/GPIO/scanner_poweroff
 fi

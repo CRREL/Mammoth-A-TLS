@@ -1,4 +1,4 @@
-The root user files/scripts necessary to perform automated terrestrial lidar scanning.
+The root user files/scripts necessary to perform automated terrestrial laser scanning.
 
 interfaces:
   - describes the hardware network properties for eno1 (LAN6)

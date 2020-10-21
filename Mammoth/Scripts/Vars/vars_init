@@ -1,12 +1,20 @@
 #!/bin/bash
 
+# Set pathing to work from any user
+if [ ~ == "/root" ]; then
+  PATH_PREFIX=~/../home/mammoth/Mammoth
+else
+ # accessed via sudo perms or mammoth user
+ PATH_PREFIX=~/Mammoth
+fi
+
 # Initialize Mammoth-A-TLS variables, if they do not exist.
-if [ ! -d "/home/mammoth/Mammoth/Scripts/Vars" ]; then
-  mkdir "/home/mammoth/Mammoth/Scripts/Vars"
+if [ ! -d "$PATH_PREFIX""/Scripts/Vars" ]; then
+  mkdir "$PATH_PREFIX""/Scripts/Vars"
 fi
-if [ ! -e "/home/mammoth/Mammoth/Scripts/Vars/scanner_power" ]; then
-  touch "/home/mammoth/Mammoth/Scripts/Vars/scanner_power"
+if [ ! -e "$PATH_PREFIX""/Scripts/Vars/scanner_power" ]; then
+  touch "$PATH_PREFIX""/Scripts/Vars/scanner_power"
 fi
-if [ ! -e "/home/mammoth/Mammoth/Scripts/Vars/snowing" ]; then
-  touch "/home/mammoth/Mammoth/Scripts/Vars/snowing"
+if [ ! -e "$PATH_PREFIX""/Scripts/Vars/snowing" ]; then
+  touch "$PATH_PREFIX""/Scripts/Vars/snowing"
 fi

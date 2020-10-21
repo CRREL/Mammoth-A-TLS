@@ -1,12 +1,23 @@
 #!/bin/bash
-SCAN_DIR=/home/mammoth/Mammoth/Scans
-INPUT_FILE=~/../home/mammoth/Mammoth/Scripts/PDAL/base-laz.json
+
+# Set pathing to work from any user
+if [ ~ == "/root" ]; then
+  PATH_PREFIX=~/../home/mammoth/Mammoth
+else
+ # accessed via sudo perms or mammoth user
+ PATH_PREFIX=~/Mammoth
+fi
+
+# establish directories we will be using based on user account
+SCAN_DIR=$PATH_PREFIX/Scans
+INPUT_FILE=$PATH_PREFIX/Scripts/PDAL/base-laz.json
+CONDA=$PATH_PREFIX/Miniconda3/etc/profile.d/conda.sh
 
 # Switch to the directory to save the converted to .laz files into
 cd $SCAN_DIR
 
 # Activate the PDAL environment
-source ~/../home/mammoth/Mammoth/Miniconda3/etc/profile.d/conda.sh
+source $CONDA
 conda activate pdal
 
 # Clone/convert all .rxp files into .laz using PDAL and its input config json file

@@ -1,13 +1,21 @@
 #!/bin/bash
 
+# Set pathing to work from any user
+if [ ~ == "/root" ]; then
+  PATH_PREFIX=~/../home/mammoth/Mammoth
+else
+ # accessed via sudo perms or mammoth user
+ PATH_PREFIX=~/Mammoth
+fi
+
 # make sure write to file variables are restored deleted.
-/home/mammoth/Mammoth/Scripts/Vars/vars_init
+$PATH_PREFIX/Scripts/Vars/vars_init
 
 # Execute a scanner software shutdown before removing power.
-/home/mammoth/Mammoth/Scripts/GPIO/scanner_shutdown
+$PATH_PREFIX/Scripts/GPIO/scanner_shutdown
 
 # Set the path to the fintek gpio on/off tool
-GPIO=/home/mammoth/Mammoth/Fintek/demo_gpio
+GPIO=$PATH_PREFIX/Fintek/demo_gpio
 
 # command only works with sudo privileges, accesses sys/class files.
 # demo_gpio <index> <direction> <mode> <value>
@@ -16,5 +24,5 @@ GPIO=/home/mammoth/Mammoth/Fintek/demo_gpio
 $GPIO 0x80 1 1 1
 
 # Update GPIO pin values
-echo 0 >/home/mammoth/Mammoth/Scripts/Vars/scanner_power
+echo 0 >$PATH_PREFIX/Scripts/Vars/scanner_power
 echo "Scanner Off"
