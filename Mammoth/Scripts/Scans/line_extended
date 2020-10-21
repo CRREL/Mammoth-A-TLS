@@ -44,7 +44,7 @@ if [ $SNOWING = "1" ]; then
   minute=$(date +%M )
   if [ $minute -lt 10 ]; then
     # Conduct a calibration/reference scan on the Spectralon panel.
-    $lidarcollect --ip 192.168.0.128 --line 1 55 65 0.02	174 150 spectralon_extended
+    $lidarcollect --ip 192.168.0.128 --line 1 55 65 0.02 174 30 spectralon_extended
 
     # Wait for the scanner to not be busy
     sleep 10s
