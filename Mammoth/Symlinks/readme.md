@@ -22,11 +22,11 @@ To add sudo permissions to these files, modify the sudoers.tmp file by:
 3. Change: Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/s"
  - TO: Defaults        secure_path="/home/mammoth/Mammoth/Symlinks:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/s"
 
- To make symlinks work, from root user account:
- 1. sudo su -l root
- 2. Edit ~/.bashrc file
-   - nano ~/.bashrc
-   - Add the following to the bottom of the file:
-     # >>> Mammoth A-TLS initialize >>>
-     export PATH=$PATH:~/../home/mammoth/Mammoth/Symlinks
-     # <<< Mammoth A-TLS initialize <<<
+To make symlinks work, from root user account:
+1. sudo su -l root
+2. Edit ~/.bashrc file
+ - nano ~/.bashrc
+ - Add the following to the bottom of the file:
+   # >>> Mammoth A-TLS initialize >>>
+   export PATH=$PATH:~/../home/mammoth/Mammoth/Symlinks
+   # <<< Mammoth A-TLS initialize <<<
