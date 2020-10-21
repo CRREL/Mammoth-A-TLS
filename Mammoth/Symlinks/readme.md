@@ -20,7 +20,7 @@ To add sudo permissions to these files, modify the sudoers.tmp file by:
 1. sudo su -l root
 2. sudo visudo
 3. Change: Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/s"
- - TO: Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/s:/home/mammoth/Mammoth/Symlinks"
+ - TO: Defaults        secure_path="/home/mammoth/Mammoth/Symlinks:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/s"
 
  To make symlinks work, from root user account:
  1. sudo su -l root
