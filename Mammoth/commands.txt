@@ -4,10 +4,10 @@ Scanner LAN port: LAN2
 Outside network LAN port: LAN6
 
 To view archived mail logs:
-  - (as mammoth user): cd ~/Mammoth/Logs
-  - (as root user): cd ~/../home/mammoth/Mammoth/Logs
-  - change directories to view file names of existing archive logs, using cd
-  - use nano or vim to view root or mammoth user account mail logs
+ - (as mammoth user): cd ~/Mammoth/Logs
+ - (as root user): cd ~/../home/mammoth/Mammoth/Logs
+ - change directories to view file names of existing archive logs, using cd
+ - use nano or vim to view root or mammoth user account mail logs
 
 ** Updated to reflect commands with Symlinks installed. **
 
@@ -24,46 +24,46 @@ To view archived mail logs:
  - The scan file will be located in the /Mammoth/Scans folder.
 
 - Extended Line Scan:
-  - snowing variable must equal 1 in order for an extended line scan to be conducted.
-  - to set snowing = 1 (as mammoth user):
-    - echo 1 >~/Mammoth/Scripts/Vars/snowing
-  - to set snowing =1 (as root user):
-    - echo 1 >~/../home/mammoth/Mammoth/Scripts/Vars/snowing
-  - Scanner must be on, call scanner_poweron if it is not on.
-  - Issue the command line_extended (from any directory) into the terminal.
-  - remember to set snowing = 0 when done (as mammoth user):
-    - echo 0 >~/Mammoth/Scripts/Vars/snowing
-  - remember to set snowing = 0 when done (as root user):
-    - echo 0 >~/../home/mammoth/Mammoth/Scripts/Vars/snowing
+ - snowing variable must equal 1 in order for an extended line scan to be conducted.
+ - to set snowing = 1 (as mammoth user):
+  - echo 1 >~/Mammoth/Scripts/Vars/snowing
+ - to set snowing =1 (as root user):
+  - echo 1 >~/../home/mammoth/Mammoth/Scripts/Vars/snowing
+ - Scanner must be on, call scanner_poweron if it is not on.
+ - Issue the command line_extended (from any directory) into the terminal.
+ - remember to set snowing = 0 when done (as mammoth user):
+  - echo 0 >~/Mammoth/Scripts/Vars/snowing
+ - remember to set snowing = 0 when done (as root user):
+  - echo 0 >~/../home/mammoth/Mammoth/Scripts/Vars/snowing
 
 - Custom LidarCollect:
-  - Scanner must be on, call scanner_poweron if it is not on.
-  - Refer to the LidarCollect-wiki to form a proper command.
-  - Issue the LidarCollect <> <> <> ... <> command:
-    - Scan file will be stored in your present working directory
-    - It would be wise to change to the ~/Mammoth/Scans directory before issuing the command.
+ - Scanner must be on, call scanner_poweron if it is not on.
+ - Refer to the LidarCollect-wiki to form a proper command.
+ - Issue the LidarCollect <> <> <> ... <> command:
+ - Scan file will be stored in your present working directory
+ - It would be wise to change to the ~/Mammoth/Scans directory before issuing the command.
 
 - Manual Scanner Power On:
-  - Requires sudo permissions, or to be logged into root account, to access IO ports.
-  - Issue sudo scanner_poweron (if accessing from mammoth user).
-  - Issue scanner_poweron (if accessing from root user).
+ - Requires sudo permissions, or to be logged into root account, to access IO ports.
+ - Issue sudo scanner_poweron (if accessing from mammoth user).
+ - Issue scanner_poweron (if accessing from root user).
 
 - Manual Scanner Power Off:
-  - Requires sudo permissions, or to be logged into root account, to access IO ports.
-  - Issue sudo scanner_poweroff (if accessing from mammoth user).
-  - Issue scanner_poweroff (if accessing from root user).
+ - Requires sudo permissions, or to be logged into root account, to access IO ports.
+ - Issue sudo scanner_poweroff (if accessing from mammoth user).
+ - Issue scanner_poweroff (if accessing from root user).
 
 - To view current month's mail log (from mammoth account):
-  - nano ~/../../var/mail/mammoth
-  - nano ~/../../var/mail/root
+ - nano ~/../../var/mail/mammoth
+ - nano ~/../../var/mail/root
 
 - To view current month's mail log (from root account):
-  - nano ~/../var/mail/mammoth
-  - nano ~/../var/mail/root
+ - nano ~/../var/mail/mammoth
+ - nano ~/../var/mail/root
 
 - To convert .rxp to .rxp.gz and .laz
-  - Issue the compress command (from any directory) into the terminal.
+ - Issue the compress command (from any directory) into the terminal.
 
 - To upload .rxp.gz and .laz files to the AWS S3 Bucket:
-  - Make sure compress has been executed prior to uploading to S3 bucket.
-  - Issue the command syncaws (from any directory) into the terminal.
+ - Make sure compress has been executed prior to uploading to S3 bucket.
+ - Issue the command syncaws (from any directory) into the terminal.
