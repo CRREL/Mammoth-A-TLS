@@ -7,11 +7,11 @@ This allows us to run commands without referencing the path to the script.
 
 To make symlinks work, from mammoth user account:
 1. Edit ~/.bashrc file
-  - nano ~/.bashrc
-  - Add the following to the bottom of the file:
-    # >>> Mammoth A-TLS initialize >>>
-    export PATH=$PATH:~/Mammoth/Symlinks
-    # <<< Mammoth A-TLS initialize <<<
+ - nano ~/.bashrc
+ - Add the following to the bottom of the file:
+  # >>> Mammoth A-TLS initialize >>>
+  export PATH=$PATH:~/Mammoth/Symlinks
+  # <<< Mammoth A-TLS initialize <<<
 2. cd /home/mammoth/Mammoth/Symlinks
 3. ./create_symlinks
 4. exit and restart terminal, to add symlinks to pathing.
