@@ -36,6 +36,13 @@ To view archived mail logs:
   - remember to set snowing = 0 when done (as root user):
     - echo 0 >~/../home/mammoth/Mammoth/Scripts/Vars/snowing
 
+- Custom LidarCollect:
+  - Scanner must be on, call scanner_poweron if it is not on.
+  - Refer to the LidarCollect-wiki to form a proper command.
+  - Issue the LidarCollect <> <> <> ... <> command:
+    - Scan file will be stored in your present working directory
+    - It would be wise to change to the ~/Mammoth/Scans directory before issuing the command.
+
 - Manual Scanner Power On:
   - Requires sudo permissions, or to be logged into root account, to access IO ports.
   - Issue sudo scanner_poweron (if accessing from mammoth user).
