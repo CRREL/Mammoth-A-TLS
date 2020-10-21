@@ -15,13 +15,13 @@ lidarcollect=$PATH_PREFIX/LidarCollect/build/LidarCollect
 cd $PATH_PREFIX/Scans
 
 # Conduct a basic line scan
-$lidarcollect --ip 192.168.0.128 --line 1 30 130 0.04 195 30
+$lidarcollect --ip 192.168.0.128 --line 1 30 130 0.04 185 120
 
 # Wait for scanner to not be busy
 sleep 10s
 
 # Conduct a calibration/reference scan on the Spectralon panel.
-$lidarcollect --ip 192.168.0.128 --line 1 115 125 0.02	276 30 spectralon
+$lidarcollect --ip 192.168.0.128 --line 1 55 65 0.02	174 30 spectralon
 
 #wait for scanner to not be busy
 sleep 10s
