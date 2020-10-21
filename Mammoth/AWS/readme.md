@@ -11,3 +11,9 @@ Installing aws-cli tools from a terminal onto the Linux computer.
   - enter your secret access key
   - enter us-east-1
   - enter none
+8. root su -l root
+9. aws configure
+  - enter your access key id
+  - enter your secret access key
+  - enter us-east-1
+  - enter none
