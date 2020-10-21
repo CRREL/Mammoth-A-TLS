@@ -5,8 +5,8 @@
     },
     {
         "type":"filters.crop",
-        "point":"POINT()",
-        "distance": ""
+        "point":"POINT(-2.5 2.5 2.5)",
+        "distance": "0.5, 0.5, 0.5"
     },
     {
         "type":"filters.stats",
