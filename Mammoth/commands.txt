@@ -16,15 +16,18 @@ To view archived mail logs:
  - If it is snowing, it will call the line script.
  - If it is not snowing, it will turn off the scanner.
  - The scan file will be located in the /Mammoth/Scans folder.
+ - Requires that the scanner is on, or sudo perms when executing.
 
 - Line Scan:
  - Issue the command line (from any directory) into the terminal.
  - The scan file will be located in the /Mammoth/Scans folder.
+ - Requires that the scanner is on, or sudo perms when executing.
 
 - Extended Line Scan:
  - Issue the command line_extended with the option --manual (from any directory) into the terminal.
  - The scan file will be located in the /Mammoth/Scans folder.
- 
+ - Requires that the scanner is on, or sudo perms when executing.
+
 - Custom LidarCollect:
  - Scanner must be on, call scanner_poweron if it is not on.
  - Refer to the LidarCollect-wiki to form a proper command.
