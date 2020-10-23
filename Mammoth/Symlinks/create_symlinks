@@ -9,6 +9,7 @@ if [ $USER == "mammoth" ]; then
   ln -s $PATH_PREFIX/Scripts/GPIO/scanner_poweron $PATH_PREFIX/Symlinks/scanner_poweron
   ln -s $PATH_PREFIX/Scripts/GPIO/scanner_poweroff $PATH_PREFIX/Symlinks/scanner_poweroff
   ln -s $PATH_PREFIX/Scripts/GPIO/scanner_shutdown $PATH_PREFIX/Symlinks/scanner_shutdown
+  ln -s $PATH_PREFIX/Scripts/GPIO/scanner_status $PATH_PREFIX/Symlinks/scanner_status
   ln -s $PATH_PREFIX/Scripts/Logs/logs_split $PATH_PREFIX/Symlinks/logs_split
   ln -s $PATH_PREFIX/Scripts/Scans/compress $PATH_PREFIX/Symlinks/compress
   ln -s $PATH_PREFIX/Scripts/Scans/frame $PATH_PREFIX/Symlinks/frame
