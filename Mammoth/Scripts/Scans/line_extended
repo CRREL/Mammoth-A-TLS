@@ -26,6 +26,8 @@ fi
 cd $PATH_PREFIX/Scans
 
 if [ $SNOWING = "1" ]; then
+  # Let the user know it is snowing and we are beginning a scan.
+  echo "[EXTENDED]: It is snowing, extended line scan triggered."
 
   # Switch the power to on, for the scanner, if necessary.
   if [ $PWR_VAL = "1" ]; then
@@ -46,5 +48,8 @@ if [ $SNOWING = "1" ]; then
     # Wait for the scanner to not be busy
     sleep 10s
   fi
-
+  
+else
+  # Let the user know it is not snowing and we are not beginning a scan.
+  echo "[EXTENDED]: It is not snowing, extended line scan not triggered."
 fi
