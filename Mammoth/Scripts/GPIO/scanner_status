@@ -7,3 +7,23 @@ else
  # accessed via sudo perms or mammoth user
  PATH_PREFIX=~/Mammoth
 fi
+
+# Read the GPIO value
+GPIO=$PATH_PREFIX/Fintek/demo_gpio
+RESPONSE=$($GPIO 0x80)
+
+# Example response when executing demo_gpio 0x80:
+#   Read current setting for GPIO80 Dir: 0x1 => OUT Not support pull mode setting
+#   Driving mode: push-pull Output Pin: 80 Value: 0x0 view gpio current mode
+
+# Extract GPIO Value based on structured response from demo_gpio.  The 22nd pos
+# contains the value of the gpio pin in question, otherwise null is assigned.
+VALUE=$(echo $RESPONSE|awk -F '-' '{split($0, a, " "); print a[22]}')
+
+if [ $VALUE == "0x0" ]; then
+  # The pin is providing +Vcc
+  echo "ON"
+else
+  # The pin is disconnected
+  echo "OFF"
+fi

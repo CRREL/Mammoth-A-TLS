@@ -8,6 +8,14 @@ else
  PATH_PREFIX=~/Mammoth
 fi
 
+#extract scanner power status
+PWR_VAL=$($PATH_PREFIX/Scripts/GPIO/scanner_status)
+
+# Switch the power to on, for the scanner, if necessary.
+if [ $PWR_VAL = "OFF" ]; then
+    $PATH_PREFIX/Scripts/GPIO/scanner_poweron
+fi
+
 # establish the directories we will be using based on user account
 lidarcollect=$PATH_PREFIX/LidarCollect/build/LidarCollect
 
