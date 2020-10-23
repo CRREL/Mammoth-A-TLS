@@ -20,11 +20,10 @@ RESPONSE=$($GPIO 0x80)
 # contains the value of the gpio pin in question, otherwise null is assigned.
 VALUE=$(echo $RESPONSE|awk -F '-' '{split($0, a, " "); print a[22]}')
 
-if [ $VALUE == "0x1" ]; then
-  # The pin is disconnected
+if [[ -n "$VALUE" ]] && [$VALUE=="0x1"]; then
+  # The pin is disconnected from the circuit.
   exit 1
 else
-  # The pin is providing +Vcc
-  # Or was accessed with incorrect permissions and we are assuming scanner is on.
+  # $VALUE is empty or already on, set to default
   exit 0
 fi
