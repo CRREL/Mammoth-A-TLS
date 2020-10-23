@@ -12,17 +12,8 @@ fi
 $PATH_PREFIX/Scripts/GPIO/scanner_status
 PWR_VAL=$?
 
-# Switch the power to on, for the scanner, if necessary.
-if [ $PWR_VAL = "1" ]; then
-    $PATH_PREFIX/Scripts/GPIO/scanner_poweron
-fi
-
 # establish the directories we will be using based on user account
 lidarcollect=$PATH_PREFIX/LidarCollect/build/LidarCollect
-
-#extract scanner power status
-$PATH_PREFIX/Scripts/GPIO/scanner_status
-PWR_VAL=$?
 
 #extract snowing status
 if [ -e "$PATH_PREFIX""/Scripts/Vars/snowing" ]; then
