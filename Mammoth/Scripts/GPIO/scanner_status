@@ -20,14 +20,11 @@ RESPONSE=$($GPIO 0x80)
 # contains the value of the gpio pin in question, otherwise null is assigned.
 VALUE=$(echo $RESPONSE|awk -F '-' '{split($0, a, " "); print a[22]}')
 
-if [ $VALUE == "0x0" ]; then
-  # The pin is providing +Vcc
-  echo "ON"
-elif [ $VALUE == '\0' ]; then
-  # Probably wasn't executed with sudo perms.
-  # we will assume the scanner is on, for now.
-  echo "ON"
-else
+if [ $VALUE == "0x1" ]; then
   # The pin is disconnected
-  echo "OFF"
+  exit 1
+else
+  # The pin is providing +Vcc
+  # Or was accessed with incorrect permissions and we are assuming scanner is on.
+  exit 0
 fi

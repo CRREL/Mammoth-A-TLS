@@ -9,10 +9,11 @@ else
 fi
 
 #extract scanner power status
-PWR_VAL=$($PATH_PREFIX/Scripts/GPIO/scanner_status)
+$PATH_PREFIX/Scripts/GPIO/scanner_status
+PWR_VAL=$?
 
 # Switch the power to on, for the scanner, if necessary.
-if [ $PWR_VAL = "OFF" ]; then
+if [ $PWR_VAL = "1" ]; then
     $PATH_PREFIX/Scripts/GPIO/scanner_poweron
 fi
 
