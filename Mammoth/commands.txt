@@ -53,6 +53,11 @@ To view archived mail logs:
  - Issue sudo scanner_poweroff (if accessing from mammoth user).
  - Issue scanner_poweroff (if accessing from root user).
 
+- Manual Get of Scanner Status:
+ - Requires sudo permissions, or to be logged into root account, to access IO ports.
+ - Issue sudo scanner_status (if accessing from mammoth user).
+ - Issue scanner_status (if accessing from root user).
+
 - To view current month's mail log (from mammoth account):
  - nano ~/../../var/mail/mammoth
  - nano ~/../../var/mail/root
