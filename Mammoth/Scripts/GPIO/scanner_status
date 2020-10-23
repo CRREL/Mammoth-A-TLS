@@ -23,6 +23,10 @@ VALUE=$(echo $RESPONSE|awk -F '-' '{split($0, a, " "); print a[22]}')
 if [ $VALUE == "0x0" ]; then
   # The pin is providing +Vcc
   echo "ON"
+elif [ $VALUE == '\0' ]; then
+  # Probably wasn't executed with sudo perms.
+  # we will assume the scanner is on, for now.
+  echo "ON"
 else
   # The pin is disconnected
   echo "OFF"
