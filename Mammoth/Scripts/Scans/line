@@ -14,7 +14,7 @@ PWR_VAL=$?
 
 # Switch the power to on, for the scanner, if necessary.
 if [ $PWR_VAL = "1" ]; then
-    $PATH_PREFIX/Scripts/GPIO/scanner_poweron
+  $PATH_PREFIX/Scripts/GPIO/scanner_poweron
 fi
 
 # establish the directories we will be using based on user account

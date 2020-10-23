@@ -21,11 +21,8 @@ fi
 lidarcollect=$PATH_PREFIX/LidarCollect/build/LidarCollect
 
 #extract scanner power status
-if [ -e "$PATH_PREFIX""/Scripts/Vars/scanner_power" ]; then
-  PWR_VAL=$(cat "$PATH_PREFIX""/Scripts/Vars/scanner_power")
-else
-  PWR_VAL=0
-fi
+$PATH_PREFIX/Scripts/GPIO/scanner_status
+PWR_VAL=$?
 
 #extract snowing status
 if [ -e "$PATH_PREFIX""/Scripts/Vars/snowing" ]; then
@@ -40,7 +37,7 @@ cd $PATH_PREFIX/Scans
 if [ $SNOWING = "1" ]; then
 
   # Switch the power to on, for the scanner, if necessary.
-  if [ $PWR_VAL = "0" ]; then
+  if [ $PWR_VAL = "1" ]; then
     $PATH_PREFIX/Scripts/GPIO/scanner_poweron
   fi
 

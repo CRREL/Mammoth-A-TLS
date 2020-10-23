@@ -16,6 +16,10 @@ scanner_shutdown:
  - Issues a software shutdown command to the scanner.
  - Waits 1 minute before allowing further actions.
 
+scanner_status:
+ - Executes a read command of the GPIO pin connected to the Power Relay.
+ - Reports the state of the GPIO pin in question.
+
 The GPIO of the linux box is connected to a power relay and acts as a switch to
 provide power to the scanner from an external source.
 

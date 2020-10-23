@@ -6,6 +6,7 @@ GPIO:
   - scanner_poweron: Switches the GPIO pin to on.
   - scanner_poweroff: Switches the GPIO pin to off.
   - scanner_shutdown: Software shutdown for the scanner
+  - scanner_status: Poll the GPIO pin.
 
 Logs:
   - logs_split: Splits logs by month to reduce file sizes

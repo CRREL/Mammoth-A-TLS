@@ -16,13 +16,16 @@ SPHERE_2=$PATH_PREFIX/Scripts/PDAL/snow-sphere-2.json
 lidarcollect=$PATH_PREFIX/LidarCollect/build/LidarCollect
 CONDA=$PATH_PREFIX/Miniconda3/etc/profile.d/conda.sh
 
+# make sure write to file variables are restored if deleted.
+$PATH_PREFIX/Scripts/Vars/vars_init
+
 #extract scanner power status
 $PATH_PREFIX/Scripts/GPIO/scanner_status
 PWR_VAL=$?
 
 # Switch the power to on, for the scanner, if necessary.
 if [ $PWR_VAL = "1" ]; then
-    $PATH_PREFIX/Scripts/GPIO/scanner_poweron
+  $PATH_PREFIX/Scripts/GPIO/scanner_poweron
 fi
 
 # Change to the directory where file scans are to be stored to
