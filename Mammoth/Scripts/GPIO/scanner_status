@@ -20,10 +20,18 @@ RESPONSE=$($GPIO 0x80)
 # contains the value of the gpio pin in question, otherwise null is assigned.
 VALUE=$(echo $RESPONSE|awk -F '-' '{split($0, a, " "); print a[22]}')
 
-if [[ -n "$VALUE" ]] && [$VALUE=="0x1"]; then
-  # The pin is disconnected from the circuit.
-  exit 1
+if [[ -n "$VALUE" ]]; then
+  if [ $VALUE=="0x0" ]; then
+    # The pin is providing +Vcc.
+    echo "[STATUS]: GPIO pin is providing +Vcc."
+    exit 0
+  else
+    # The pin is disconnected from the circuit.
+    echo "[STATUS]: GPIO pin is disconnected."
+    exit 1
+  fi
 else
-  # $VALUE is empty or already on, set to default
-  exit 0
+  # You most likely called scanner_status with insufficient permissions.
+  echo "[STATUS]: Error, run as root or with sudo."
+  exit 2
 fi

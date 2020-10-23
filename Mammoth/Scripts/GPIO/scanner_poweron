@@ -21,7 +21,7 @@ GPIO=$PATH_PREFIX/Fintek/demo_gpio
 $GPIO 0x80 1 1 0
 
 echo 1 >$PATH_PREFIX/Scripts/Vars/scanner_power
-echo "Scanner is warming up..."
+echo "[POWERON]: Scanner is warming up..."
 
 # wait for the scanner to boot up and respond to commands
 for i in {240..1}
@@ -30,4 +30,4 @@ do
   sleep 1
 done
 
-echo -ne "\rScanner On          \n"
+echo -ne "[POWERON]: \rScanner On          \n"

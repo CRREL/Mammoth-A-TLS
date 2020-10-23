@@ -25,4 +25,4 @@ $GPIO 0x80 1 1 1
 
 # Update GPIO pin values
 echo 0 >$PATH_PREFIX/Scripts/Vars/scanner_power
-echo "Scanner Off"
+echo "[POWEROFF]: Scanner Off"

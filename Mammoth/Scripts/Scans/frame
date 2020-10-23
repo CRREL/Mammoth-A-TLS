@@ -43,9 +43,9 @@ snowcount2=$(pdal pipeline $SPHERE_2 --metadata=stdout --readers.rxp.filename=$f
 # Determine if there are enough points to declare a snowfall event.
 if [ $snowcount -gt 15 ] && [ $snowcount2 -gt 15 ]; then
   echo 1 >$SNOW_VAR
-  echo "Snowing, starting line scan"
+  echo "[FRAME]: Snowing, starting line scan"
   $PATH_PREFIX/Scripts/Scans/line
 else
   echo 0 >$SNOW_VAR
-  echo "No Snow"
+  echo "[FRAME]: No Snow"
 fi

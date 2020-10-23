@@ -1,6 +1,6 @@
 #!/usr/bin/expect
 
-send_user "Attempting to shut down the scanner...\n"
+send_user "[SHUTDOWN]: Attempting to shut down the scanner...\n"
 
 set timeout 4
 
@@ -17,7 +17,7 @@ expect {
                                 # continue as normal
                       } timeout {
                                 # there is an issue, but continue to shutdown.
-                                send_user "No response from scanner!\n"
+                                send_user "[SHUTDOWN]: No response from scanner!\n"
                       }
                 }
 
@@ -27,18 +27,18 @@ expect {
 
                 expect {
                         eof {
-                                send_user "Scanner shutting down...\n"
+                                send_user "[SHUTDOWN]: Scanner shutting down...\n"
                                 sleep 60
-                                send_user "Scanner shut down.\n"
+                                send_user "[SHUTDOWN]: Scanner shut down.\n"
                                 exit
                         } timeout {
-                                send_user "No eof, connection timed out...\n"
+                                send_user "[SHUTDOWN]: No eof, connection timed out...\n"
                                 exit
                         }
                 }
 
         } timeout {
-                send_user "No message returned from scanner...\n"
+                send_user "[SHUTDOWN]: No message returned from scanner...\n"
                 exit
         }
 }

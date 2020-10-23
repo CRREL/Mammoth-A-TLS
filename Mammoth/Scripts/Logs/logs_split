@@ -32,9 +32,9 @@ fi
 
 # copy the root/mammoth log into the new split log file.
 cp $MAIL_PATH_PREFIX/root $PATH_PREFIX/Logs/root/$filename_root
-echo "Mammoth mail log file has been split into a new month."
+echo "[SPLIT]: Mammoth mail log file has been split into a new month."
 cp $MAIL_PATH_PREFIX/mammoth $PATH_PREFIX/Logs/mammoth/$filename_mammoth
-echo "Root mail log file has been split into a new month."
+echo "[SPLIT]: Root mail log file has been split into a new month."
 
 # write the null character into the original files to clear it for a new month.
 >$MAIL_PATH_PREFIX/root
