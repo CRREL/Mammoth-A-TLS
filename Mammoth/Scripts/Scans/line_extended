@@ -25,7 +25,7 @@ fi
 # Directory where we want to store the scan data files
 cd $PATH_PREFIX/Scans
 
-if [ $SNOWING = "1" ]; then
+if [ $SNOWING = "1" ] || [ $1 == "manual"] || [ $1 == "--manual" ]; then
   # Let the user know it is snowing and we are beginning a scan.
   echo "[EXTENDED]: It is snowing, extended line scan triggered."
 
@@ -41,14 +41,14 @@ if [ $SNOWING = "1" ]; then
   sleep 10s
 
   minute=$(date +%M )
-  if [ $minute -lt 10 ]; then
+  if [ $minute -lt 10 ] || [ $1 == "manual"] || [ $1 == "--manual" ]; then
     # Conduct a calibration/reference scan on the Spectralon panel.
     $lidarcollect --ip 192.168.0.128 --line 1 55 65 0.02 174 30 spectralon_extended
 
     # Wait for the scanner to not be busy
     sleep 10s
   fi
-  
+
 else
   # Let the user know it is not snowing and we are not beginning a scan.
   echo "[EXTENDED]: It is not snowing, extended line scan not triggered."
