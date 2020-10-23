@@ -18,5 +18,5 @@ if [ $USER == "mammoth" ]; then
   ln -s $PATH_PREFIX/Scripts/Vars/vars_init $PATH_PREFIX/Symlinks/vars_init
   ln -s $PATH_PREFIX/LidarCollect/build/LidarCollect $PATH_PREFIX/Symlinks/LidarCollect
 else
-  echo "Error, please run as mammoth user."
+  echo "[SYMLINKS]: Error, please run as mammoth user."
 fi
