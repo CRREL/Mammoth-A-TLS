@@ -49,7 +49,7 @@ if [ $SNOWING = "1" ] || [ $OPTIONS = "manual" ] || [ $OPTIONS = "--manual" ]; t
   sleep 10s
 
   minute=$(date +%M )
-  if [ $minute -lt 10 ] || [ $1 = "manual" ] || [ $1 = "--manual" ]; then
+  if [ $minute -lt 10 ] || [ $OPTIONS = "manual" ] || [ $OPTIONS = "--manual" ]; then
     # Conduct a calibration/reference scan on the Spectralon panel.
     $lidarcollect --ip 192.168.0.128 --line 1 55 65 0.02 174 30 spectralon_extended
 
