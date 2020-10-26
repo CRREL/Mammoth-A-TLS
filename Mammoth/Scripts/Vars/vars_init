@@ -12,9 +12,6 @@ fi
 if [ ! -d "$PATH_PREFIX""/Scripts/Vars" ]; then
   mkdir "$PATH_PREFIX""/Scripts/Vars"
 fi
-if [ ! -e "$PATH_PREFIX""/Scripts/Vars/scanner_power" ]; then
-  touch "$PATH_PREFIX""/Scripts/Vars/scanner_power"
-fi
 if [ ! -e "$PATH_PREFIX""/Scripts/Vars/snowing" ]; then
   touch "$PATH_PREFIX""/Scripts/Vars/snowing"
 fi
