@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set pathing to work from any user
-if [ ~ == "/root" ]; then
+if [ ~ = "/root" ]; then
   PATH_PREFIX=~/../home/mammoth/Mammoth
   MAIL_PATH_PREFIX=~/../var/mail
 else

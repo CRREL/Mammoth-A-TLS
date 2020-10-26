@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $USER == "mammoth" ]; then
+if [ $USER = "mammoth" ]; then
   # create path prefix based on user account
   PATH_PREFIX=~/Mammoth
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set pathing to work from any user
-if [ ~ == "/root" ]; then
+if [ ~ = "/root" ]; then
   PATH_PREFIX=~/../home/mammoth/Mammoth
 else
  # accessed via sudo perms or mammoth user
@@ -15,6 +15,14 @@ lidarcollect=$PATH_PREFIX/LidarCollect/build/LidarCollect
 $PATH_PREFIX/Scripts/GPIO/scanner_status
 PWR_VAL=$?
 
+# make sure $1 has a value if no options are passed to script
+if [[ -z "$1" ]]; then
+  # $1 dne?
+  OPTIONS="none"
+else
+  OPTIONS=$1
+fi
+
 #extract snowing status
 if [ -e "$PATH_PREFIX""/Scripts/Vars/snowing" ]; then
   SNOWING=$(cat "$PATH_PREFIX""/Scripts/Vars/snowing")
@@ -25,7 +33,7 @@ fi
 # Directory where we want to store the scan data files
 cd $PATH_PREFIX/Scans
 
-if [ $SNOWING = "1" ] || [ $1 == "manual"] || [ $1 == "--manual" ]; then
+if [ $SNOWING = "1" ] || [ $OPTIONS = "manual" ] || [ $OPTIONS = "--manual" ]; then
   # Let the user know it is snowing and we are beginning a scan.
   echo "[EXTENDED]: It is snowing, extended line scan triggered."
 
@@ -41,7 +49,7 @@ if [ $SNOWING = "1" ] || [ $1 == "manual"] || [ $1 == "--manual" ]; then
   sleep 10s
 
   minute=$(date +%M )
-  if [ $minute -lt 10 ] || [ $1 == "manual"] || [ $1 == "--manual" ]; then
+  if [ $minute -lt 10 ] || [ $1 = "manual" ] || [ $1 = "--manual" ]; then
     # Conduct a calibration/reference scan on the Spectralon panel.
     $lidarcollect --ip 192.168.0.128 --line 1 55 65 0.02 174 30 spectralon_extended
 
