@@ -21,7 +21,7 @@ RESPONSE=$($GPIO 0x80)
 VALUE=$(echo $RESPONSE|awk -F '-' '{split($0, a, " "); print a[22]}')
 
 if [[ -n "$VALUE" ]]; then
-  if [ $VALUE=="0x0" ]; then
+  if [ $VALUE == "0x0" ]; then
     # The pin is providing +Vcc.
     echo "[STATUS]: GPIO pin is providing +Vcc."
     exit 0
