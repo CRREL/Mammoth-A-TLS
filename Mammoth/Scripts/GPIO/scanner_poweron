@@ -8,26 +8,36 @@ else
  PATH_PREFIX=~/Mammoth
 fi
 
-# make sure write to file variables are restored deleted.
-$PATH_PREFIX/Scripts/Vars/vars_init
-
 # Set the path to the fintek gpio on/off tool
 GPIO=$PATH_PREFIX/Fintek/demo_gpio
 
-# command only works with sudo privileges, accesses sys/class files.
-# demo_gpio <index> <direction> <mode> <value>
-# demo_gpio reg:0x80 dir:out mode:push val:low
-# A low gpio value connects the circuit to +Vcc for output pins.
-$GPIO 0x80 1 1 0
+#extract scanner power status
+$PATH_PREFIX/Scripts/GPIO/scanner_status
+PWR_VAL=$?
 
-echo 1 >$PATH_PREFIX/Scripts/Vars/scanner_power
-echo "[POWERON]: Scanner is warming up..."
+if [ $PWR_VAL = "0" ]; then
+  # GPIO is already on, try running scanner_poweroff first
+  echo "[POWERON]: GPIO already providing +Vcc."
+elif [ $PWR_VAL = "1" ]; then
+  # gpio is off, okay to initiate power up commands.
 
-# wait for the scanner to boot up and respond to commands
-for i in {240..1}
-do
-  echo -ne "\r$i""s remaining  "
-  sleep 1
-done
+  # command only works with sudo privileges, accesses sys/class files.
+  # demo_gpio <index> <direction> <mode> <value>
+  # demo_gpio reg:0x80 dir:out mode:push val:low
+  # A low gpio value connects the circuit to +Vcc for output pins.
+  $GPIO 0x80 1 1 0
 
-echo -ne "[POWERON]: \rScanner On          \n"
+  echo "[POWERON]: Scanner is warming up, press crtl+c to exit..."
+
+  # wait for the scanner to boot up and respond to commands
+  for i in {240..1}
+  do
+    echo -ne "\r$i""s remaining  "
+    sleep 1
+  done
+
+  echo -ne "\r[POWERON]: Scanner On          \n"
+else
+  # accessed via insufficient permissions.
+  echo "[POWERON]: Error, run with sudo or as root user."
+fi

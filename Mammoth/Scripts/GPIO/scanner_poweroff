@@ -8,21 +8,30 @@ else
  PATH_PREFIX=~/Mammoth
 fi
 
-# make sure write to file variables are restored deleted.
-$PATH_PREFIX/Scripts/Vars/vars_init
-
-# Execute a scanner software shutdown before removing power.
-$PATH_PREFIX/Scripts/GPIO/scanner_shutdown
-
 # Set the path to the fintek gpio on/off tool
 GPIO=$PATH_PREFIX/Fintek/demo_gpio
 
-# command only works with sudo privileges, accesses sys/class files.
-# demo_gpio <index> <direction> <mode> <value>
-# demo_gpio reg:0x80 dir:out mode:push val:high
-# A high gpio value connects the circuit to ground for output pins.
-$GPIO 0x80 1 1 1
+#extract scanner power status
+$PATH_PREFIX/Scripts/GPIO/scanner_status
+PWR_VAL=$?
 
-# Update GPIO pin values
-echo 0 >$PATH_PREFIX/Scripts/Vars/scanner_power
-echo "[POWEROFF]: Scanner Off"
+if [ $PWR_VAL = "0" ]; then
+  # power is on, okay to initiate power off commands.
+  # Execute a scanner software shutdown before removing power.
+  $PATH_PREFIX/Scripts/GPIO/scanner_shutdown
+
+  # command only works with sudo privileges, accesses sys/class files.
+  # demo_gpio <index> <direction> <mode> <value>
+  # demo_gpio reg:0x80 dir:out mode:push val:high
+  # A high gpio value connects the circuit to ground for output pins.
+  $GPIO 0x80 1 1 1
+
+  # Update GPIO pin values
+  echo "[POWEROFF]: Scanner Off"
+elif [ $PWR_VAL = "1" ]; then
+  # gpio is off, try calling scanner_poweron first
+  echo "[POWEROFF]: GPIO already disconnected."
+else
+  # run with insufficient permissions.
+  echo "[POWEROFF]: Error, run with sudo or as root user."
+fi
