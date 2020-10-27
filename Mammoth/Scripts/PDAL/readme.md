@@ -14,5 +14,3 @@ snow-sphere-2.json:
 
 Visualization of snow-sphere locations:
  ![](https://github.com/CRREL/Mammoth-A-TLS/blob/master/Images/snow-spheres-1.png)
- ![](https://github.com/CRREL/Mammoth-A-TLS/blob/master/Images/snow-spheres-2.png)
- ![](https://github.com/CRREL/Mammoth-A-TLS/blob/master/Images/snow-spheres-3.png)
