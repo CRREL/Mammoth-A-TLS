@@ -8,20 +8,14 @@ directory from the root user account.
 
 If you wish to extract an up to date log for the current month, please follow these steps:
 
-        OPTION 1 (Not Recommended):
-                sudo su -l root         # log in as super user to the root directory
-                # copy root/mammoth mail files to the new directory
-                # this will empty the file contents in the /var/mail directory
-                /home/mammoth/Mammoth/Scripts/Logs/logs_split
+        OPTION 1:
+                sudo logs_split         # copies mail logs to archive.
+                                        # appends if the file already exists.
+                                        # empties active log file after copying.
 
-        OPTION 2 (Recommended if you must extract files):
+        OPTION 2:
                 sudo su -l root         # log in as super user to the root directory
-                # copy without overwriting original /var/mail/ files.
-                cp /var/mail/root /home/mammoth/Mammoth/Logs/YYYY_MM_root.log
-                cp /var/mail/mammoth /home/mammoth/Mammoth/Logs/YYYY_MM_mammoth.log
-                # keep in mind /var/mail/ files will be overwritten as normal in crontab.
+                cd /var/mail            # view files via nano or vim.
 
-        OPTION 3 (Recommended if you do not need to extract files):
-                sudo su -l root         # log in as super user to the root directory
-                nano /var/mail/root     # view current logs without copying
-                nano /var/mail/mammoth
+Mammoth user: Log files are located in ~/Mammoth/Logs/root and ~/Mammoth/Logs/mammoth.
+Root user: Log files are located in ~/../home/mammoth/Mammoth/Logs/root and ~/../home/mammoth/Mammoth/Logs/mammoth

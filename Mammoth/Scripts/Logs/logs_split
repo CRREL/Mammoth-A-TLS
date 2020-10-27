@@ -10,10 +10,6 @@ else
  MAIL_PATH_PREFIX=~/../../var/mail
 fi
 
-# make sure write to file variables are restored deleted, simple try catch
-# helps us make sure our directory is set correctly here.  For Sudo perms.
-{ $PATH_PREFIX/Scripts/Vars/vars_init } || { PATH_PREFIX=~/Mammoth }
-
 # generate the file prefix using YYYY_MM
 file_prefix=$(date +"%Y_%m")
 filename_root="$file_prefix""_root.log"
@@ -30,12 +26,32 @@ if [ ! -d "$PATH_PREFIX""/Logs/mammoth" ]; then
   mkdir "$PATH_PREFIX""/Logs/mammoth"
 fi
 
-# copy the root/mammoth log into the new split log file.
-cp $MAIL_PATH_PREFIX/root $PATH_PREFIX/Logs/root/$filename_root
-echo "[SPLIT]: Mammoth mail log file has been split into a new month."
-cp $MAIL_PATH_PREFIX/mammoth $PATH_PREFIX/Logs/mammoth/$filename_mammoth
-echo "[SPLIT]: Root mail log file has been split into a new month."
+if [ $USER = "root" ]; then
+  # check if a file already exists
+  if [ -e $PATH_PREFIX/Logs/root/$filename_root ]; then
+    # append the existing file.
+    cat $MAIL_PATH_PREFIX/root >>$PATH_PREFIX/Logs/root/$filename_root
+    echo "[SPLIT]: Root mail log appended to existing file!"
+  else
+    # copy the root log into the new split log file.
+    cp $MAIL_PATH_PREFIX/root $PATH_PREFIX/Logs/root/$filename_root
+    echo "[SPLIT]: Root mail log file has been split into a new month."
+  fi
 
-# write the null character into the original files to clear it for a new month.
->$MAIL_PATH_PREFIX/root
->$MAIL_PATH_PREFIX/mammoth
+  # check if a file already exists
+  if [ -e $PATH_PREFIX/Logs/mammoth/$filename_mammoth ]; then
+    # append the existing file.
+    cat $MAIL_PATH_PREFIX/mammoth >>$PATH_PREFIX/Logs/mammoth/$filename_mammoth
+    echo "[SPLIT]: Mammoth mail log appended to existing file!"
+  else
+    # copy the mammoth log into the new split log file.
+    cp $MAIL_PATH_PREFIX/mammoth $PATH_PREFIX/Logs/mammoth/$filename_mammoth
+    echo "[SPLIT]: Mammoth mail log file has been split into a new month."
+  fi
+
+  # write the null character into the original files to clear it for a new month.
+  echo >$MAIL_PATH_PREFIX/root
+  echo >$MAIL_PATH_PREFIX/mammoth
+else
+  echo "[SPLIT]: Error, run as root or with sudo."
+fi
