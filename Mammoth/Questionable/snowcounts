@@ -81,8 +81,12 @@ echo "Snowcount, sphere 2: $snowcount2"
 echo "Do you wish to remove the file we just analyzed? (y/n)"
 read answer
 if [ $answer = "y" ]; then
-  rm $SCAN_DIR$GZ_FILE
-  rm $SCAN_DIR$RXP_FILE
+  if [ -e $SCAN_DIR$GZFILE ]; then
+    rm $SCAN_DIR$GZ_FILE
+  fi
+  if [ -e $SCAN_DIR$RXP_FILE ]; then
+    rm $SCAN_DIR$RXP_FILE
+  fi
 else
   echo "No files removed."
 fi
