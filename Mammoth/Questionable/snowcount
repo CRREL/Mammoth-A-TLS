@@ -1,0 +1,88 @@
+#!/bin/bash
+
+# Set pathing to work from any user
+if [ ~ = "/root" ]; then
+  PATH_PREFIX=~/../home/mammoth/Mammoth
+else
+ # accessed via sudo perms or mammoth user
+ PATH_PREFIX=~/Mammoth
+fi
+
+# set up file variables
+SCAN_DIR=$PATH_PREFIX/Questionable/Scans/
+S3_LOC=s3://crrel-mammoth-lidarscans/original_scans/
+CONDA=$PATH_PREFIX/Miniconda3/etc/profile.d/conda.sh
+
+echo "------------------------------------------------------------------------"
+echo "                This script downloads a file (rxp.gz) from              "
+echo "              s3://crrel-mammoth-lidarscans/original_scans/             "
+echo "    and returns the number of points within the snow-spheres for the    "
+echo "           selected scanning season. Files are deleted after use.       "
+echo " "
+echo "            example: Filename: 20201029-0800-01.frame.rxp.gz            "
+echo "                       Season: 2019-2020                                "
+echo "                  snowcount-1: 25                                       "
+echo "                  snowcount-2: 25                                       "
+echo "------------------------------------------------------------------------"
+
+# Get the filename.
+echo -n "Filename: "
+read GZ_FILE
+
+# Prepare some testing variables for the file
+SCAN_TYPE=$(echo "$GZ_FILE" | cut -f 2 -d '.')
+RXP_FILE=$(echo "$GZ_FILE" | cut -f 1 -d '.').frame.rxp
+
+# Get the season in question.
+#echo -n "Season: "
+#read season
+season="2019-2020"
+
+# Locate, download, and unzip s3 file.
+if [ ! -e "$SCAN_DIR""$GZ_FILE" ] && [ ! -e "$SCAN_DIR""$RXP_FILE" ]; then
+  if [ $SCAN_TYPE = "frame" ]; then
+    echo "File not found in Questionable/Scans/, download (y/n)"
+    read answer
+    if [ $answer = "y" ]; then
+      aws s3 cp "$S3_LOC""$GZ_FILE" "$SCAN_DIR""$GZ_FILE"
+      gzip -d $SCAN_DIR*.gz
+    else
+      echo "Can't run script without a file...."
+      exit 1
+    fi
+  else
+    echo "Can't analyze non frame scripts...."
+    exit 2
+  fi
+else
+  echo "File already exists in Questinable/Scans/"
+  # let's make sure it is unzipped though.
+  if [ -e "$SCAN_DIR""$GZ_FILE" ]; then
+    gzip -d $SCAN_DIR*.gz
+  fi
+fi
+
+# Extract snow-sphere json files based on archive year.
+SPHERE_1=$PATH_PREFIX/Archive/$season/snow-sphere.json
+SPHERE_2=$PATH_PREFIX/Archive/$season/snow-sphere-2.json
+
+# Initialize the PDAL environment for scan processing
+source $CONDA
+conda activate pdal
+
+# Use PDAL to determine the number of points within two different spheres
+snowcount=$(pdal pipeline $SPHERE_1 --metadata=stdout --readers.rxp.filename=$SCAN_DIR$RXP_FILE | jq '.stages["filters.stats"].statistic [].count')
+snowcount2=$(pdal pipeline $SPHERE_2 --metadata=stdout --readers.rxp.filename=$SCAN_DIR$RXP_FILE | jq '.stages["filters.stats"].statistic [].count')
+
+echo "Snowcount, sphere 1: $snowcount"
+echo "Snowcount, sphere 2: $snowcount2"
+
+# Remove file if desired by user.
+echo "Do you wish to remove the file we just analyzed? (y/n)"
+read answer
+if [ $answer = "y" ]; then
+  rm $SCAN_DIR$GZ_FILE
+  rm $SCAN_DIR$RXP_FILE
+else
+  echo "No files removed."
+fi
