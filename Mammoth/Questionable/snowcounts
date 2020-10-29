@@ -45,7 +45,7 @@ if [ ! -e "$SCAN_DIR""$GZ_FILE" ] && [ ! -e "$SCAN_DIR""$RXP_FILE" ]; then
     read answer
     if [ $answer = "y" ]; then
       aws s3 cp "$S3_LOC""$GZ_FILE" "$SCAN_DIR""$GZ_FILE"
-      gzip -d $SCAN_DIR*.gz
+      gzip -d $SCAN_DIR$GZ_FILE
     else
       echo "Can't run script without a file...."
       exit 1
@@ -55,10 +55,10 @@ if [ ! -e "$SCAN_DIR""$GZ_FILE" ] && [ ! -e "$SCAN_DIR""$RXP_FILE" ]; then
     exit 2
   fi
 else
-  echo "File already exists in Questinable/Scans/"
+  echo "File already exists in Questionable/Scans/"
   # let's make sure it is unzipped though.
   if [ -e "$SCAN_DIR""$GZ_FILE" ]; then
-    gzip -d $SCAN_DIR*.gz
+    gzip -d $SCAN_DIR$GZ_FILE
   fi
 fi
 
@@ -81,12 +81,13 @@ echo "Snowcount, sphere 2: $snowcount2"
 echo "Do you wish to remove the file we just analyzed? (y/n)"
 read answer
 if [ $answer = "y" ]; then
-  if [ -e $SCAN_DIR$GZFILE ]; then
-    rm $SCAN_DIR$GZ_FILE
+  if [ -e "$SCAN_DIR""$GZFILE" ]; then
+    rm -f $SCAN_DIR$GZ_FILE
   fi
-  if [ -e $SCAN_DIR$RXP_FILE ]; then
-    rm $SCAN_DIR$RXP_FILE
+  if [ -e "$SCAN_DIR""$RXP_FILE" ]; then
+    rm -f $SCAN_DIR$RXP_FILE
   fi
+  echo "Removed .gz and .rxp files if they were there."
 else
   echo "No files removed."
 fi
