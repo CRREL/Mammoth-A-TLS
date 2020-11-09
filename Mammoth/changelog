@@ -1,0 +1,7 @@
+11/9/2020:
+  - Added 2nd compress and sync script calls into crontab.  Upload size was too
+  large to complete before next scans would need to be conducted.  Now compressing
+  and syncing to aws s3 bucket at 1:08 a.m./p.m. and 1:38 a.m./p.m., respectively.
+
+  - Ran sudo dpkg-reconfigure popularity-contest to get rid of cronjob emails to
+  the root user mail account relating to being unable to open /etc/popularity-contest.conf
