@@ -5,3 +5,12 @@
 
   - Ran sudo dpkg-reconfigure popularity-contest to get rid of cronjob emails to
   the root user mail account relating to being unable to open /etc/popularity-contest.conf
+
+
+11/19/2020:
+  - Changed first extended line scan to occur 6 minutes after the hour instead of 5.
+  This is due to a dropped extended line scan due to a spectralon panel scan not being
+  entirely finished with the scanner.
+
+  - Updated uploads to 10 min after the hour, instead of 9, to adjust for extended line
+  scans occuring 1 minute later at the top of the hour.

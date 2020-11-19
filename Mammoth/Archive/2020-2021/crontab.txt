@@ -19,7 +19,7 @@ MAILTO=mammoth
 
 #--------------------------- If Snowing Operations -----------------------------
 #Conduct extended line scans at 5, 20, 35, and 50 minutes past the hour.
-05 * * * * /home/mammoth/Mammoth/Scripts/Scans/line_extended
+06 * * * * /home/mammoth/Mammoth/Scripts/Scans/line_extended
 20 * * * * /home/mammoth/Mammoth/Scripts/Scans/line_extended
 35 * * * * /home/mammoth/Mammoth/Scripts/Scans/line_extended
 50 * * * * /home/mammoth/Mammoth/Scripts/Scans/line_extended
@@ -27,11 +27,11 @@ MAILTO=mammoth
 
 #-------------------------- File Storage Operations ----------------------------
 # Convert .rxp files to .laz and compress .rxp files using gzip at 1 A.M.
-9 1 * * * /home/mammoth/Mammoth/Scripts/Scans/compress
+10 1 * * * /home/mammoth/Mammoth/Scripts/Scans/compress
 # Move .rxp.gz and .laz files to AWS S3 bucket at 1 A.M.
 39 1 * * * /home/mammoth/Mammoth/Scripts/AWS/syncaws
 # Convert .rxp files to .laz and compress .rxp files using gzip at 1 P.M.
-9 13 * * * /home/mammoth/Mammoth/Scripts/Scans/compress
+10 13 * * * /home/mammoth/Mammoth/Scripts/Scans/compress
 # Move .rxp.gz and .laz files to AWS S3 bucket at 1 P.M.
 39 13 * * * /home/mammoth/Mammoth/Scripts/AWS/syncaws
 # Separate log content in system logs, by month. occurs once a month.
