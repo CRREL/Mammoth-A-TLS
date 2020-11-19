@@ -15,6 +15,7 @@ SPHERE_1=$PATH_PREFIX/Scripts/PDAL/snow-sphere.json
 SPHERE_2=$PATH_PREFIX/Scripts/PDAL/snow-sphere-2.json
 lidarcollect=$PATH_PREFIX/LidarCollect/build/LidarCollect
 CONDA=$PATH_PREFIX/Miniconda3/etc/profile.d/conda.sh
+SNOWCOUNT_LOG=$PATH_PREFIX/Scans/snowcount.log
 
 # make sure write to file variables are restored if deleted.
 $PATH_PREFIX/Scripts/Vars/vars_init
@@ -42,6 +43,18 @@ conda activate pdal
 filename=$(ls -t *frame.rxp | head -1)
 snowcount=$(pdal pipeline $SPHERE_1 --metadata=stdout --readers.rxp.filename=$filename | jq '.stages["filters.stats"].statistic [].count')
 snowcount2=$(pdal pipeline $SPHERE_2 --metadata=stdout --readers.rxp.filename=$filename | jq '.stages["filters.stats"].statistic [].count')
+
+# Log snowcounts to file
+# Start by checking to see that the file exists, create it if it does not.
+if [ ! -e "$SNOWCOUNT_LOG" ]; then
+  touch "$SNOWCOUNT_LOG"
+  LINE_CONTENTS="filename,snowcount,snowcount2"
+  echo $LINE_CONTENTS >> $SNOWCOUNT_LOG
+fi
+
+# Structure a single line of snowcounts to write to a log file, then write it
+LINE_CONTENTS="$filename"",""$snowcount"",""$snowcount2"
+echo $LINE_CONTENTS >> $SNOWCOUNT_LOG
 
 # Determine if there are enough points to declare a snowfall event.
 if [ $snowcount -gt 15 ] && [ $snowcount2 -gt 15 ]; then
