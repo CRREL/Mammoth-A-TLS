@@ -34,3 +34,9 @@ $lidarcollect --ip 192.168.0.128 --line 1 55 65 0.02 174 30 spectralon
 
 #wait for scanner to not be busy
 sleep 10s
+
+# Conduct a calibration/reference scan on the gondola Spectralon panel.
+$lidarcollect --ip 192.168.0.128 --line 1 30 90 0.02 106.2 30 spectralon-gondola
+
+#wait for the scanner to not be busy
+sleep 10s

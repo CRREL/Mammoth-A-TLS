@@ -14,3 +14,7 @@
 
   - Updated uploads to 10 min after the hour, instead of 9, to adjust for extended line
   scans occuring 1 minute later at the top of the hour.
+
+12/21/2020:
+  - Added a spectralon-gondola line scan into the line scan script.
+  - bumped the extended line scan from 6 minutes after the hour to 7 minutes after the hour, to accommodate for the additional line scan.

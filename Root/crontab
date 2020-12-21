@@ -19,7 +19,7 @@ MAILTO=mammoth
 
 #--------------------------- If Snowing Operations -----------------------------
 #Conduct extended line scans at 5, 20, 35, and 50 minutes past the hour.
-06 * * * * /home/mammoth/Mammoth/Scripts/Scans/line_extended
+07 * * * * /home/mammoth/Mammoth/Scripts/Scans/line_extended
 20 * * * * /home/mammoth/Mammoth/Scripts/Scans/line_extended
 35 * * * * /home/mammoth/Mammoth/Scripts/Scans/line_extended
 50 * * * * /home/mammoth/Mammoth/Scripts/Scans/line_extended
