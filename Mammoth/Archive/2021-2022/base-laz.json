@@ -15,7 +15,7 @@
         },
         {
             "type":"filters.reprojection",
-            "out_srs":"EPSG:26911"
+            "out_srs":"EPSG:26910"
         },
         {
             "type": "writers.las",
