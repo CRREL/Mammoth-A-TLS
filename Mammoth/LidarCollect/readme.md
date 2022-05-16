@@ -17,3 +17,6 @@ run on a 64-bit system. The 64-bit CMakeLists.txt is included in this directory
 and must be copy/pasted, overwrite, the native CMakeLists.txt file provided when
 unpacking the lidarcollect.zip.  If it has been overwritten, line 54 will read:
 set_target_properties(LidarCollect PROPERTIES COMPILE_FLAGS "-m64" LINK_FLAGS "-m64")
+
+
+Requires libLas, which requires libboost-all-dev and libgeotiff-dev.

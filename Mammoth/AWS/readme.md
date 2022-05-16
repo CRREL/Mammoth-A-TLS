@@ -1,18 +1,17 @@
 Installing aws-cli tools from a terminal onto the Linux computer.
 
-1. curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
-2. unzip awscli-bundle.zip
-3. rm awscli-bundle.zip
-4. sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+1. curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+2. unzip awscliv2.zip
+3. rm awscliv2.zip
+4. sudo ./aws/install
 5. aws --verify
-6. rm -rf awscli-bundle
-7. aws configure
+6. aws configure
   - enter your access key id
   - enter your secret access key
   - enter us-east-1
   - enter none
-8. root su -l root
-9. aws configure
+7. root su -l root
+8. aws configure
   - enter your access key id
   - enter your secret access key
   - enter us-east-1

@@ -13,6 +13,7 @@
 10. conda install --name pdal readers_rxp readers_rdb
 11. conda install --name pdal -c conda-forge jq
 12. conda install --name pdal fgt cpd
+13. sudo apt install parallel
 
 **Note: when using 'pdal --drivers|grep rxp' command in the pdal environment we
 just created.  You will find tiledb is not loading.  For the purposes of this
