@@ -18,3 +18,15 @@
 12/21/2020:
   - Added a spectralon-gondola line scan into the line scan script.
   - bumped the extended line scan from 6 minutes after the hour to 7 minutes after the hour, to accommodate for the additional line scan.
+
+11/*/2022:
+  - Replaced LPC-835X with LPC-915, no longer has GPIO utilities
+  - Added custom Arduino power switch controlled via python serial commands
+  - Changed IP range of Riegl Scanner and Riegl Protective Housing to same range
+  - Added support hardware + software for 3 Livox Mid-70 devices
+  - Added second power switching channel so Riegl and Livoxes can be powered independently
+  - Added Ethernet switch for Riegl + Livox devices
+  - Moved Fintek to 2021-2022 Archive as it is no longer utilized
+  - Updated readme.md files for software library installations
+  - Likely to rename all files to lowercase to follow internal nomenclature.
+  

@@ -1,22 +1,30 @@
 Decompressing and compiling the lidarcollect.zip library from a terminal.
 
+Unzip copy of Lidar Collect library and get it set up for installation
 1. cd /home/mammoth/Mammoth/
-2. cp source_location /lidarcollect.zip
+2. cp <source_location> /lidarcollect.zip
 3. unzip lidarcollect.zip
-4. mv LidarCollect-master LidarCollect
+4. mv LidarCollect-master lidarcollect
 5. rm lidarcollect.zip
-6. cd LidarCollect
-7. cp source location /CMakeLists.txt
-8. mkdir build
-9. cd build
-10. cmake .. -DCMAKE_PREFIX_PATH=/home/mammoth/Mammoth/RiVLIB/
-11. make
+6. cd lidarcollect
+7. cd 'Lidar Collect'
+8. mv * ../
+9. cd ..
+10. rmdir 'Lidar Collect'
 
-**Note: To run on the Stealth LPC-835, the CMakeLists.txt file is updated to
-run on a 64-bit system. The 64-bit CMakeLists.txt is included in this directory
-and must be copy/pasted, overwrite, the native CMakeLists.txt file provided when
-unpacking the lidarcollect.zip.  If it has been overwritten, line 54 will read:
-set_target_properties(LidarCollect PROPERTIES COMPILE_FLAGS "-m64" LINK_FLAGS "-m64")
+To overwrite the default CMakeLists file to accomodate x64 (if needed):
+1. cp <source location> /CMakeLists.txt
 
+Or edit the default CMakeLists.txt file for x64 (if needed):
+1. nano CMakeLists.txt
+2. scroll to line 54
+3. change to: set_target_properties(LidarCollect PROPERTIES COMPILE_FLAGS "-m64" LINK_FLAGS "-m64")
+4. save & exit, returning to /home/mammoth/mamoth/lidarcollect
 
-Requires libLas, which requires libboost-all-dev and libgeotiff-dev.
+Build the Lidar Collect library:
+1. mkdir build
+2. cd build
+3. cmake .. -DCMAKE_PREFIX_PATH=/home/mammoth/mammoth/rivlib/
+4. make
+
+Requires libLAS & rivlib.

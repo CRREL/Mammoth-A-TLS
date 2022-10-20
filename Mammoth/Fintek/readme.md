@@ -15,3 +15,9 @@ https://www.fintek.com.tw/index.php/mnu-swdevelopkitdl using a terminal.
 
 **Note: eSIO_TYPE for the Stealth LPC-835 is F81866.  If your eSIO_TYPE is for a
 different SIO chipset you will need to input the correct eSIO_TYPE for your system.
+
+
+**Note 2: Replaced Stealth LPC-835X with a Stealth LPC-915 which does not include
+GPIO functionality.  To achieve power switching for Riegl scanner, a custom Arduino relay shield
+commanded via python serial rs232 commands is utilized.  Thus, the fintek software
+is no longer needed.  Updates to come with those changes.

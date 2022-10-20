@@ -1,20 +1,15 @@
-Decompressing the RiVLIB library (provided by Riegl) from a terminal.
+Decompressing the rivlib library (provided by Riegl) from a terminal.
 
-1. cd /home/mammoth/Mammoth
+1. cd /home/mammoth/mammoth
 2. cp source_location /rivlib-2_5_7-x86_64-linux-gcc55.zip
 3. unzip rivlib-2_5_7-x86_64-linux-gcc55.zip
 4. rm rivlib-2_5_7-x86_64-linux-gcc55.zip
-5. mv rivlib-2_5_7-x86_64-linux-gcc55 RiVLIB
+5. mv rivlib-2_5_7-x86_64-linux-gcc55 rivlib
 
-**Note: LidarCollect uses components of RiVLIB to function, so this library only
-needs to be copied onto the computer.  It does not need to be compiled.
-
-If you do wish to install the library, or find you need to install it.
-1. Navigate to unzipped /rivlib-2_5_7-x86_64-linux-gcc55 directory
-2. export CMAKE_PREFIX_PATH=$(pwd)
-3. cd doc/rivlib/examples
-4. mkdir build
-5. cd build
-6. cmake ..
-7. make
-8. sudo make install
+To install the rivlib library:
+1. cd ~/mammoth/rivlib
+2. mkdir build
+3. cd build
+4. cmake ../doc/rivlib/examples -DCMAKE_PREFIX_PATH=/home/mammoth/mammoth/rivlib/cmake
+5. make
+6. sudo make install
