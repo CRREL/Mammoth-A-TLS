@@ -1,0 +1,53 @@
+#!/usr/bin/env python3
+import serial
+import time
+import argparse
+
+# Constants
+arduino_com = '/dev/ttyACM0'
+arduino_baud = 9600
+arduino_timeout = 3
+# Default serial.Serial parameters, bytesize = 8bits, stopbits = 1, timeout = none, xonxoff = false
+#    rtscts = false, write_timeout = none, dsrdtr = false, inter_byte_timeout = none, exclusive = none
+
+#--------------------------- main arg1 arg2 ... argn ---------------------------
+if __name__ == '__main__':
+  parser = argparse.ArgumentParser()
+  parser.add_argument( "-c", "--command", dest = "command", default = "OFF", help = "Command to issue, ON/OFF/STATUS." )
+  parser.add_argument( "-r", "--relay", dest = "relay", default = "1", help = "The relay you are trying to command." )
+  args = parser.parse_args()
+  cmd = str( args.command.upper() + " " + args.relay.upper() + "\n" ).encode('utf-8')
+  cmd = bytearray( cmd )
+  #print( cmd )
+   
+  with serial.Serial("/dev/ttyACM0", baudrate=9600, timeout=1) as arduino:
+    arduino.dtr = False
+    time.sleep(1)
+    arduino.flushInput()
+    arduino.setDTR( True )
+    time.sleep(2)
+       
+    arduino.write( cmd )
+    
+    # read
+    response = bytes()
+    byte = "z"
+    byte_count = -1
+    
+    # wait for start character
+    while ord( byte ) != 33:
+      try:
+        byte = arduino.read()
+      except:
+        byte = "z"
+      
+    # store data til the end  
+    while ord( byte ) != 10:
+      if ord( byte ) != 33:
+        response = response + byte
+        byte_count += 1
+      byte = arduino.read()  
+    
+    print( response.decode('ascii') )
+    arduino.close()
+#--------------------------------- end main ------------------------------------

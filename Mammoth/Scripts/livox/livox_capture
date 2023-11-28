@@ -1,0 +1,59 @@
+#!/bin/bash
+
+# Set pathing to work from any user
+if [ ~ = "/root" ]; then
+  PATH_PREFIX=~/../home/mammoth/mammoth
+else
+  #accessed via sudo perms or mammoth user
+  PATH_PREFIX=~/mammoth
+fi
+
+# Define necessary variables
+STEALTH_LIVOX_IP=192.168.4.2
+
+LIVOX1_IP=192.168.4.5
+LIVOX2_IP=192.168.4.6
+LIVOX3_IP=192.168.4.7
+
+LIVOX1_NAME=LIVOX1
+LIVOX2_NAME=LIVOX2
+LIVOX3_NAME=LIVOX3
+
+LIVOX1_SCAN_DURATION=20
+LIVOX2_SCAN_DURATION=20
+LIVOX3_SCAN_DURATION=20
+
+LIVOX1_SCAN_DELAY=0.1
+LIVOX2_SCAN_DELAY=0.1
+LIVOX3_SCAN_DELAY=0.1
+
+LIVOX=$PATH_PREFIX/scripts/livox
+FILEPATH=$PATH_PREFIX/scans
+
+# Extract scanner power status and turn scanner on if necessary.
+$PATH_PREFIX/scripts/gpio/livox_poweron
+
+# Livox Mid-70 automatically spins up when powered, we must spindown each sensor in case there is any FOV overlap so returns are not mismatched.
+$LIVOX/livox_utils.py -sip $STEALTH_LIVOX_IP -dip $LIVOX1_IP -c spindown
+$LIVOX/livox_utils.py -sip $STEALTH_LIVOX_IP -dip $LIVOX2_IP -c spindown
+$LIVOX/livox_utils.py -sip $STEALTH_LIVOX_IP -dip $LIVOX3_IP -c spindown
+
+STAMP=$(echo $(date +"%Y%m%d-%H%M-%S") )
+$LIVOX/livox_utils.py -sip $STEALTH_LIVOX_IP -dip $LIVOX1_IP -c collect -n $LIVOX1_NAME -t $LIVOX1_SCAN_DURATION -d $LIVOX1_SCAN_DELAY -p $FILEPATH
+
+STAMP=$(echo $(date +"%Y%m%d-%H%M-%S") )
+$LIVOX/livox_utils.py -sip $STEALTH_LIVOX_IP -dip $LIVOX2_IP -c collect -n $LIVOX2_NAME -t $LIVOX2_SCAN_DURATION -d $LIVOX2_SCAN_DELAY -p $FILEPATH
+
+STAMP=$(echo $(date +"%Y%m%d-%H%M-%S") )
+$LIVOX/livox_utils.py -sip $STEALTH_LIVOX_IP -dip $LIVOX3_IP -c collect -n $LIVOX3_NAME -t $LIVOX3_SCAN_DURATION -d $LIVOX3_SCAN_DELAY -p $FILEPATH
+
+# Power Off Commands
+sleep 10s
+$PATH_PREFIX/scripts/gpio/livox_poweroff
+
+# Some Frame scans were being dropped so call for a frame scan here, so scheduling is sequential.
+# More points in a livox collect means more time converting file format, so length of scan + conversion
+# is ambiguous.  By appending the frame call here, the frame time varies slightly, but will no longer
+# be missed by the cron job.
+$PATH_PREFIX/scripts/scans/frame
+

@@ -2,41 +2,35 @@
 
 # Set pathing to work from any user
 if [ ~ = "/root" ]; then
-  PATH_PREFIX=~/../home/mammoth/Mammoth
+  PATH_PREFIX=~/../home/mammoth/mammoth
 else
  # accessed via sudo perms or mammoth user
- PATH_PREFIX=~/Mammoth
+ PATH_PREFIX=~/mammoth
 fi
 
-#extract scanner power status
-$PATH_PREFIX/Scripts/GPIO/scanner_status
-PWR_VAL=$?
-
-# Switch the power to on, for the scanner, if necessary.
-if [ $PWR_VAL = "1" ]; then
-  $PATH_PREFIX/Scripts/GPIO/scanner_poweron
-fi
+#extract scanner power status and Switch the power to on, for the scanner, if necessary.
+$PATH_PREFIX/scripts/gpio/scanner_poweron
 
 # establish the directories we will be using based on user account
-lidarcollect=$PATH_PREFIX/LidarCollect/build/LidarCollect
+lidarcollect=$PATH_PREFIX/lidarcollect/build/lidarcollect
 
 # Directory where we want to store the scan data files
-cd $PATH_PREFIX/Scans
+cd $PATH_PREFIX/scans
 
 # Conduct a basic line scan
-$lidarcollect --ip 192.168.0.128 --line 1 30 130 0.04 185 120
+$lidarcollect --ip 192.168.4.4 --line 1 30 130 0.04 185 120
 
 # Wait for scanner to not be busy
 sleep 10s
 
 # Conduct a calibration/reference scan on the Spectralon panel.
-$lidarcollect --ip 192.168.0.128 --line 1 55 65 0.02 174 30 spectralon
+$lidarcollect --ip 192.168.4.4 --line 1 57 59 0.02 172.4 30 spectralon
 
 #wait for scanner to not be busy
 sleep 10s
 
 # Conduct a calibration/reference scan on the gondola Spectralon panel.
-$lidarcollect --ip 192.168.0.128 --line 1 30 90 0.02 106.2 30 spectralon-gondola
+$lidarcollect --ip 192.168.4.4 --line 1 83 84 0.02 103.3 30 spectralon-gondola
 
 #wait for the scanner to not be busy
 sleep 10s

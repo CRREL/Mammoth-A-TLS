@@ -2,56 +2,87 @@
 
 # Set pathing to work from any user
 if [ ~ = "/root" ]; then
-  PATH_PREFIX=~/../home/mammoth/Mammoth
+  PATH_PREFIX=~/../home/mammoth/mammoth
   MAIL_PATH_PREFIX=~/../var/mail
 else
  # accessed via sudo perms or mammoth user
- PATH_PREFIX=~/Mammoth
+ PATH_PREFIX=~/mammoth
  MAIL_PATH_PREFIX=~/../../var/mail
 fi
 
-# generate the file prefix using YYYY_MM
-file_prefix=$(date +"%Y_%m")
+# generate the file prefix using YYYY_MM_DD
+file_prefix=$(date +"%Y_%m_%d")
 filename_root="$file_prefix""_root.log"
 filename_mammoth="$file_prefix""_mammoth.log"
 
+#Set time language override to english
+LC_TIME=en_US.utf8
+
 # if the directory we want to copy into does not exist, create it.
-if [ ! -d "$PATH_PREFIX""/Logs" ]; then
-  mkdir "$PATH_PREFIX""/Logs"
+if [ ! -d "$PATH_PREFIX""/logs" ]; then
+  mkdir "$PATH_PREFIX""/logs"
 fi
-if [ ! -d "$PATH_PREFIX""/Logs/root" ]; then
-  mkdir "$PATH_PREFIX""/Logs/root"
+if [ ! -d "$PATH_PREFIX""/logs/root" ]; then
+  mkdir "$PATH_PREFIX""/logs/root"
 fi
-if [ ! -d "$PATH_PREFIX""/Logs/mammoth" ]; then
-  mkdir "$PATH_PREFIX""/Logs/mammoth"
+if [ ! -d "$PATH_PREFIX""/logs/root/$(date +"%b")" ]; then
+  mkdir "$PATH_PREFIX""/logs/root/$(date +"%b")"
+  chmod a+rw $PATH_PREFIX/logs/root/$(date +"%b")
+fi
+if [ ! -d "$PATH_PREFIX""/logs/mammoth" ]; then
+  mkdir "$PATH_PREFIX""/logs/mammoth"
+fi
+if [ ! -d "$PATH_PREFIX""/logs/mammoth/$(date +"%b")" ]; then
+  mkdir "$PATH_PREFIX""/logs/mammoth/$(date +"%b")"
+  chmod a+rw $PATH_PREFIX/logs/mammoth/$(date +"%b")
 fi
 
-if [ $USER = "root" ]; then
+if [ ~ = "/root" ]; then
   # check if a file already exists
-  if [ -e $PATH_PREFIX/Logs/root/$filename_root ]; then
+  if [ -e $PATH_PREFIX/logs/root/$filename_root ]; then
     # append the existing file.
-    cat $MAIL_PATH_PREFIX/root >>$PATH_PREFIX/Logs/root/$filename_root
+    cat $MAIL_PATH_PREFIX/root >>$PATH_PREFIX/logs/root/$(date +"%b")/$filename_root
+    chmod a+rw $PATH_PREFIX/logs/root/$(date +"%b")/$filename_root
     echo "[SPLIT]: Root mail log appended to existing file!"
   else
     # copy the root log into the new split log file.
-    cp $MAIL_PATH_PREFIX/root $PATH_PREFIX/Logs/root/$filename_root
+    cp $MAIL_PATH_PREFIX/root $PATH_PREFIX/logs/root/$(date +"%b")/$filename_root
+    chmod a+rw $PATH_PREFIX/logs/root/$(date +"%b")/$filename_root
     echo "[SPLIT]: Root mail log file has been split into a new month."
   fi
 
   # check if a file already exists
-  if [ -e $PATH_PREFIX/Logs/mammoth/$filename_mammoth ]; then
+  if [ -e $PATH_PREFIX/logs/mammoth/$(date +"%b")/$filename_mammoth ]; then
     # append the existing file.
-    cat $MAIL_PATH_PREFIX/mammoth >>$PATH_PREFIX/Logs/mammoth/$filename_mammoth
-    echo "[SPLIT]: Mammoth mail log appended to existing file!"
+    cat $MAIL_PATH_PREFIX/mammoth >>$PATH_PREFIX/logs/mammoth/$(date +"%b")/$filename_mammoth
+    chmod a+rw $PATH_PREFIX/logs/mammoth/$(date +"%b")/$filename_mammoth
+    echo "[SPLIT]: mammoth mail log appended to existing file!"
   else
     # copy the mammoth log into the new split log file.
-    cp $MAIL_PATH_PREFIX/mammoth $PATH_PREFIX/Logs/mammoth/$filename_mammoth
-    echo "[SPLIT]: Mammoth mail log file has been split into a new month."
+    cp $MAIL_PATH_PREFIX/mammoth $PATH_PREFIX/logs/mammoth/$(date +"%b")/$filename_mammoth
+    chmod a+rw $PATH_PREFIX/logs/mammoth/$(date +"%b")/$filename_mammoth
+    echo "[SPLIT]: mammoth mail log file has been split into a new month."
   fi
 
   # write the null character into the original files to clear it for a new month.
   echo >$MAIL_PATH_PREFIX/root
   echo >$MAIL_PATH_PREFIX/mammoth
 else
-  echo "[SPLIT]: Error, run as root or with sudo."
+  # User account, mammoth.
+  if [ -e $PATH_PREFIX/logs/mammoth/$(date +"%b")/$filename_mammoth ]; then
+    # append the existing file.
+    cat $MAIL_PATH_PREFIX/mammoth >>$PATH_PREFIX/logs/mammoth/$(date +"%b")/$filename_mammoth
+    chmod a+rw $PATH_PREFIX/logs/mammoth/$(date +"%b")/$filename_mammoth
+    echo "[SPLIT]: mammoth mail log appended to existing file!"
+  else
+    # copy the mammoth log into the new split log file.
+    cp $MAIL_PATH_PREFIX/mammoth $PATH_PREFIX/logs/mammoth/$(date +"%b")/$filename_mammoth
+    chmod a+rw $PATH_PREFIX/logs/mammoth/$(date +"%b")/$filename_mammoth
+    echo "[SPLIT]: mammoth mail log file has been split into a new month."
+  fi
+
+  # write the null character into the original files to clear it for a new month.
+  echo >$MAIL_PATH_PREFIX/mammoth
+
+  echo "[SPLIT]: Warning, run as root or with sudo to obtain root logs."
 fi

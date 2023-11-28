@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# Set pathing to work from any user
+if [ ~ = "/root" ]; then
+  PATH_PREFIX=~/../home/mammoth/mammoth
+else
+ # accessed via sudo perms or mammoth user
+ PATH_PREFIX=~/mammoth
+fi
+
+# set up relay info
+GPO=$PATH_PREFIX/scripts/gpio/gpo_script
+RELAY=2
+CMD=ON
+
+# Extract pivox power status
+$PATH_PREFIX/scripts/gpio/livox_status
+PWR_VAL=$?
+
+if [ $PWR_VAL = "1" ]; then
+  # Power is already being provided.
+  echo "[LVX_POWERON]: GPO already providing +Vcc."
+elif [ $PWR_VAL = "0" ]; then
+  # GPO is off, let's switch it on.
+  $GPO -c $CMD -r $RELAY > /dev/null
+  echo "[LVX_POWERON]: Pivox is warming up, press crtl+c to exit..."
+
+  # wait for the pivoxes to boot up and respond to commands
+  for i in {30..1}
+  do
+    echo -ne "\r$i""s remaining  "
+    sleep 1
+  done
+
+  echo -ne "\r[LVX_POWERON]: Pivox On          \n"
+else
+  # Invalid response from status check.
+  echo "[LVX_POWERON]: Error, invalid response from status check."
+fi

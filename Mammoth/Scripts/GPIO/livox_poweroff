@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Set pathing to work from any user
+if [ ~ = "/root" ]; then
+  PATH_PREFIX=~/../home/mammoth/mammoth
+else
+ # accessed via sudo perms or mammoth user
+ PATH_PREFIX=~/mammoth
+fi
+
+# Define GPO python script and relay
+GPO=$PATH_PREFIX/scripts/gpio/gpo_script
+RELAY=2
+CMD=OFF
+
+# Extract pivox power status
+$PATH_PREFIX/scripts/gpio/livox_status
+PWR_VAL=$?
+
+if [ $PWR_VAL = "1" ]; then
+  # Pivoxes are on, turn power off.
+  $GPO -c $CMD -r $RELAY > /dev/null
+  echo "[LVX_POWEROFF]: Pivoxes off."
+elif [ $PWR_VAL = "0" ]; then
+  # Pivoxes are already off.
+  echo "[LVX_POWEROFF]: GPO already disconnected."
+else
+  # Invalid response from status check
+  echo "[LVX_POWEROFF]: Error, invalid response from status check."
+fi

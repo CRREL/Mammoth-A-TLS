@@ -2,16 +2,16 @@
 
 # Set pathing to work from any user
 if [ ~ = "/root" ]; then
-  PATH_PREFIX=~/../home/mammoth/Mammoth
+  PATH_PREFIX=~/../home/mammoth/mammoth
 else
  # accessed via sudo perms or mammoth user
- PATH_PREFIX=~/Mammoth
+ PATH_PREFIX=~/mammoth
 fi
 
 # Set the home path for the scan files and make sure it is accessible to children.
 cd
 export HOME=/home/mammoth
-FILE_DIR=$PATH_PREFIX/Scans
+FILE_DIR=$PATH_PREFIX/scans
 
 # Set paths for original and converted file directories in the aws s3 bucket.
 ORIGINAL=s3://crrel-mammoth-lidarscans/original_scans

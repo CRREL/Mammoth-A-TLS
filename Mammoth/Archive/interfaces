@@ -10,3 +10,5 @@ iface eno1 inet static
     address 192.168.0.2
     netmask 255.255.255.0
     gateway 192.168.0.1
+
+## updated to yaml file for netplan, interfaces is no longer current.

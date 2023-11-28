@@ -1,0 +1,29 @@
+# Requires Netplan.io to be installed (default for linux distros)
+#    1. sudo apt install netplan.io (Linux distros use this, raspbian moving towards this)
+#    2. cd & cd /etc/netplan
+#    3. sudo nano netplan_config.yaml
+#    4. Enter below contents (or your settings)
+#    5. sudo netplan apply
+#    6. If you get warnings use, sudo chmod -r netplan_config.yaml to fix it.
+
+# Let NetworkManager manage all devices on this system.
+network:
+  version: 2
+  renderer: NetworkManager
+  ethernets:
+    eno1:
+      dhcp4: no
+      dhcp6: no
+      addresses: [162.252.90.105/28]
+      routes:
+        - to: default
+          via: 162.252.90.97
+      nameservers:
+          addresses: [8.8.8.8, 8.8.4.4]
+    enp1s0:
+      dhcp4: no
+      dhcp6: no
+      addresses: [192.168.4.2/24]
+      routes:
+        - to: 192.168.4.0/24
+          via: 192.168.4.1

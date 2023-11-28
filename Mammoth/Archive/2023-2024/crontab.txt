@@ -1,0 +1,55 @@
+#crontab-e
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/mammoth>
+MAILTO=mammoth
+
+# Example of job definition:
+# .---------------- minute (0 - 59)
+# |  .------------- hour (0 - 23)
+# |  |  .---------- day of month (1 - 31)
+# |  |  |  .------- month (1 - 12)
+# |  |  |  |  .---- day of week (0 - 6) (Sunday=0)
+# |  |  |  |  |
+# *  *  *  *  * command to be executed
+
+# AC Power - Stealth, AC-DC Converter, Arduino, Fan
+# DC Power - Switch, Relays, Housing, Scanner, Livoxes
+
+# Scanner housing consumes 14A @ 5'C
+# Scanner consumes 3.3A max and 2.4A typical
+# Each Livox can consume 1.67A, 3 * 1.67 = 5A total.
+# Switch consumes 0.275A
+# Relays 2 x ~15mA = 0.03A
+
+# Total consumption ~ 14A + 3.3A + 5A + 0.275A + 0.03A = ~22.6A
+
+# With a 20A power supply, which will suffer from derating, it is recommended
+# to not operate the Livoxes and the Riegl scanner simultaneously.
+
+#----------------------------- Regular Operations ------------------------------
+# Run the basic frame scan every hour at the top of the hour.
+56 * * * * livox_capture
+#-------------------------------------------------------------------------------
+
+#--------------------------- If Snowing Operations -----------------------------
+# Conduct extended line scans at ~15, 32, and 49 minutes past the hour. The
+# First line_extended scan of the hour is called by frame script so scanner
+# does not power down between active scans.  5 Minutes for scanner warmup 
+27 * * * * line_extended
+44 * * * * line_extended
+#-------------------------------------------------------------------------------
+
+#-------------------------- File Storage Operations ----------------------------
+# Convert .rxp files to .laz and compress .rxp files using gzip at 1 A.M.
+10 1 * * * compress
+# Move .rxp.gz and .laz files to AWS S3 bucket at 1 A.M.
+39 1 * * * syncaws
+# Convert .rxp files to .laz and compress .rxp files using gzip at 1 P.M.
+10 13 * * * compress
+# Move .rxp.gz and .laz files to AWS S3 bucket at 1 P.M.
+39 13 * * * syncaws
+# Separate log content in system logs, by month. occurs once a month.
+55 23 * * * logs_split
+#-------------------------------------------------------------------------------
+
+

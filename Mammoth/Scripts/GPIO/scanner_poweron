@@ -2,42 +2,39 @@
 
 # Set pathing to work from any user
 if [ ~ = "/root" ]; then
-  PATH_PREFIX=~/../home/mammoth/Mammoth
+  PATH_PREFIX=~/../home/mammoth/mammoth
 else
  # accessed via sudo perms or mammoth user
- PATH_PREFIX=~/Mammoth
+ PATH_PREFIX=~/mammoth
 fi
 
-# Set the path to the fintek gpio on/off tool
-GPIO=$PATH_PREFIX/Fintek/demo_gpio
+# Define GPO python script and relay
+GPO=$PATH_PREFIX/scripts/gpio/gpo_script
+RELAY=1
+CMD=ON
 
-#extract scanner power status
-$PATH_PREFIX/Scripts/GPIO/scanner_status
+# Extract scanner power status
+$PATH_PREFIX/scripts/gpio/scanner_status
 PWR_VAL=$?
 
-if [ $PWR_VAL = "0" ]; then
-  # GPIO is already on, try running scanner_poweroff first
-  echo "[POWERON]: GPIO already providing +Vcc."
-elif [ $PWR_VAL = "1" ]; then
-  # gpio is off, okay to initiate power up commands.
+if [ $PWR_VAL = "1" ]; then
+  # GPO is already providing +Vcc
+  echo "[RGL_POWERON]: GPO already providing +Vcc."
+elif [ $PWR_VAL = "0" ]; then
+  # GPO is off, so let's go ahead and turn it on.
+  $GPO -c $CMD -r $RELAY > /dev/null
 
-  # command only works with sudo privileges, accesses sys/class files.
-  # demo_gpio <index> <direction> <mode> <value>
-  # demo_gpio reg:0x80 dir:out mode:push val:low
-  # A low gpio value connects the circuit to +Vcc for output pins.
-  $GPIO 0x80 1 1 0
-
-  echo "[POWERON]: Scanner is warming up, press crtl+c to exit..."
+  echo "[RGL_POWERON]: Scanner is warming up, press crtl+c to exit..."
 
   # wait for the scanner to boot up and respond to commands
-  for i in {240..1}
+  for i in {300..1}
   do
     echo -ne "\r$i""s remaining  "
     sleep 1
   done
 
-  echo -ne "\r[POWERON]: Scanner On          \n"
+  echo -ne "\r[RGL_POWERON]: Scanner On          \n"
 else
-  # accessed via insufficient permissions.
-  echo "[POWERON]: Error, run with sudo or as root user."
+  # Neither 0 or 1 was returned from status.
+  echo "[POWERON]: Error, invalid response from status check."
 fi

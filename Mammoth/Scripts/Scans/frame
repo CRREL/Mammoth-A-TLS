@@ -2,47 +2,44 @@
 
 # Set pathing to work from any user
 if [ ~ = "/root" ]; then
-  PATH_PREFIX=~/../home/mammoth/Mammoth
+  PATH_PREFIX=~/../home/mammoth/mammoth
 else
  # accessed via sudo perms or mammoth user
- PATH_PREFIX=~/Mammoth
+ PATH_PREFIX=~/mammoth
 fi
 
 # establish directories we will be using based on user account
-SCAN_DIR=$PATH_PREFIX/Scans
-SNOW_VAR=$PATH_PREFIX/Scripts/Vars/snowing
-SPHERE_1=$PATH_PREFIX/Scripts/PDAL/snow-sphere.json
-SPHERE_2=$PATH_PREFIX/Scripts/PDAL/snow-sphere-2.json
-lidarcollect=$PATH_PREFIX/LidarCollect/build/LidarCollect
-CONDA=$PATH_PREFIX/Miniconda3/etc/profile.d/conda.sh
-SNOWCOUNT_LOG=$PATH_PREFIX/Scans/snowcount.log
+SCAN_DIR=$PATH_PREFIX/scans
+SNOW_VAR=$PATH_PREFIX/scripts/vars/snowing
+SPHERE_1=$PATH_PREFIX/scripts/pdal/snow-sphere.json
+SPHERE_2=$PATH_PREFIX/scripts/pdal/snow-sphere-2.json
+lidarcollect=$PATH_PREFIX/lidarcollect/build/lidarcollect
+CONDA=$PATH_PREFIX/miniconda3/etc/profile.d/conda.sh
+SNOWCOUNT_LOG=$PATH_PREFIX/scans/snowcount.log
 
 # make sure write to file variables are restored if deleted.
-$PATH_PREFIX/Scripts/Vars/vars_init
+$PATH_PREFIX/scripts/vars/vars_init
 
-#extract scanner power status
-$PATH_PREFIX/Scripts/GPIO/scanner_status
-PWR_VAL=$?
-
-# Switch the power to on, for the scanner, if necessary.
-if [ $PWR_VAL = "1" ]; then
-  $PATH_PREFIX/Scripts/GPIO/scanner_poweron
-fi
+#extract scanner power status and Switch the power to on, for the scanner, if necessary.
+$PATH_PREFIX/scripts/gpio/scanner_poweron
 
 # Change to the directory where file scans are to be stored to
 cd $SCAN_DIR
 
 # Conduct a basic frame scan
-$lidarcollect --ip 192.168.0.128 --frame 1 30 130 0.04 80 280 0.04
+$lidarcollect --ip 192.168.4.4 --frame 1 30 130 0.04 80 280 0.04
 
-# Initialize the PDAL environment for scan processing
+# Initialize the pdal environment for scan processing
 source $CONDA
 conda activate pdal
 
-# Use PDAL to determine the number of points within two different spheres
+# Use pdal to determine the number of points within two different spheres
 filename=$(ls -t *frame.rxp | head -1)
 snowcount=$(pdal pipeline $SPHERE_1 --metadata=stdout --readers.rxp.filename=$filename | jq '.stages["filters.stats"].statistic [].count')
 snowcount2=$(pdal pipeline $SPHERE_2 --metadata=stdout --readers.rxp.filename=$filename | jq '.stages["filters.stats"].statistic [].count')
+
+# exit the pdal environment to resume normal operations
+conda deactivate
 
 # Log snowcounts to file
 # Start by checking to see that the file exists, create it if it does not.
@@ -60,8 +57,12 @@ echo $LINE_CONTENTS >> $SNOWCOUNT_LOG
 if [ $snowcount -gt 15 ] && [ $snowcount2 -gt 15 ]; then
   echo 1 >$SNOW_VAR
   echo "[FRAME]: Snowing, starting line scan"
-  $PATH_PREFIX/Scripts/Scans/line
+  $PATH_PREFIX/scripts/scans/line
+  $PATH_PREFIX/scripts/scans/line_extended
 else
   echo 0 >$SNOW_VAR
   echo "[FRAME]: No Snow"
 fi
+
+# Power down scanner so the power supply is not overdrawn
+$PATH_PREFIX/scripts/gpio/scanner_poweroff

@@ -4,7 +4,7 @@ send_user "SHUTDOWN: Attempting to shut down the scanner...\n"
 
 set timeout 4
 
-spawn telnet 192.168.0.128
+spawn telnet 192.168.4.4
 
 expect {
 

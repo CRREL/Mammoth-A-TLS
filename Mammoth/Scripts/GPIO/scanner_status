@@ -2,36 +2,37 @@
 
 # Set pathing to work from any user
 if [ ~ = "/root" ]; then
-  PATH_PREFIX=~/../home/mammoth/Mammoth
+  PATH_PREFIX=~/../home/mammoth/mammoth
 else
  # accessed via sudo perms or mammoth user
- PATH_PREFIX=~/Mammoth
+ PATH_PREFIX=~/mammoth
 fi
 
-# Read the GPIO value
-GPIO=$PATH_PREFIX/Fintek/demo_gpio
-RESPONSE=$($GPIO 0x80)
+# Set up GPO python pathing and commands.
+GPO=$PATH_PREFIX/scripts/gpio/gpo_script
+RELAY=1
+CMD=STATUS
 
-# Example response when executing demo_gpio 0x80:
-#   Read current setting for GPIO80 Dir: 0x1 => OUT Not support pull mode setting
-#   Driving mode: push-pull Output Pin: 80 Value: 0x0 view gpio current mode
+# Check the status of the pin, then extract GPO status from response
+RESPONSE=$($GPO -c $CMD -r $RELAY)
+VALUE=$(echo $RESPONSE | cut -b9-9)
 
-# Extract GPIO Value based on structured response from demo_gpio.  The 22nd pos
-# contains the value of the gpio pin in question, otherwise null is assigned.
-VALUE=$(echo $RESPONSE|awk -F '-' '{split($0, a, " "); print a[22]}')
-
-if [[ -n "$VALUE" ]]; then
-  if [ $VALUE = "0x0" ]; then
-    # The pin is providing +Vcc.
-    echo "[STATUS]: GPIO pin is providing +Vcc."
+if [[ -n $VALUE ]]; then
+  if [ $VALUE = 0 ]; then
+    # The pin is off
+    echo "[RGL_STATUS]: GPO relay is off."
     exit 0
-  else
-    # The pin is disconnected from the circuit.
-    echo "[STATUS]: GPIO pin is disconnected."
+  elif [ $VALUE = 1 ]; then
+    # The pin is on
+    echo "[RGL_STATUS]: GPO relay is on."
     exit 1
-  fi
+  else
+    # Invalid response
+    echo "[RGL_STATUS]: Invalid response from gpo"
+    exit 2
+  fi 
 else
-  # You most likely called scanner_status with insufficient permissions.
-  echo "[STATUS]: Error, run as root or with sudo."
-  exit 2
+  # Invalid response from status check or timeout?
+  echo "[RGL_STATUS]: Error, worse..."
+  exit 3
 fi

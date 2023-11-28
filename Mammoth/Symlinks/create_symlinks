@@ -2,22 +2,27 @@
 
 if [ $USER = "mammoth" ]; then
   # create path prefix based on user account
-  PATH_PREFIX=~/Mammoth
+  PATH_PREFIX=~/mammoth
 
   # create symlinks for the scripts used in the A-TLS process.
-  ln -s $PATH_PREFIX/Scripts/AWS/syncaws $PATH_PREFIX/Symlinks/syncaws
-  ln -s $PATH_PREFIX/Scripts/GPIO/scanner_poweron $PATH_PREFIX/Symlinks/scanner_poweron
-  ln -s $PATH_PREFIX/Scripts/GPIO/scanner_poweroff $PATH_PREFIX/Symlinks/scanner_poweroff
-  ln -s $PATH_PREFIX/Scripts/GPIO/scanner_shutdown $PATH_PREFIX/Symlinks/scanner_shutdown
-  ln -s $PATH_PREFIX/Scripts/GPIO/scanner_status $PATH_PREFIX/Symlinks/scanner_status
-  ln -s $PATH_PREFIX/Scripts/Logs/logs_split $PATH_PREFIX/Symlinks/logs_split
-  ln -s $PATH_PREFIX/Scripts/Scans/compress $PATH_PREFIX/Symlinks/compress
-  ln -s $PATH_PREFIX/Scripts/Scans/frame $PATH_PREFIX/Symlinks/frame
-  ln -s $PATH_PREFIX/Scripts/Scans/line $PATH_PREFIX/Symlinks/line
-  ln -s $PATH_PREFIX/Scripts/Scans/line_extended $PATH_PREFIX/Symlinks/line_extended
-  ln -s $PATH_PREFIX/Scripts/Vars/vars_init $PATH_PREFIX/Symlinks/vars_init
-  ln -s $PATH_PREFIX/LidarCollect/build/LidarCollect $PATH_PREFIX/Symlinks/LidarCollect
-  ln -s $PATH_PREFIX/Questionable/snowcounts $PATH_PREFIX/Symlinks/snowcounts
+  ln -s $PATH_PREFIX/scripts/aws/syncaws $PATH_PREFIX/symlinks/syncaws
+  ln -s $PATH_PREFIX/scripts/gpio/scanner_poweron $PATH_PREFIX/symlinks/scanner_poweron
+  ln -s $PATH_PREFIX/scripts/gpio/scanner_poweroff $PATH_PREFIX/symlinks/scanner_poweroff
+  ln -s $PATH_PREFIX/scripts/gpio/scanner_shutdown $PATH_PREFIX/symlinks/scanner_shutdown
+  ln -s $PATH_PREFIX/scripts/gpio/scanner_status $PATH_PREFIX/symlinks/scanner_status
+  ln -s $PATH_PREFIX/scripts/gpio/livox_poweron $PATH_PREFIX/symlinks/livox_poweron
+  ln -s $PATH_PREFIX/scripts/gpio/livox_poweroff $PATH_PREFIX/symlinks/livox_poweroff
+  ln -s $PATH_PREFIX/scripts/gpio/livox_status $PATH_PREFIX/symlinks/livox_status
+  ln -s $PATH_PREFIX/scripts/gpio/gpo_script $PATH_PREFIX/symlinks/gpo_script
+  ln -s $PATH_PREFIX/scripts/logs/logs_split $PATH_PREFIX/symlinks/logs_split
+  ln -s $PATH_PREFIX/scripts/scans/compress $PATH_PREFIX/symlinks/compress
+  ln -s $PATH_PREFIX/scripts/scans/frame $PATH_PREFIX/symlinks/frame
+  ln -s $PATH_PREFIX/scripts/scans/line $PATH_PREFIX/symlinks/line
+  ln -s $PATH_PREFIX/scripts/scans/line_extended $PATH_PREFIX/symlinks/line_extended
+  ln -s $PATH_PREFIX/scripts/vars/vars_init $PATH_PREFIX/symlinks/vars_init
+  ln -s $PATH_PREFIX/lidarcollect/build/lidarcollect $PATH_PREFIX/symlinks/lidarcollect
+  ln -s $PATH_PREFIX/questionable/snowcounts $PATH_PREFIX/symlinks/snowcounts
+  ln -s $PATH_PREFIX/scripts/livox/livox_capture $PATH_PREFIX/symlinks/livox_capture
 else
-  echo "[SYMLINKS]: Error, please run as mammoth user."
+  echo "[symlinks]: Error, please run as mammoth user."
 fi

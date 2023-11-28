@@ -1,11 +1,12 @@
-Linux Box IP: 172.17.0.251
-Scanner IP: 192.168.0.128
-Scanner LAN port: LAN2
-Outside network LAN port: LAN6
+Linux Box IP: 162.252.90.105/28
+Scanner IP: 192.168.4.4
+Scanner Housing IP: 192.168.4.3
+LAN Port: enp1s0 (local)
+WLAN Port: eno1 (outside, internet connected)
 
 To view archived mail logs:
- - (as mammoth user): cd ~/Mammoth/Logs
- - (as root user): cd ~/../home/mammoth/Mammoth/Logs
+ - (as mammoth user): cd ~/mammoth/logs
+ - (as root user): cd ~/../home/mammoth/mammoth/logs
  - change directories to view file names of existing archive logs, using cd
  - use nano or vim to view root or mammoth user account mail logs
 

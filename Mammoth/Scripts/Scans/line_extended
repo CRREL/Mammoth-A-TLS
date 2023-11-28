@@ -2,18 +2,14 @@
 
 # Set pathing to work from any user
 if [ ~ = "/root" ]; then
-  PATH_PREFIX=~/../home/mammoth/Mammoth
+  PATH_PREFIX=~/../home/mammoth/mammoth
 else
  # accessed via sudo perms or mammoth user
- PATH_PREFIX=~/Mammoth
+ PATH_PREFIX=~/mammoth
 fi
 
 # establish the directories we will be using based on user account
-lidarcollect=$PATH_PREFIX/LidarCollect/build/LidarCollect
-
-#extract scanner power status
-$PATH_PREFIX/Scripts/GPIO/scanner_status
-PWR_VAL=$?
+lidarcollect=$PATH_PREFIX/lidarcollect/build/lidarcollect
 
 # make sure $1 has a value if no options are passed to script
 if [[ -z "$1" ]]; then
@@ -24,29 +20,31 @@ else
 fi
 
 #extract snowing status
-if [ -e "$PATH_PREFIX""/Scripts/Vars/snowing" ]; then
-  SNOWING=$(cat "$PATH_PREFIX""/Scripts/Vars/snowing")
+if [ -e "$PATH_PREFIX""/scripts/vars/snowing" ]; then
+  SNOWING=$(cat "$PATH_PREFIX""/scripts/vars/snowing")
 else
   SNOWING=0
 fi
 
 # Directory where we want to store the scan data files
-cd $PATH_PREFIX/Scans
+cd $PATH_PREFIX/scans
 
 if [ $SNOWING = "1" ] || [ $OPTIONS = "manual" ] || [ $OPTIONS = "--manual" ]; then
   # Let the user know it is snowing and we are beginning a scan.
   echo "[EXTENDED]: It is snowing, extended line scan triggered."
 
   # Switch the power to on, for the scanner, if necessary.
-  if [ $PWR_VAL = "1" ]; then
-    $PATH_PREFIX/Scripts/GPIO/scanner_poweron
-  fi
+  $PATH_PREFIX/scripts/gpio/scanner_poweron
+
 
   # Conduct an extended line scan
-  $lidarcollect --ip 192.168.0.128 --line 1 30 130 0.04 185 150 extended
+  $lidarcollect --ip 192.168.4.4 --line 1 30 130 0.04 185 150 extended
 
   # Wait for the scanner to not be busy
   sleep 10s
+  
+  # power down after scan so the power supply is not overdrawn.
+  $PATH_PREFIX/scripts/gpio/scanner_poweroff
 
 else
   # Let the user know it is not snowing and we are not beginning a scan.

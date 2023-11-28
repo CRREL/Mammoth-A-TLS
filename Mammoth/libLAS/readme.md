@@ -1,7 +1,7 @@
-Installing libLAS from github
+# Installing libLAS from github
 
 1. cd ~/mammoth/libLAS (as user, as root navigate to /home/mammoth/mammoth)
-2. git clone https://github.com/libLAS/libLAS
+2. git clone <https://github.com/libLAS/libLAS>
 3. cd libLAS
 4. mkdir build
 5. cd build
