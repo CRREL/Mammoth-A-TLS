@@ -29,6 +29,9 @@ MAILTO=mammoth
 #----------------------------- Regular Operations ------------------------------
 # Run the basic frame scan every hour at the top of the hour.
 56 * * * * livox_capture
+# Need to do a peripheral powerdown and reboot periodically, livoxes 
+# are being tempremental causing skipped frames.
+53 11 * * * daily_reboot
 #-------------------------------------------------------------------------------
 
 #--------------------------- If Snowing Operations -----------------------------

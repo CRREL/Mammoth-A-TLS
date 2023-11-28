@@ -14,6 +14,7 @@ if [ $USER = "mammoth" ]; then
   ln -s $PATH_PREFIX/scripts/gpio/livox_poweroff $PATH_PREFIX/symlinks/livox_poweroff
   ln -s $PATH_PREFIX/scripts/gpio/livox_status $PATH_PREFIX/symlinks/livox_status
   ln -s $PATH_PREFIX/scripts/gpio/gpo_script $PATH_PREFIX/symlinks/gpo_script
+  ln -s $PATH_PREFIX/scripts/gpio/daily_reboot $PATH_PREFIX/symlinks/daily_reboot
   ln -s $PATH_PREFIX/scripts/logs/logs_split $PATH_PREFIX/symlinks/logs_split
   ln -s $PATH_PREFIX/scripts/scans/compress $PATH_PREFIX/symlinks/compress
   ln -s $PATH_PREFIX/scripts/scans/frame $PATH_PREFIX/symlinks/frame

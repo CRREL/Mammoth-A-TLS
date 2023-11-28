@@ -1,0 +1,17 @@
+#! bin/bash
+
+# Set pathing to work from any user
+if [ ~ = "/root" ]; then
+  PATH_PREFIX=~/../home/mammoth/mammoth
+else
+ # accessed via sudo perms or mammoth user
+ PATH_PREFIX=~/mammoth
+fi
+
+# keeps tasks sequential rather than trying to figure out timing.
+$PATH_PREFIX/scripts/gpio/livox_poweroff
+$PATH_PREFIX/scripts/gpio/scanner_poweroff
+
+#Add <mammoth ALL=NOPASSWD: /sbin/reboot> to sudo visudo via root user
+# or this command will fail.
+reboot

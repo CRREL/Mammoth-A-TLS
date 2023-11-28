@@ -24,6 +24,8 @@ export PATH=$PATH:~/mammoth/symlinks</br>
 3. Change:
     - FROM: Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/s"
     - TO: Defaults          secure_path="/home/mammoth/mammoth/symlinks:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/s"
+4. At the bottom add:
+    - mammoth ALL=NOPASSWD: /sbin/reboot
 
 ## To make symlinks work, from root user account
 
