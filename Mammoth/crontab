@@ -31,7 +31,7 @@ MAILTO=mammoth
 56 * * * * livox_capture
 # Need to do a peripheral powerdown and reboot periodically, livoxes 
 # are being tempremental causing skipped frames.
-53 11 * * * daily_reboot
+24 23 * * * daily_reboot
 #-------------------------------------------------------------------------------
 
 #--------------------------- If Snowing Operations -----------------------------
