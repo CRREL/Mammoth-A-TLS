@@ -3,8 +3,9 @@
 ## October 2020
 
 - Taken down from Sesame on Oct 10, 2020
-- Installed at CUES on Oct 18, 2020
-- Fully functional at CUES on Oct 21, 2020
+- Installed at CUES on Oct 19, 2020
+- Reflector survey at CUES on Oct 19/20, 2020
+- Fully functional 11/06/2020
 
 ## 11/9/2020
 
