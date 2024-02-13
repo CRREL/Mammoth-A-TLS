@@ -1,5 +1,11 @@
 # System Change Log
 
+## October 2020
+
+- Taken down from Sesame on Oct 10, 2020
+- Installed at CUES on Oct 18, 2020
+- Fully functional at CUES on Oct 21, 2020
+
 ## 11/9/2020
 
 - Added 2nd compress and sync script calls into crontab.  Upload size was too

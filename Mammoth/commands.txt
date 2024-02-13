@@ -1,4 +1,5 @@
-Linux Box IP: 162.252.90.105/28
+Linux Box IP (eno1): 162.252.90.105/28
+Linux Box IP (enp1s0): 192.168.4.2/24
 Scanner IP: 192.168.4.4
 Scanner Housing IP: 192.168.4.3
 LAN Port: enp1s0 (local)
