@@ -28,8 +28,13 @@ scans occuring 1 minute later at the top of the hour.
 - Added a spectralon-gondola line scan into the line scan script.
 - bumped the extended line scan from 6 minutes after the hour to 7 minutes after the hour, to accommodate for the additional line scan.
 
+## 02/\*2022
+
+- System removed from Mammoth to use equipment for Fairbanks A-TLS project.
+
 ## 11/\*/2022
 
+- System re-tooled and re-installed at Mammoth in a new position.
 - Replaced LPC-835X with LPC-915, no longer has GPIO utilities
 - Added custom Arduino power switch controlled via python serial commands
 - Changed IP range of Riegl Scanner and Riegl Protective Housing to same range with livoxes
@@ -40,9 +45,20 @@ scans occuring 1 minute later at the top of the hour.
 - Updated readme.md files for software library installations
 - Likely to rename all files to lowercase to follow internal nomenclature.
 
+## Winter 2022-2023
+
+- SOP not updated for 2022-2023 winter, uses old inaccurate SOP matrix from 2021-2022 season.
+- Platform damage occurs at Mammoth causing the scanner to move around as the season progresses.
+- Specific date of platform damage unknown.
+
+## Summer/Fall 2023
+
+- Platform repair takes place.
+- Scanner is in yet another new position without an updated SOP.
+
 ## 11/\*/2023
 
-- Updated SOP to adjust for removal/installation that took place 11/2022.
+- Updated SOP to adjust for removal/installation that took place 11/2022 and platform repair later in 2023.
 - Updated Spectralon panel line scan and Spectralon gondola panel line scan.
 - Detached compress and syncaws processes from scheduler after call, to help resolve sequential operations causing skipped processes.
 - Adjusted GitHub respository to reflect the rebuilt A-TLS system, that no longer uses the same hardware/software.
