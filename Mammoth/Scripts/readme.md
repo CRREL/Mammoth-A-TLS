@@ -30,7 +30,10 @@
 
 ## pdal/
 
-- base-laz.json: Input file for PDAL to facilitate conversion from .rxp to .laz.
+- base-laz.json: Input file for PDAL to facilitate conversion from .rxp to georegistered .laz.
+- livox1-base.json: Input file for PDAL to faciliate georegistration.
+- livox2-base.json: Input file for PDAL to faciliate georegistration.
+- livox3-base.json: Input file for PDAL to faciliate georegistration.
 - snow-sphere.json: Coordinates for a sphere to look for snow.
 - snow-sphere-2.json: Second set of coordinates for a sphere to look for snow.
 
