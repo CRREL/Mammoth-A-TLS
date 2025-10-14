@@ -19,4 +19,10 @@ CONVERTED=s3://crrel-mammoth-lidarscans/laz
 
 # Move .gz and .laz files from the linux box to the AWS S3 bucket.
 /usr/local/bin/./aws s3 mv $FILE_DIR $ORIGINAL --recursive --exclude "*" --include "*.gz"
-/usr/local/bin/./aws s3 mv $FILE_DIR $CONVERTED --recursive --exclude "*" --include "*.laz"
+/usr/local/bin/./aws s3 mv $FILE_DIR $ORIGINAL --recursive --exclude "*" --include "*.LIVOX1.laz"
+/usr/local/bin/./aws s3 mv $FILE_DIR $ORIGINAL --recursive --exclude "*" --include "*.LIVOX2.laz"
+/usr/local/bin/./aws s3 mv $FILE_DIR $ORIGINAL --recursive --exclude "*" --include "*.LIVOX3.laz"
+
+/usr/local/bin/./aws s3 mv $FILE_DIR $CONVERTED --recursive --exclude "*" --include "*.frame.laz"
+/usr/local/bin/./aws s3 mv $FILE_DIR $CONVERTED --recursive --exclude "*" --include "*.line.laz"
+/usr/local/bin/./aws s3 mv $FILE_DIR $CONVERTED --recursive --exclude "*" --include "*.REG.laz"

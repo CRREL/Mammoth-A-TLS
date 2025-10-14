@@ -11,6 +11,9 @@ fi
 # establish directories we will be using based on user account
 SCAN_DIR=$PATH_PREFIX/scans
 INPUT_FILE=$PATH_PREFIX/scripts/pdal/base-laz.json
+LIVOX1_JSON=$PATH_PREFIX/scripts/pdal/livox1-base.json
+LIVOX2_JSON=$PATH_PREFIX/scripts/pdal/livox2-base.json
+LIVOX3_JSON=$PATH_PREFIX/scripts/pdal/livox3-base.json
 CONDA=$PATH_PREFIX/miniconda3/etc/profile.d/conda.sh
 
 # Switch to the directory to save the converted to .laz files into
@@ -21,6 +24,9 @@ source $CONDA
 conda activate pdal
 
 # Clone/convert all .rxp files into .laz using pdal and its input config json file
+find $SCAN_DIR -name "*.LIVOX1.laz" | parallel pdal pipeline $LIVOX1_JSON --readers.las.filename={} --writers.las.filename={.}.REG.laz
+find $SCAN_DIR -name "*.LIVOX2.laz" | parallel pdal pipeline $LIVOX2_JSON --readers.las.filename={} --writers.las.filename={.}.REG.laz
+find $SCAN_DIR -name "*.LIVOX3.laz" | parallel pdal pipeline $LIVOX3_JSON --readers.las.filename={} --writers.las.filename={.}.REG.laz
 find $SCAN_DIR -name "*.rxp" | parallel pdal pipeline $INPUT_FILE --readers.rxp.filename={} --writers.las.filename={.}.laz
 
 # Compress all original .rxp files

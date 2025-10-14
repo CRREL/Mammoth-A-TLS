@@ -20,6 +20,18 @@ expect {
                                 send_user "SHUTDOWN: No response from scanner!\n"
                       }
                 }
+                
+                # Add a return to park command prior to shutdown operation in case of stopped scan.
+                sleep 3
+                send "SCN_PARK()\r"
+                expect {
+                      "SCN_PARK()"{
+                                # move to park position proceed as normal
+                      } timeout {
+                                # Unable to move to home, but continue shutdown.
+                                send_user "SCN_PARK: No response from Scanner!\n"
+                      }
+                }
 
                 # execute shutdown sequence after a short delay to get err() reponses.
                 sleep 3

@@ -9,4 +9,7 @@
 7. make
 8. sudo make install
 
-** requires git and cmake on linux, as well as libboost-all-dev and libgeotiff-dev
+## Deps
+
+1. sudo apt install libboost-all-dev
+2. sudo apt install libgeotiff-dev

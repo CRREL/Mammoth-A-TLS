@@ -2,7 +2,7 @@
 
 1. crcmod
 2. numpy
-3. laspy==1.7
+3. laspy
 4. tqdm
 5. deprecated
 

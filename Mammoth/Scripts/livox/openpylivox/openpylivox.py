@@ -39,7 +39,7 @@ import numpy as np
 from tqdm import tqdm
 import laspy
 from deprecated import deprecated
-
+from pyproj import CRS
 
 class _heartbeatThread(object):
 
@@ -3740,6 +3740,9 @@ def _convertBin2LAS(filePathAndName, deleteBin):
                         intensity = []
                         times = []
                         returnNums = []
+                        num_returns_wfd = []
+                        intensity_confidence = []
+                        spatial_confidence = []
 
                         if firmwareType == 1 and dataType == 0:
                             dataClass = 1
@@ -3787,78 +3790,85 @@ def _convertBin2LAS(filePathAndName, deleteBin):
                                     times.append(float(struct.unpack('<d', binFile.read(8))[0]))
                                     returnNums.append(1)
 
-                                # Horizon/Tele-15 Cartesian dual return (SDK Data Type 4)
+                                # Horizon/Tele-15/Mid-70 Cartesian dual return (SDK Data Type 4)
                                 elif dataClass == 7:
                                     coord1s.append(float(struct.unpack('<i', binFile.read(4))[0]) / 1000.0)
                                     coord2s.append(float(struct.unpack('<i', binFile.read(4))[0]) / 1000.0)
                                     coord3s.append(float(struct.unpack('<i', binFile.read(4))[0]) / 1000.0)
                                     intensity.append(struct.unpack('<B', binFile.read(1))[0])
-                                    tag_bits = str(bin(int.from_bytes(binFile.read(1), byteorder='little')))[2:].zfill(8)
-                                    returnNums.append(1)
+                                    tag_bits = int.from_bytes( binFile.read(1), byteorder='little', signed=False )      # Bits 7,6 reserved, Bits 5, 4 Return Number
+                                    returnNums.append(1)#( tag_bits & 0b00111111 ) >> 4 )                               # 0 = 1st return, 1 = unkown, 2 = 2nd return, 4 = fourth return so we manually assign
+                                    intensity_confidence.append( ( tag_bits & 0b00001111 ) >> 2 )                       # Bits 3, 2 Point property based on return intensity
+                                    spatial_confidence.append( tag_bits & 0b00000011 )                                  # Bits 1, 0 Point property based on spatial position
+                                    num_returns_wfd.append(1)
 
                                     coord1s.append(float(struct.unpack('<i', binFile.read(4))[0]) / 1000.0)
                                     coord2s.append(float(struct.unpack('<i', binFile.read(4))[0]) / 1000.0)
                                     coord3s.append(float(struct.unpack('<i', binFile.read(4))[0]) / 1000.0)
                                     intensity.append(struct.unpack('<B', binFile.read(1))[0])
-                                    tag_bits = str(bin(int.from_bytes(binFile.read(1), byteorder='little')))[2:].zfill(8)
-                                    returnNums.append(2)
-
+                                    tag_bits = int.from_bytes( binFile.read(1), byteorder='little', signed=False )      # Bits 7,6 reserved, Bits 5, 4 Return Number                     
+                                    returnNums.append(2)#( tag_bits & 0b00111111 ) >> 4 )                               # 0 = 1st return, 1 = unkown, 2 = 2nd return, 4 = fourth return so we manually assign
+                                    intensity_confidence.append( ( tag_bits & 0b00001111 ) >> 2 )                       # Bits 3, 2 Point property based on return intensity
+                                    spatial_confidence.append( tag_bits & 0b00000011 )                                  # Bits 1, 0 Point property based on spatial position
+                                    num_returns_wfd.append(1)
+                                    
                                     timestamp_sec = float(struct.unpack('<d', binFile.read(8))[0])
                                     times.append(timestamp_sec)
                                     times.append(timestamp_sec)
-
                                 pbari.update(1)
 
                             except:
                                 break
+                                               
+                        # set up laspy header
+                        header = laspy.header.LasHeader( version="1.4", point_format=1 )                               
+                        header.system_identifier = "OpenPyLivox"
+                        header.generating_software = "OpenPyLivox V1.1.0"
+                        header.offsets = np.asarray( [ np.min(coord1s),np.min(coord2s),np.min(coord3s) ] )
+                        header.scales = np.asarray( [ 0.001, 0.001, 0.001 ] )
+                        
+                        # If using point format 6, need a CRS to add to header VRL. Uncomment line as fit.
+                        #header.add_crs( CRS.from_epsg( 4978 ) )
+                        
+                        # set up and write laspy data
+                        lasfile = laspy.lasdata.LasData( header = header )
+                        lasfile.x = np.asarray( coord1s )
+                        lasfile.y = np.asarray( coord2s )
+                        lasfile.z = np.asarray( coord3s )
+                        lasfile.gps_time = np.asarray( times )
+                        lasfile.intensity = np.asarray( intensity )
+                        lasfile.return_number = np.asarray( returnNums )
+                        lasfile.number_of_returns = np.asarray( num_returns_wfd )
+                        
+                        # add extra livox dimensions/data to LasData object
+                        lasfile.add_extra_dims( [
+                            laspy.ExtraBytesParams( 
+                                name="intensity_confidence",
+                                type=np.uint8,
+                                description="Confidence of intensity data.",
+                                offsets=[0],
+                                scales=[1] 
+                            ),
+                            laspy.ExtraBytesParams( 
+                                name="spatial_confidence",
+                                type=np.uint8,
+                                description="Confidence of spatial data.",
+                                offsets=[0],
+                                scales=[1] 
+                            ),
+                        ] )
 
-                        #save lists of point data attributes to LAS file
-                        hdr = laspy.header.Header()
-                        hdr.version = "1.2"
-                        hdr.data_format_id = 3
-
-                        # the following ID fields must be less than or equal to 32 characters in length
-                        System_ID = "OpenPyLivox"
-                        Software_ID = "OpenPyLivox V1.1.0"
-
-                        if len(System_ID) < 32:
-                            missingLength = 32 - len(System_ID)
-                            for i in range(0, missingLength):
-                                System_ID += " "
-
-                        if len(Software_ID) < 32:
-                            missingLength = 32 - len(Software_ID)
-                            for i in range(0, missingLength):
-                                Software_ID += " "
-
-                        hdr.system_id = System_ID
-                        hdr.software_id = Software_ID
-
-                        lasfile = laspy.file.File(filePathAndName + ".las", mode="w", header=hdr)
-
-                        coord1s = np.asarray(coord1s, dtype=np.float32)
-                        coord2s = np.asarray(coord2s, dtype=np.float32)
-                        coord3s = np.asarray(coord3s, dtype=np.float32)
-
-                        xmin = np.floor(np.min(coord1s))
-                        ymin = np.floor(np.min(coord2s))
-                        zmin = np.floor(np.min(coord3s))
-                        lasfile.header.offset = [xmin, ymin, zmin]
-
-                        lasfile.header.scale = [0.001, 0.001, 0.001]
-
-                        lasfile.x = coord1s
-                        lasfile.y = coord2s
-                        lasfile.z = coord3s
-                        lasfile.gps_time = np.asarray(times, dtype=np.float32)
-                        lasfile.intensity = np.asarray(intensity, dtype=np.int16)
-                        lasfile.return_num = np.asarray(returnNums, dtype=np.int8)
-
-                        lasfile.close()
-
+                        # Can now write those added dimensions to the LasData object
+                        lasfile.intensity_confidence = np.asarray( intensity_confidence )
+                        lasfile.spatial_confidence = np.asarray( spatial_confidence )
+                        
+                        # finally write to disk
+                        lasfile.write( filePathAndName+".laz" )
+                            
                         pbari.close()
                         binFile.close()
-                        print("   - Point data was converted successfully to LAS, see file: " + filePathAndName + ".las")
+
+                        print("   - Point data was converted successfully to LAS, see file: " + filePathAndName + ".laz")
                         if deleteBin:
                             os.remove(filePathAndName)
                             print("     * OPL point data binary file has been deleted")

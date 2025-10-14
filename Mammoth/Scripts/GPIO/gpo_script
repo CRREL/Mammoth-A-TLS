@@ -2,6 +2,7 @@
 import serial
 import time
 import argparse
+from datetime import datetime
 
 # Constants
 arduino_com = '/dev/ttyACM0'
@@ -15,8 +16,13 @@ if __name__ == '__main__':
   parser = argparse.ArgumentParser()
   parser.add_argument( "-c", "--command", dest = "command", default = "OFF", help = "Command to issue, ON/OFF/STATUS." )
   parser.add_argument( "-r", "--relay", dest = "relay", default = "1", help = "The relay you are trying to command." )
+  parser.add_argument( "-t", "--time", dest = "sleep_time", default = "", help = "Puts the circuit specified into sleep mode for time = x [min]")
   args = parser.parse_args()
-  cmd = str( args.command.upper() + " " + args.relay.upper() + "\n" ).encode('utf-8')
+
+  if args.sleep_time != "":
+    cmd = str( args.command.upper() + " " + args.relay.upper() + " " + args.sleep_time.upper() + "\n" ).encode('utf-8')
+  else:
+    cmd = str( args.command.upper() + " " + args.relay.upper() + "\n" ).encode('utf-8')
   cmd = bytearray( cmd )
   #print( cmd )
    
@@ -34,19 +40,27 @@ if __name__ == '__main__':
     byte = "z"
     byte_count = -1
     
-    # wait for start character
+    # wait for start character for up to 10s
+    time_start = datetime.now()
+    start_byte = True
     while ord( byte ) != 33:
+      if (datetime.now() - time_start).total_seconds() >= 10:
+        start_byte = False 
+        break
       try:
         byte = arduino.read()
       except:
         byte = "z"
       
     # store data til the end  
-    while ord( byte ) != 10:
-      if ord( byte ) != 33:
-        response = response + byte
-        byte_count += 1
-      byte = arduino.read()  
+    if start_byte:
+      time_start = datetime.now()
+      while ord( byte ) != 10:
+        if (datetime.now() - time_start).total_seconds() >= 10: break 
+        if ord( byte ) != 33:
+          response = response + byte
+          byte_count += 1
+        byte = arduino.read()  
     
     print( response.decode('ascii') )
     arduino.close()

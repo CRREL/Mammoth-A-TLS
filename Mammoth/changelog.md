@@ -62,3 +62,10 @@ scans occuring 1 minute later at the top of the hour.
 - Updated Spectralon panel line scan and Spectralon gondola panel line scan.
 - Detached compress and syncaws processes from scheduler after call, to help resolve sequential operations causing skipped processes.
 - Adjusted GitHub respository to reflect the rebuilt A-TLS system, that no longer uses the same hardware/software.
+
+## September 2025
+
+- Updated openpylivox.py to update las.gz generation to .laz using current laspy versions.  
+- Ability to geo-register data.
+- Updated all 3 livox mid-70 firmware
+- modified compress/syncaws to reflect georegistration of livox units
