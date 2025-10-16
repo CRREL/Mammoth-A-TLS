@@ -1,0 +1,71 @@
+#!/bin/bash
+
+# command to execute: ./pdal_process -p=/home/awkehl/pdal-processing/mammoth/scans/livox-1/2022
+
+#!/bin/bash
+
+# Set pathing to work from any user
+if [ ~ = "/root" ]; then
+  PATH_PREFIX=~/../home/awkehl/pdal-processing/mammoth
+else
+ # accessed via sudo perms or pivox user
+ PATH_PREFIX=~/pdal-processing/mammoth
+fi
+
+# init
+FILEPATH_OR_DIRPATH="none"
+
+# process inputs
+if [ $# -eq 0 ]; then
+    echo "$0: Missing arguments"
+    exit 1
+elif [ $# -gt 2 ]; then 
+    echo "$0: Too many arguments: $@"
+    exit 1
+else 
+    for i in "$@"; do
+        case $i in
+            -h|--help)
+                echo "specify -a --all to transform directory."
+                echo "omit all flags to transform single file."
+                exit 0
+                ;;
+            -p=*|--path=*)
+                FILEPATH_OR_DIRPATH="${i#*=}" 
+                shift
+                ;;
+            *)
+                echo "unknown input $i"
+                exit 1
+                ;;
+        esac
+    done 
+fi
+
+# establish directories we will be using based on user account
+INPUT_FILE=$PATH_PREFIX/livox3_base.json
+CONDA=$PATH_PREFIX/../../miniconda3/etc/profile.d/conda.sh
+
+if [ -f ${FILEPATH_OR_DIRPATH} ]; then
+    FILENAME=${FILEPATH_OR_DIRPATH##*/}
+    DIRPATH=${FILEPATH_OR_DIRPATH%/*}
+    cd $DIRPATH
+    echo "[SUB]: Starting PDAL process for "$DIRPATH"/"$FILENAME
+    source $CONDA 
+    conda activate pdal 
+    pdal pipeline $INPUT_FILE --readers.las.filename=${FILENAME} --writers.las.filename=${FILENAME%.laz*}.laz
+    conda deactivate
+    echo "[SUB]: PDAL process for "${DIRPATH}"/"${FILENAME}" is complete."
+elif [ -d ${FILEPATH_OR_DIRPATH} ]; then
+    DIRPATH=$FILEPATH_OR_DIRPATH
+    cd $DIRPATH
+    echo "[SUB]: Starting PDAL process for "$DIRPATH"/*"
+    source $CONDA
+    conda activate pdal
+    find $DIRPATH -name "*LIVOX3.laz" | grep -v "REG" | parallel pdal pipeline $INPUT_FILE --readers.las.filename={} --writers.las.filename={.}.REG.laz
+    conda deactivate
+    echo "[SUB]: PDAL process for "$DIRPATH" is complete."
+else
+    echo "[SUB]: Invalid input, unable to process request."
+fi
+
