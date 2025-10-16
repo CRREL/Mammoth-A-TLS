@@ -29,7 +29,7 @@
 
 ### Summary OPL
 
-- Old OPL las.gz, no writeout to .laz and incompatible with PDAL due to improper header. No CRS, not able to add one.
+- Old OPL las.gz, no write out to .laz and incompatible with PDAL due to improper header. No CRS, not able to add one.
 - New .laz, allows las v1.4, works with current laspy for compresses las files, compatible with PDAL. No CRS by default, but can add one.
 
 ## Old las.gz to New .laz
@@ -37,7 +37,7 @@
 ### LASTools
 
 - Las2las offers a means to correcting las.gz header information for compatibility with PDAL.
-    1. Uncompress las.gz -> gz.
+    1. Uncompress las.gz -> las.
     2. Modifies header to las v1.4, point format 3, though 1 is likely to be more appropriate since no RGB values.
     3. Uses a 'dummy' EPSG code to insert CRS information into header. We used 4978 for Vicksburg project and 7789 doesn't work here.
     4. Sensor records in mm so we are just setting units of the file in the header, just in case, of meters in xy and also in z.
@@ -65,14 +65,14 @@
     1. Couldn't leave the EPSG blank and have las2las work.
     2. Couldn't assign to EPSG 7789 like the vz400, las2las would reject it as invalid.
     3. Conversions using the same SOP/POP have different outcomes when using different starting EPSGs. Likely due to the reprojection stage of PDAL pipeline.
-- SOP matrix to georegister was generated using RiScan Pro, referencing these 'fixed' EPSG 4978 files to the EPSG 7789 -> 26911 of the vz400.
+- SOP matrix to georegister was generated using RiScan Pro, referencing these 'fixed' EPSG 4978 files to the georegistered EPSG 7789 -> 26911 files of the vz400.
     1. This resulted in an offset in the georegistered data because the starting EPSGs do not match.
     2. By adjusting the SOP, we were able to correct the transformation to correctly georegister the point clouds.
     3. The correction only applies to files that have an EPSG assigned by las2las.
 - Conversions of a LAStools fixed laz file.
     1. default srs = 4978
     2. SOP generated from 7789 -> 26911 of VZ400 with modifications applied to incorporate reprojection issues due to 4978.
-    3. POP matri generated from RiScan Pro.
+    3. POP matrix generated from RiScan Pro.
     4. Reprojection from 4978 -> 26911.
     5. Forward all non modified header values.
     6. Include all non standard las dimensions.
@@ -88,7 +88,7 @@
     7. Validate offset and scale.
     8. Saves to *.REG.laz
     9. Incorrect georegistration, does not align properly with vz400 georegistered files.
-    10. Have to use the SOP generated from 7789 -> 26911 with modifications just like if we were processing the LAStools fixed laz file.
+    10. Have to use the SOP generated from 7789 -> 26911 with modifications, and EPSG of 4978, just like if we were processing the LAStools fixed laz file.
     11. Different PDAL versions are handling the reprojection differently?
 
 ### Mammoth A-TLS SOPs
