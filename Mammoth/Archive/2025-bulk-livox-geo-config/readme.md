@@ -42,7 +42,7 @@
     3. Uses a 'dummy' EPSG code to insert CRS information into header. We used 4978 for Vicksburg project and 7789 doesn't work here.
     4. Sensor records in mm so we are just setting units of the file in the header, just in case, of meters in xy and also in z.
     5. Sets vertical to WGS84 in header <- used for Vicksburg project and copy/pasted, perhaps not necessary here.
-    6. Sets OGC_WKT flag in header <- I believe this is for the CRS in the header.
+    6. Sets OGC_WKT information in header <- I believe this is for the CRS in the header.
     7. Writes out to a compressed las file (.laz) saving a lot of disk space when processing.
 - These steps, right or wrong, gave us a version of a laz file we were then able to bulk process.
 - A lot of combinations of options were tried, and a lot of them ended up failing in Las2las or were incompatible with PDAL.
